@@ -1,0 +1,64 @@
+let
+    Source = List.Dates(StartDate, Length, #duration(1, 0, 0, 0)),
+    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+    #"Renamed Columns" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Date"}}),
+    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Date", type date}}),
+    StartDate = #date(2019, 1, 1),
+    EndDate = #date(Date.Year(DateTime.LocalNow())+1,1,1),
+    Length = Duration.Days(EndDate - StartDate),
+    Today = DateTime.LocalNow(),
+ 
+
+    #"Inserted Month Name" = Table.AddColumn(#"Changed Type","Month Name", each Date.MonthName([Date]), type text),
+    #"Inserted Day Name" = Table.AddColumn(#"Inserted Month Name", "Day Name", each Date.DayOfWeekName([Date]), type text),
+
+    #"Inserted Day of Week" = Table.AddColumn(#"Inserted Day Name", "Day of Week", each Date.DayOfWeek(([Date]), Day.Sunday)+1, Int64.Type),
+    #"Inserted First Characters" = Table.AddColumn(#"Inserted Day of Week", "MMM", each Text.Start([Month Name], 3), type text),
+    #"Inserted First Characters1" = Table.AddColumn(#"Inserted First Characters", "DDD", each Text.Start([Day Name], 3), type text),
+    #"Inserted End of Week" = Table.AddColumn(#"Inserted First Characters1", "End of Week", each Date.EndOfWeek([Date]), type date),
+    #"Added Custom" = Table.AddColumn(#"Inserted End of Week", "Custom", each Date.AddDays([End of Week],1)),
+    #"Added EndofWeekSunday" = Table.AddColumn(#"Added Custom", "End of Week Sunday", each if [Day Name] = "Sunday" then [Date] else [Custom]),
+    #"Removed Columns" = Table.RemoveColumns(#"Added EndofWeekSunday",{"Custom"}),
+    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns",{{"End of Week Sunday", type date}}),
+    #"Inserted Day" = Table.AddColumn(#"Changed Type1", "Day", each Date.Day([Date]), Int64.Type),
+    #"Inserted Year" = Table.AddColumn(#"Inserted Day", "Year", each Date.Year([Date]), Int64.Type),
+    #"Added Weekend" = Table.AddColumn(#"Inserted Year", "IsWeekend", each if [Day of Week] = 7 then 1 else if [Day of Week] = 1 then 1 else 0),
+    #"Inserted MonthDay" = Table.AddColumn(#"Added Weekend", "Month Day", each Text.Combine({[MMM], 
+            if Text.Length(Text.From([Day])) = 1 then Text.Combine({"0",Text.From([Day])},"") else Text.From([Day])}, ", "), type text),
+    #"Added Holiday" = Table.AddColumn(#"Inserted MonthDay", "IsHoliday", each if [Month Day] = "Jan 1" then 1 else if [Month Day] = "July 4" then 1 else if [Month Day] = "Nov 11" then 1 else if [Month Day] = "Dec 25" then 1 else 0),
+    #"Changed Type3" = Table.TransformColumnTypes(#"Added Holiday",{{"IsHoliday", Int64.Type}, {"IsWeekend", Int64.Type}}),
+    #"Inserted Date" = Table.AddColumn(#"Changed Type3", "DateKey", each DateTime.Date([Date]), type date),
+    #"Changed Type4" = Table.TransformColumnTypes(#"Inserted Date",{{"DateKey", Int64.Type}}),
+    #"Inserted Month" = Table.AddColumn(#"Changed Type4", "Month", each Date.Month([Date]), Int64.Type),
+    #"Inserted MonthDaySort" = Table.AddColumn(#"Inserted Month", "Month Day Sort", each Text.Combine({
+            if Text.Length(Text.From([Month]))=1 then Text.Combine({"0",Text.From([Month])},"") else Text.From([Month]),
+            if Text.Length(Text.From([Day])) = 1 then Text.Combine({"0",Text.From([Day])},"") else Text.From([Day])
+            }, "")),
+    #"Added WEDate" = Table.AddColumn(#"Inserted MonthDaySort", "W.E. Date", each Text.Combine({"WE : ", Text.From([End of Week Sunday])},"")),
+    #"Added MTD" = Table.AddColumn(#"Added WEDate", "IsMTD", each if [Day] <= Date.Day(Today) then 1 else 0),
+    #"Added YTD" = Table.AddColumn(#"Added MTD", "IsYTD", each if [Month] < Date.Month(Today) then 1 else
+if [Month] = Date.Month(Today) then 
+  if [Day] <= Date.Day(Today) then 1 else 0 else 0),
+    #"Changed Type2" = Table.TransformColumnTypes(#"Added YTD",{{"IsMTD", Int64.Type}, {"IsYTD", Int64.Type}}),
+    #"Inserted WE Week Number" = Table.AddColumn(#"Changed Type2", "W.E. Week Number", each Date.WeekOfYear([End of Week Sunday])-1, Int64.Type),
+    #"Renamed Columns1" = Table.RenameColumns(#"Inserted WE Week Number",{{"Date", "DateDate"}}),
+    #"Added IsWTD" = Table.AddColumn(#"Renamed Columns1", "IsWTD", each if [Day of Week] <= (Date.DayOfWeek(Today,Day.Sunday)+1) then 1 else 0),
+    #"Changed Type5" = Table.TransformColumnTypes(#"Added IsWTD",{{"IsWTD", Int64.Type}}),
+    #"Added IsYTD" = Table.AddColumn(#"Changed Type5", "IsCurrentYTD", each if Date.Year(Today)=[Year] then 
+if [IsYTD]=1 then 1 else 0 else 0,type number),
+    #"Added IsCurrentMTD" = Table.AddColumn(#"Added IsYTD", "IsCurrentMTD", each if Date.Month(Today) = [Month] then
+if [IsMTD] = 1 then 
+if [IsCurrentYTD]=1 then 1 else 0 else 0 else 0,type number),
+    #"Added IsCurrentWTD" = Table.AddColumn(#"Added IsCurrentMTD", "IsCurrentWTD", each if Date.WeekOfYear(Today) = Date.WeekOfYear([DateDate]) then 
+if [IsWTD] = 1 then 
+if [IsCurrentYTD] =1 then 1 else 0 else 0 else 0,type number),
+    #"Added Month Year" = Table.AddColumn(#"Added IsCurrentWTD", "Month Year", each Text.Combine({[MMM], Text.From([Year], "en-US")}, ", "), type text),
+    #"Added WeeksAgo" = Table.AddColumn(#"Added Month Year", "Weeks Ago (W.E.)", each if [Year] = Date.Year(Today) then
+Date.WeekOfYear(Today) - [W.E. Week Number]
+else Date.WeekOfYear(Today) - [W.E. Week Number] + 52, type number),
+    #"Added MonthsAgo" = Table.AddColumn(#"Added WeeksAgo", "MonthsAgo", each if [Year] = Date.Year(Today) then
+Date.Month(Today) - [Month]
+else Date.Month(Today) - [Month] + (12 * (Date.Year(Today) - [Year])),Int64.Type),
+    #"Renamed Columns2" = Table.RenameColumns(#"Added MonthsAgo",{{"DateDate", "Date"}})
+in
+    #"Renamed Columns2"
