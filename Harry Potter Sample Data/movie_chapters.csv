@@ -1,0 +1,235 @@
+Chapter ID,Chapter Name,Movie ID,Movie Chapter
+1,Doorstep Delivery,1,1
+2,The Vanishing Glass,1,2
+3,Letters from No One,1,3
+4,Keeper of the Keys,1,4
+5,Diagon Alley,1,5
+6,Gringotts,1,6
+7,Ollivanders,1,7
+8,The Boy Who Lived,1,8
+9,Platform 9&¾,1,9
+10,Ron and Hermione,1,10
+11,Welcome to Hogwarts,1,11
+12,The Sorting Hat,1,12
+13,Nick and Other Residents,1,13
+14,Potions and Parcels,1,14
+15,New Seeker,1,15
+16,Three-Headed Sentinel,1,16
+17,Facts and Feathers,1,17
+18,Mountain Troll,1,18
+19,Quidditch,1,19
+20,Interference Overcome,1,20
+21,Christmas Gift,1,21
+22,Cloaked in darkness,1,22
+23,The Mirror of Erised,1,23
+24,Norbert,1,24
+25,The Forbidden Forest,1,25
+26,Up to Something,1,26
+27,Through the Trapdoor,1,27
+28,Wizard's Chess,1,28
+29,Sacrifice Play,1,29
+30,Man With Two Faces,1,30
+31,Magic Touch,1,31
+32,Mark of Love,1,32
+33,House Cup Winner,1,33
+34,Not Really Going Home,1,34
+35,In a Cage,2,1
+36,Dobby's Warning,2,2
+37,Car Rescue,2,3
+38,The Burrow,2,4
+39,To Diagon Alley,2,5
+40,Flourish and Blotts,2,6
+41,Flying to Hogwarts,2,7
+42,Whomping Willow,2,8
+43,Not Expelled... Today,2,9
+44,Mandrakes; Ron's Howler,2,10
+45,Gilderoy Lockhart,2,11
+46,Mudbloods and Murmurs,2,12
+47,Writing on the Wall,2,13
+48,About the Chamber,2,15
+49,Rogue Bludger,2,16
+50,No Longer Safe,2,17
+51,Dueling Club,2,18
+52,A Parselmouth,2,19
+53,Nothing to Tell,2,20
+54,Polyjuice Potion,2,21
+55,Harry and Ron Transformed,2,22
+56,The Diary,2,24
+57,Tom Riddle,2,25
+58,Petrified,2,27
+59,Cornelius Fudge,2,29
+60,Aragog,2,30
+61,Spider Attack,2,31
+62,Missing,2,32
+63,Chamber of Secrets,2,33
+64,Backfire,2,34
+65,Heir of Slytherin,2,35
+66,The Basilisk,2,36
+67,Healing Powers,2,37
+68,Out Of The Hat,2,38
+69,Dobby's Reward,2,39
+70,Welcome Back,2,40
+71,Under Covers Prologue,3,1
+72,Aunt Marge's Big Mistake,3,2
+73,The Knight Bus,3,3
+74,The Leaky Cauldron,3,4
+75,In Grave Danger,3,5
+76,The Dementor,3,6
+77,Welcome and Warning,3,7
+78,Tea Leaves,3,8
+79,Buckbeak,3,9
+80,Boggart in the Wardrobe,3,10
+81,Talent for Trouble,3,11
+82,Flight of the Fat Lady,3,12
+83,Substitute Teacher,3,13
+84,Grim Defeat,3,14
+85,The Marauder's Map,3,15
+86,Who's There?,3,16
+87,I Hope He Finds Me,3,17
+88,The Patronus,3,18
+89,Seeing the Impossible,3,19
+90,Professor Trelawney's Prediction,3,20
+91,Witnesses to an Execution,3,21
+92,The Whomping Willow,3,22
+93,Sirius Black,3,23
+94,Peter Pettigrew,3,24
+95,Friends Become Foes,3,25
+96,The Dementor's Kiss,3,26
+97,Hermione's Secret,3,27
+98,Onlookers to the Rescue,3,28
+99,Saving Lives,3,29
+100,"Truly Seen, Truly Free",3,30
+101,Two Places at Once,3,31
+102,Mischief Managed,3,32
+103,The Firebolt,3,33
+104,The Riddle House,4,1
+105,The Portkey,4,2
+106,The Quidditch World Cup,4,3
+107,The Dark Mark,4,4
+108,The Triwizard Tournament,4,5
+109,The Unforgivable Curses,4,7
+110,The Four Champions,4,8
+111,Let Events Unfold,4,9
+112,Rita Skeeter,4,10
+113,Sirius Conversation,4,11
+114,The Hungarian Horntail,4,12
+115,Transforming Malfoy,4,13
+116,The First Task,4,14
+117,Best Foot Forward,4,15
+118,An Unexpected Challenge,4,16
+119,The Yule Ball,4,17
+120,The Egg's Clue,4,18
+121,The Second Task,4,19
+122,Never Whole Again,4,20
+123,The Pensieve,4,21
+124,Dreams and Suspicions,4,22
+125,The Third Task,4,23
+126,"Flesh, Blood and Bone",4,24
+127,The Death Eaters,4,25
+128,Priori Incantatem,4,26
+129,Veritaserum,4,27
+130,Parting Ways,4,28
+131,Dudley Demented,5,1
+132,The Advance Guard,5,2
+133,"Number Twelve, Grimmauld Place",5,3
+134,The Order of the Phoenix,5,4
+135,The Ministry of Magic,5,5
+136,The Hearing,5,6
+137,The Originals,5,7
+138,Luna Lovegood,5,8
+139,"Preserve, Perfect and Prune",5,9
+140,Professor Umbridge's Class,5,10
+141,Detention With Dolores,5,11
+142,The Hogwarts High Inquisitor,5,12
+143,In the Hog's Head,5,13
+144,Dumbledore's Army,5,14
+145,Hagrid's Tale,5,15
+146,Occlumency,5,16
+147,Unquiet Escape,5,17
+148,Grawp,5,18
+149,Snape's Worst Memory,5,19
+150,Out of the Fire,5,20
+151,Fight and Flight,5,21
+152,The Department of Mysteries,5,22
+153,Beyond the Veil,5,23
+154,Side by Side,5,24
+155,Wizards Duel,5,25
+156,The Lost Prophecy,5,26
+157,A Way of Coming Back,5,27
+158,Snape's Visitors,6,1
+159,Who's Harry Potter?,6,2
+160,Horace Slughorn,6,3
+161,What Could Be Safer?,6,4
+162,That's For My Father,6,5
+163,Dark Forces,6,6
+164,The Half Blood Prince,6,7
+165,The Secret Riddle,6,8
+166,Hermione's Helping Hand,6,9
+167,Cursed Necklace,6,10
+168,Slug Club,6,11
+169,Felix Felicis,6,12
+170,How It Feels,6,13
+171,Free Agents,6,14
+172,The Unbreakable Vow,6,15
+173,Death Eaters Attack,6,16
+174,Sluggish Memory,6,17
+175,Perilous Potions,6,18
+176,Sectumsempra,6,19
+177,Hiding the Book,6,20
+178,Liquid Luck,6,21
+179,After Aragog's Burial,6,22
+180,Horcruxes,6,23
+181,The Astronomy Tower,6,24
+182,Flight of the Prince,6,25
+183,R.A.B.,6,26
+184,Dark Times,7,1
+185,Dark Lord Ascending,7,2
+186,The Seven Potters,7,3
+187,Aerial Ambush,7,4
+188,Fallen Warrior,7,5
+189,Dumbledore's Will,7,6
+190,The Wedding,7,7
+191,Place to Hide,7,8
+192,Kreacher's Tale,7,9
+193,Theft of a Thief,7,10
+194,Ministry Interior,7,11
+195,Forest Fugitives,7,12
+196,Getting Too Close,7,13
+197,Broken Ranks,7,14
+198,Clues Revealed,7,15
+199,Godric's Hollow,7,16
+200,Bathilda's Secret,7,17
+201,Sword of Gryffindor,7,18
+202,Lighting the Way Back,7,19
+203,The Three Brothers,7,20
+204,The Deathly Hallows,7,21
+205,Snatchers Strike,7,22
+206,Malfoy Manor,7,23
+207,Dobby Has No Master,7,24
+208,Sleeping Friend,7,25
+209,Shell Cottage,8,1
+210,Griphook's Price,8,2
+211,He's After You,8,3
+212,Gringotts,8,4
+213,Copping the Cup,8,5
+214,Exit the Dragon,8,6
+215,Final Hiding Place,8,7
+216,Aberforth Dumbledore,8,8
+217,Hogwarts Reunion,8,9
+218,Give Me Harry Potter,8,10
+219,Duty To Our School,8,11
+220,You Need Only Ask,8,12
+221,Blow For Blow,8,13
+222,Finding the Diadem,8,14
+223,Fiendfyre,8,15
+224,He Will Come To Me,8,16
+225,Your Mother's Eyes,8,17
+226,Confront Your Fate,8,18
+227,I Open At the Close,8,19
+228,The Boy Who Lived,8,20
+229,King's Cross,8,21
+230,Declare Yourself,8,22
+231,Not Over,8,23
+232,The Wand's Choice,8,24
+233,The Wizard's Choice,8,25
+234,Nineteen Years Later,8,26
