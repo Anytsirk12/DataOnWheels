@@ -1,0 +1,58 @@
+//***********************************************************************************************************
+//http://open-notify.org/Open-Notify-API/
+// KQL reference guide - https://aka.ms/KQLguide
+// SQL - KQL conversions - https://aka.ms/sqlcheatsheet
+//***********************************************************************************************************
+//Fun tips: 
+    //You can change all occurences of a value with a right click. 
+    //Clicking anywhere in a query then selecting run will only run that query. No need to highlight.
+
+
+
+// Range of data in the iss_data table
+iss_data
+// summarize allows you to aggregate fields in a table 
+| summarize max(timestamp), min(timestamp) 
+
+//Simple aggregate - total records in the table
+iss_data
+| count 
+
+//Filter aggregate by time 
+iss_data
+| where EventEnqueuedUtcTime >= ago(2700m) //always place filter as early as possible in the operators
+| count 
+
+//Combine data from two tables
+iss_data 
+| where EventEnqueuedUtcTime >= ago(2700m)
+| join (astronauts_data) on EventEnqueuedUtcTime
+| mv-expand people
+| project Name= people.name, Craft=people.craft, iss_position.longitude, iss_position.latitude
+
+
+// ISS latest tragectory
+iss_data 
+| top 20 by timestamp
+| summarize sum(1) by tostring(iss_position.longitude), tostring(iss_position.latitude), timestamp
+| render scatterchart with ( kind=map )
+
+
+// ISS complete orbit
+iss_data
+| where EventEnqueuedUtcTime > ago(90m) //takes 90 minutes for a full trip around the earth for ISS 
+| project iss_position.longitude, iss_position.latitude, timestamp 
+| render scatterchart with ( kind=map )
+
+
+//astronauts_data
+astronauts_data
+| top 1 by EventEnqueuedUtcTime
+| project people, message, EventEnqueuedUtcTime //project allows you to select a smaller amount of columns
+
+
+// which humans are in space right now?
+astronauts_data
+| top 1 by EventEnqueuedUtcTime
+| mv-expand people //splits out the records from the people field 
+| project Name= people.name, Craft=people.craft

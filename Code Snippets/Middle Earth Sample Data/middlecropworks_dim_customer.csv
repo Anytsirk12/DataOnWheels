@@ -1,0 +1,1001 @@
+CustomerKey,FirstName,LastName,TerritoryKey,HouseName
+1000,Pippin,Burrows,1,Bag End
+1001,Samwise,Chubb,1,Bag End
+1002,Imrahil,Telcontar,3,Pelennor Hollow
+1003,Aomer,Shieldarm,2,Westfold Watch
+1004,Brytta,Aoredson,2,Snowmane Stables
+1005,Fastred,Shieldarm,2,Helmaes Gate
+1006,Pippin,Brandybuck,1,Crickhollow
+1007,Mauhar,Blacktooth,5,Warg Pit
+1008,Samwise,Baggins,1,Crickhollow
+1009,Azog,Darkblade,5,Mount Doom Outpost
+1010,Lathien,Elensar,4,Golden Bough
+1011,Pippin,Brandybuck,1,Sunmeadow
+1012,Rosie,Proudfoot,1,Sunmeadow
+1013,Frodo,Noakes,1,Bag End
+1014,Fastred,Aoredson,2,Westfold Watch
+1015,Leofric,Mearasbrow,2,Helmaes Gate
+1016,Bolg,Foulbreath,5,Forge Den
+1017,Bolg,The Cruel,5,Black Gate Shack
+1018,Frodo,Cotton,1,Greenhill Hall
+1019,Azog,Blacktooth,5,Mount Doom Outpost
+1020,Aowyn,Shieldarm,2,Westfold Watch
+1021,Shagrat,Roteye,5,Forge Den
+1022,Ramil,Lorienleaf,4,Whispering Branch
+1023,Theodred,Goldmane,2,Snowmane Stables
+1024,Amroth,Goldsong,4,Golden Bough
+1025,Mauhar,Foulbreath,5,Warg Pit
+1026,Anirion,Telcontar,3,Pelennor Hollow
+1027,Merry,Cotton,1,Toadstool Nook
+1028,Fastred,Theodenhall,2,Snowmane Stables
+1029,Nimrodel,Silverlight,4,Golden Bough
+1030,Faramir,Gondorian,3,Pelennor Hollow
+1031,Anirion,Telcontar,3,Citadel View
+1032,Wulf,Goldmane,2,Westfold Watch
+1033,Aomer,Aoredson,2,Snowmane Stables
+1034,Faramir,Valeborn,3,White Tower Row
+1035,Samwise,Hornblower,1,Sunmeadow
+1036,Rosie,Gamgee,1,Honeytree Cottage
+1037,Celeborn,Lorienleaf,4,Mallorn Glade
+1038,Daisy,Brandybuck,1,Sunmeadow
+1039,Aragorn,Gondorian,3,White Tower Row
+1040,Aragorn,Valeborn,3,Minas Manor
+1041,Mauhar,Foulbreath,5,Mount Doom Outpost
+1042,Faramir,Andarilbearer,3,Minas Manor
+1043,Belladonna,Cotton,1,Crickhollow
+1044,Amroth,Lorienleaf,4,Golden Bough
+1045,Shagrat,Roteye,5,Forge Den
+1046,Marigold,Chubb,1,Greenhill Hall
+1047,Lathien,Silverlight,4,Mallorn Glade
+1048,Samwise,Proudfoot,1,Crickhollow
+1049,Lugdush,Blacktooth,5,Black Gate Shack
+1050,Mardil,Stewardson,3,Pelennor Hollow
+1051,Grishnikh,Darkblade,5,Mount Doom Outpost
+1052,Imrahil,Gondorian,3,White Tower Row
+1053,Shagrat,Ashwalker,5,Mount Doom Outpost
+1054,Frealif,Theodenhall,2,Westfold Watch
+1055,Frodo,Noakes,1,Greenhill Hall
+1056,Belladonna,Cotton,1,Foxglove Field
+1057,Theodred,Greymane,2,Snowmane Stables
+1058,Anirion,Valeborn,3,Minas Manor
+1059,Pippin,Hornblower,1,Greenhill Hall
+1060,Theodred,Shieldarm,2,Helmaes Gate
+1061,Daisy,Gamgee,1,Crickhollow
+1062,Galadriel,Goldsong,4,Golden Bough
+1063,Anirion,Stewardson,3,Minas Manor
+1064,Ramil,Lorienleaf,4,Silvan Reach
+1065,Aragorn,Highguard,3,Citadel View
+1066,Aomer,Mearasbrow,2,Horsehall
+1067,Ecthelion,Andarilbearer,3,Pelennor Hollow
+1068,Boromir,Highguard,3,Pelennor Hollow
+1069,Aldor,Greymane,2,Horsehall
+1070,Anirion,Valeborn,3,Citadel View
+1071,Pippin,Brandybuck,1,Crickhollow
+1072,Bolg,Ashwalker,5,Warg Pit
+1073,Aldor,Mearasbrow,2,Snowmane Stables
+1074,Bolg,The Cruel,5,Warg Pit
+1075,Brytta,Shieldarm,2,Horsehall
+1076,Leofric,Mearasbrow,2,Horsehall
+1077,Nimrodel,Lorienleaf,4,Golden Bough
+1078,Galadriel,Silverlight,4,Whispering Branch
+1079,Faramir,Andarilbearer,3,Pelennor Hollow
+1080,Mauhar,Darkblade,5,Mount Doom Outpost
+1081,Brytta,Mearasbrow,2,Westfold Watch
+1082,Boromir,Gondorian,3,White Tower Row
+1083,Frodo,Burrows,1,Foxglove Field
+1084,Theodred,Shieldarm,2,Helmaes Gate
+1085,Belladonna,Burrows,1,Foxglove Field
+1086,Imrahil,Telcontar,3,Citadel View
+1087,Haldir,Goldsong,4,Golden Bough
+1088,Ecthelion,Telcontar,3,Minas Manor
+1089,Rosie,Gamgee,1,Bag End
+1090,Aowyn,Shieldarm,2,Westfold Watch
+1091,Grishnikh,Roteye,5,Warg Pit
+1092,Cirion,Stewardson,3,Pelennor Hollow
+1093,Frealif,Shieldarm,2,Snowmane Stables
+1094,Nimrodel,Evenstar,4,Silvan Reach
+1095,Amroth,Starwhisper,4,Mallorn Glade
+1096,Haldir,Evenstar,4,Golden Bough
+1097,Aldor,Westfold,2,Westfold Watch
+1098,Anirion,Stewardson,3,Pelennor Hollow
+1099,Leofric,Aoredson,2,Westfold Watch
+1100,Aowyn,Shieldarm,2,Snowmane Stables
+1101,Uglak,The Cruel,5,Forge Den
+1102,Gorbag,Roteye,5,Warg Pit
+1103,Anirion,Valeborn,3,Citadel View
+1104,Gorbag,Ashwalker,5,Forge Den
+1105,Lathien,Evenstar,4,Mallorn Glade
+1106,Snaga,Blacktooth,5,Warg Pit
+1107,Lathien,Goldsong,4,Silvan Reach
+1108,Mardil,Minaswalker,3,Minas Manor
+1109,Brytta,Greymane,2,Westfold Watch
+1110,Theodred,Mearasbrow,2,Helmaes Gate
+1111,Shagrat,Darkblade,5,Forge Den
+1112,Amroth,Lorienleaf,4,Golden Bough
+1113,Rosie,Took,1,Bag End
+1114,Bilbo,Hornblower,1,Foxglove Field
+1115,Rosie,Cotton,1,Crickhollow
+1116,Aowyn,Aoredson,2,Horsehall
+1117,Theodred,Mearasbrow,2,Helmaes Gate
+1118,Orophin,Lorienleaf,4,Golden Bough
+1119,Bolg,Of Cirith Ungol,5,Forge Den
+1120,Belladonna,Chubb,1,Crickhollow
+1121,Ramil,Evenstar,4,Silvan Reach
+1122,Galadriel,Lorienleaf,4,Golden Bough
+1123,Bolg,Foulbreath,5,Warg Pit
+1124,Nimrodel,Silverlight,4,Mallorn Glade
+1125,Snaga,The Cruel,5,Mount Doom Outpost
+1126,Anirion,Stewardson,3,Pelennor Hollow
+1127,Snaga,Roteye,5,Mount Doom Outpost
+1128,Frodo,Took,1,Sunmeadow
+1129,Frodo,Took,1,Toadstool Nook
+1130,Bolg,The Cruel,5,Black Gate Shack
+1131,Faramir,Minaswalker,3,Pelennor Hollow
+1132,Faramir,Telcontar,3,Minas Manor
+1133,Hamfast,Took,1,Sunmeadow
+1134,Boromir,Telcontar,3,Pelennor Hollow
+1135,Celeborn,Silverlight,4,Mallorn Glade
+1136,Grama,Aoredson,2,Horsehall
+1137,Amroth,Elensar,4,Whispering Branch
+1138,Bilbo,Chubb,1,Crickhollow
+1139,Imrahil,Telcontar,3,White Tower Row
+1140,Shagrat,Blacktooth,5,Warg Pit
+1141,Grama,Greymane,2,Horsehall
+1142,Grishnikh,Foulbreath,5,Warg Pit
+1143,Marigold,Gamgee,1,Foxglove Field
+1144,Cirion,Highguard,3,White Tower Row
+1145,Azog,Ashwalker,5,Mount Doom Outpost
+1146,Mauhar,Roteye,5,Black Gate Shack
+1147,Theodred,Aoredson,2,Horsehall
+1148,Wulf,Aoredson,2,Helmaes Gate
+1149,Boromir,Stewardson,3,Citadel View
+1150,Grama,Greymane,2,Helmaes Gate
+1151,Gorbag,Ashwalker,5,Warg Pit
+1152,Gorbag,Darkblade,5,Forge Den
+1153,Rosie,Burrows,1,Sunmeadow
+1154,Grishnikh,Darkblade,5,Black Gate Shack
+1155,Boromir,Gondorian,3,White Tower Row
+1156,Nimrodel,Starwhisper,4,Golden Bough
+1157,Belladonna,Proudfoot,1,Bag End
+1158,Merry,Noakes,1,Sunmeadow
+1159,Anirion,Highguard,3,White Tower Row
+1160,Anirion,Telcontar,3,White Tower Row
+1161,Theodred,Theodenhall,2,Helmaes Gate
+1162,Hamfast,Chubb,1,Toadstool Nook
+1163,Aowyn,Westfold,2,Helmaes Gate
+1164,Mauhar,Ashwalker,5,Mount Doom Outpost
+1165,Samwise,Chubb,1,Crickhollow
+1166,Merry,Baggins,1,Toadstool Nook
+1167,Galadriel,Evenstar,4,Golden Bough
+1168,Pippin,Proudfoot,1,Crickhollow
+1169,Shagrat,Of Cirith Ungol,5,Warg Pit
+1170,Brytta,Theodenhall,2,Westfold Watch
+1171,Aomer,Goldmane,2,Helmaes Gate
+1172,Celeborn,Starwhisper,4,Golden Bough
+1173,Snaga,Of Cirith Ungol,5,Mount Doom Outpost
+1174,Aldor,Westfold,2,Westfold Watch
+1175,Aragorn,Telcontar,3,White Tower Row
+1176,Mauhar,Foulbreath,5,Warg Pit
+1177,Gorbag,Of Cirith Ungol,5,Mount Doom Outpost
+1178,Galadriel,Starwhisper,4,Mallorn Glade
+1179,Brytta,Mearasbrow,2,Horsehall
+1180,Grishnikh,Blacktooth,5,Warg Pit
+1181,Grama,Aoredson,2,Snowmane Stables
+1182,Denethor,Valeborn,3,White Tower Row
+1183,Celeborn,Silverlight,4,Whispering Branch
+1184,Faramir,Telcontar,3,White Tower Row
+1185,Amroth,Goldsong,4,Whispering Branch
+1186,Snaga,Ashwalker,5,Forge Den
+1187,Lathien,Silverlight,4,Whispering Branch
+1188,Rosie,Proudfoot,1,Foxglove Field
+1189,Leofric,Goldmane,2,Horsehall
+1190,Brytta,Greymane,2,Snowmane Stables
+1191,Samwise,Took,1,Foxglove Field
+1192,Mardil,Valeborn,3,Minas Manor
+1193,Samwise,Took,1,Crickhollow
+1194,Lugdush,The Cruel,5,Forge Den
+1195,Azog,Darkblade,5,Mount Doom Outpost
+1196,Fastred,Shieldarm,2,Snowmane Stables
+1197,Azog,Blacktooth,5,Mount Doom Outpost
+1198,Theodred,Goldmane,2,Westfold Watch
+1199,Marigold,Hornblower,1,Honeytree Cottage
+1200,Marigold,Burrows,1,Honeytree Cottage
+1201,Bilbo,Burrows,1,Bag End
+1202,Frealif,Aoredson,2,Helmaes Gate
+1203,Pippin,Cotton,1,Greenhill Hall
+1204,Rosie,Proudfoot,1,Honeytree Cottage
+1205,Faramir,Telcontar,3,Minas Manor
+1206,Marigold,Baggins,1,Honeytree Cottage
+1207,Bolg,Darkblade,5,Black Gate Shack
+1208,Brytta,Aoredson,2,Helmaes Gate
+1209,Denethor,Highguard,3,Minas Manor
+1210,Celeborn,Silverlight,4,Whispering Branch
+1211,Wulf,Mearasbrow,2,Horsehall
+1212,Uglak,Foulbreath,5,Warg Pit
+1213,Aldor,Goldmane,2,Westfold Watch
+1214,Uglak,The Cruel,5,Mount Doom Outpost
+1215,Lugdush,Foulbreath,5,Mount Doom Outpost
+1216,Amroth,Evenstar,4,Whispering Branch
+1217,Brytta,Theodenhall,2,Helmaes Gate
+1218,Lathien,Silverlight,4,Golden Bough
+1219,Ramil,Evenstar,4,Golden Bough
+1220,Fastred,Mearasbrow,2,Helmaes Gate
+1221,Belladonna,Took,1,Foxglove Field
+1222,Daisy,Baggins,1,Greenhill Hall
+1223,Orophin,Silverlight,4,Golden Bough
+1224,Imrahil,Andarilbearer,3,White Tower Row
+1225,Amroth,Evenstar,4,Whispering Branch
+1226,Haldir,Elensar,4,Golden Bough
+1227,Haldir,Evenstar,4,Mallorn Glade
+1228,Samwise,Noakes,1,Greenhill Hall
+1229,Belladonna,Cotton,1,Crickhollow
+1230,Daisy,Gamgee,1,Honeytree Cottage
+1231,Ramil,Elensar,4,Silvan Reach
+1232,Aragorn,Andarilbearer,3,White Tower Row
+1233,Samwise,Baggins,1,Crickhollow
+1234,Aldor,Greymane,2,Westfold Watch
+1235,Aomer,Westfold,2,Snowmane Stables
+1236,Grama,Westfold,2,Horsehall
+1237,Bolg,The Cruel,5,Mount Doom Outpost
+1238,Amroth,Lorienleaf,4,Golden Bough
+1239,Brytta,Goldmane,2,Helmaes Gate
+1240,Amroth,Lorienleaf,4,Silvan Reach
+1241,Fastred,Goldmane,2,Snowmane Stables
+1242,Aragorn,Stewardson,3,Pelennor Hollow
+1243,Ramil,Silverlight,4,Silvan Reach
+1244,Theodred,Shieldarm,2,Snowmane Stables
+1245,Samwise,Burrows,1,Honeytree Cottage
+1246,Amroth,Goldsong,4,Golden Bough
+1247,Uglak,Darkblade,5,Black Gate Shack
+1248,Merry,Took,1,Foxglove Field
+1249,Pippin,Took,1,Foxglove Field
+1250,Grishnikh,The Cruel,5,Forge Den
+1251,Samwise,Proudfoot,1,Crickhollow
+1252,Hamfast,Baggins,1,Honeytree Cottage
+1253,Aowyn,Greymane,2,Snowmane Stables
+1254,Wulf,Goldmane,2,Westfold Watch
+1255,Nimrodel,Goldsong,4,Golden Bough
+1256,Amroth,Lorienleaf,4,Silvan Reach
+1257,Celeborn,Lorienleaf,4,Golden Bough
+1258,Fastred,Greymane,2,Helmaes Gate
+1259,Celeborn,Elensar,4,Silvan Reach
+1260,Belladonna,Proudfoot,1,Foxglove Field
+1261,Frealif,Theodenhall,2,Helmaes Gate
+1262,Amroth,Elensar,4,Mallorn Glade
+1263,Merry,Gamgee,1,Bag End
+1264,Lathien,Evenstar,4,Mallorn Glade
+1265,Faramir,Gondorian,3,Citadel View
+1266,Galadriel,Evenstar,4,Silvan Reach
+1267,Harin,Valeborn,3,Citadel View
+1268,Orophin,Goldsong,4,Mallorn Glade
+1269,Lugdush,Ashwalker,5,Forge Den
+1270,Orophin,Goldsong,4,Silvan Reach
+1271,Aomer,Mearasbrow,2,Helmaes Gate
+1272,Leofric,Greymane,2,Snowmane Stables
+1273,Denethor,Minaswalker,3,Pelennor Hollow
+1274,Aomer,Goldmane,2,Helmaes Gate
+1275,Daisy,Cotton,1,Sunmeadow
+1276,Grishnikh,Foulbreath,5,Mount Doom Outpost
+1277,Grishnikh,Of Cirith Ungol,5,Mount Doom Outpost
+1278,Daisy,Hornblower,1,Toadstool Nook
+1279,Anirion,Stewardson,3,White Tower Row
+1280,Marigold,Baggins,1,Honeytree Cottage
+1281,Rosie,Burrows,1,Bag End
+1282,Lugdush,Darkblade,5,Mount Doom Outpost
+1283,Nimrodel,Elensar,4,Mallorn Glade
+1284,Shagrat,Foulbreath,5,Black Gate Shack
+1285,Uglak,The Cruel,5,Mount Doom Outpost
+1286,Frealif,Mearasbrow,2,Helmaes Gate
+1287,Pippin,Chubb,1,Toadstool Nook
+1288,Snaga,Ashwalker,5,Warg Pit
+1289,Daisy,Proudfoot,1,Toadstool Nook
+1290,Aldor,Shieldarm,2,Horsehall
+1291,Samwise,Noakes,1,Greenhill Hall
+1292,Shagrat,Of Cirith Ungol,5,Forge Den
+1293,Samwise,Cotton,1,Foxglove Field
+1294,Frealif,Goldmane,2,Westfold Watch
+1295,Celeborn,Goldsong,4,Silvan Reach
+1296,Daisy,Chubb,1,Sunmeadow
+1297,Snaga,Darkblade,5,Warg Pit
+1298,Aldor,Greymane,2,Snowmane Stables
+1299,Uglak,Of Cirith Ungol,5,Warg Pit
+1300,Mauhar,Of Cirith Ungol,5,Warg Pit
+1301,Hamfast,Baggins,1,Toadstool Nook
+1302,Mauhar,Foulbreath,5,Black Gate Shack
+1303,Bilbo,Cotton,1,Honeytree Cottage
+1304,Orophin,Silverlight,4,Mallorn Glade
+1305,Grishnikh,Roteye,5,Mount Doom Outpost
+1306,Uglak,Roteye,5,Black Gate Shack
+1307,Azog,Ashwalker,5,Mount Doom Outpost
+1308,Imrahil,Stewardson,3,Minas Manor
+1309,Ecthelion,Stewardson,3,White Tower Row
+1310,Brytta,Westfold,2,Horsehall
+1311,Aragorn,Andarilbearer,3,Citadel View
+1312,Theodred,Aoredson,2,Westfold Watch
+1313,Mardil,Minaswalker,3,White Tower Row
+1314,Orophin,Starwhisper,4,Silvan Reach
+1315,Aowyn,Shieldarm,2,Westfold Watch
+1316,Faramir,Telcontar,3,Citadel View
+1317,Haldir,Silverlight,4,Whispering Branch
+1318,Boromir,Highguard,3,Pelennor Hollow
+1319,Bilbo,Hornblower,1,Foxglove Field
+1320,Frodo,Burrows,1,Greenhill Hall
+1321,Amroth,Elensar,4,Mallorn Glade
+1322,Gorbag,The Cruel,5,Warg Pit
+1323,Lugdush,Blacktooth,5,Forge Den
+1324,Bilbo,Burrows,1,Crickhollow
+1325,Belladonna,Took,1,Toadstool Nook
+1326,Shagrat,Foulbreath,5,Black Gate Shack
+1327,Leofric,Greymane,2,Westfold Watch
+1328,Grishnikh,Blacktooth,5,Black Gate Shack
+1329,Cirion,Highguard,3,White Tower Row
+1330,Theodred,Theodenhall,2,Horsehall
+1331,Boromir,Gondorian,3,Pelennor Hollow
+1332,Rosie,Brandybuck,1,Bag End
+1333,Grama,Westfold,2,Helmaes Gate
+1334,Mardil,Gondorian,3,White Tower Row
+1335,Mardil,Telcontar,3,Minas Manor
+1336,Theodred,Mearasbrow,2,Snowmane Stables
+1337,Ramil,Elensar,4,Whispering Branch
+1338,Mauhar,Roteye,5,Warg Pit
+1339,Imrahil,Telcontar,3,Citadel View
+1340,Uglak,Blacktooth,5,Mount Doom Outpost
+1341,Snaga,The Cruel,5,Mount Doom Outpost
+1342,Marigold,Gamgee,1,Bag End
+1343,Bolg,Of Cirith Ungol,5,Mount Doom Outpost
+1344,Mardil,Gondorian,3,Minas Manor
+1345,Marigold,Burrows,1,Honeytree Cottage
+1346,Brytta,Goldmane,2,Horsehall
+1347,Aragorn,Gondorian,3,Pelennor Hollow
+1348,Merry,Gamgee,1,Greenhill Hall
+1349,Daisy,Cotton,1,Sunmeadow
+1350,Shagrat,Foulbreath,5,Warg Pit
+1351,Frealif,Shieldarm,2,Horsehall
+1352,Boromir,Stewardson,3,White Tower Row
+1353,Imrahil,Stewardson,3,White Tower Row
+1354,Shagrat,Of Cirith Ungol,5,Forge Den
+1355,Frealif,Greymane,2,Horsehall
+1356,Aragorn,Gondorian,3,Minas Manor
+1357,Wulf,Goldmane,2,Westfold Watch
+1358,Mardil,Highguard,3,Pelennor Hollow
+1359,Lugdush,Roteye,5,Mount Doom Outpost
+1360,Ramil,Silverlight,4,Silvan Reach
+1361,Ecthelion,Gondorian,3,Citadel View
+1362,Belladonna,Hornblower,1,Crickhollow
+1363,Frodo,Noakes,1,Bag End
+1364,Ramil,Elensar,4,Silvan Reach
+1365,Anirion,Stewardson,3,White Tower Row
+1366,Rosie,Brandybuck,1,Toadstool Nook
+1367,Hamfast,Brandybuck,1,Crickhollow
+1368,Harin,Telcontar,3,Minas Manor
+1369,Aowyn,Aoredson,2,Horsehall
+1370,Mardil,Highguard,3,Pelennor Hollow
+1371,Wulf,Westfold,2,Helmaes Gate
+1372,Amroth,Evenstar,4,Golden Bough
+1373,Uglak,Foulbreath,5,Black Gate Shack
+1374,Celeborn,Elensar,4,Golden Bough
+1375,Uglak,Blacktooth,5,Forge Den
+1376,Rosie,Burrows,1,Sunmeadow
+1377,Frodo,Took,1,Sunmeadow
+1378,Bilbo,Chubb,1,Bag End
+1379,Theodred,Aoredson,2,Horsehall
+1380,Mauhar,Roteye,5,Black Gate Shack
+1381,Daisy,Brandybuck,1,Toadstool Nook
+1382,Cirion,Minaswalker,3,Minas Manor
+1383,Azog,Of Cirith Ungol,5,Mount Doom Outpost
+1384,Snaga,Ashwalker,5,Warg Pit
+1385,Frealif,Goldmane,2,Helmaes Gate
+1386,Haldir,Starwhisper,4,Whispering Branch
+1387,Aomer,Greymane,2,Horsehall
+1388,Hamfast,Cotton,1,Sunmeadow
+1389,Harin,Telcontar,3,Pelennor Hollow
+1390,Aragorn,Telcontar,3,Minas Manor
+1391,Frodo,Took,1,Sunmeadow
+1392,Faramir,Highguard,3,Citadel View
+1393,Brytta,Shieldarm,2,Snowmane Stables
+1394,Leofric,Mearasbrow,2,Westfold Watch
+1395,Rosie,Chubb,1,Toadstool Nook
+1396,Boromir,Valeborn,3,Pelennor Hollow
+1397,Uglak,Darkblade,5,Mount Doom Outpost
+1398,Haldir,Silverlight,4,Mallorn Glade
+1399,Azog,Roteye,5,Forge Den
+1400,Aldor,Shieldarm,2,Snowmane Stables
+1401,Fastred,Theodenhall,2,Snowmane Stables
+1402,Brytta,Theodenhall,2,Snowmane Stables
+1403,Theodred,Aoredson,2,Horsehall
+1404,Amroth,Starwhisper,4,Silvan Reach
+1405,Rosie,Noakes,1,Bag End
+1406,Fastred,Theodenhall,2,Snowmane Stables
+1407,Imrahil,Valeborn,3,White Tower Row
+1408,Nimrodel,Elensar,4,Silvan Reach
+1409,Fastred,Shieldarm,2,Snowmane Stables
+1410,Harin,Andarilbearer,3,Minas Manor
+1411,Frealif,Shieldarm,2,Westfold Watch
+1412,Hamfast,Chubb,1,Bag End
+1413,Lathien,Starwhisper,4,Silvan Reach
+1414,Marigold,Hornblower,1,Foxglove Field
+1415,Lathien,Elensar,4,Silvan Reach
+1416,Aldor,Aoredson,2,Horsehall
+1417,Frealif,Goldmane,2,Westfold Watch
+1418,Haldir,Elensar,4,Mallorn Glade
+1419,Imrahil,Gondorian,3,Pelennor Hollow
+1420,Boromir,Andarilbearer,3,Minas Manor
+1421,Aomer,Mearasbrow,2,Westfold Watch
+1422,Leofric,Shieldarm,2,Helmaes Gate
+1423,Bilbo,Noakes,1,Honeytree Cottage
+1424,Grama,Mearasbrow,2,Horsehall
+1425,Galadriel,Evenstar,4,Golden Bough
+1426,Boromir,Gondorian,3,White Tower Row
+1427,Mardil,Gondorian,3,Citadel View
+1428,Pippin,Brandybuck,1,Foxglove Field
+1429,Anirion,Highguard,3,Pelennor Hollow
+1430,Mardil,Andarilbearer,3,Citadel View
+1431,Uglak,Darkblade,5,Black Gate Shack
+1432,Celeborn,Starwhisper,4,Whispering Branch
+1433,Snaga,The Cruel,5,Forge Den
+1434,Harin,Gondorian,3,Minas Manor
+1435,Frodo,Proudfoot,1,Crickhollow
+1436,Bilbo,Proudfoot,1,Greenhill Hall
+1437,Denethor,Gondorian,3,Pelennor Hollow
+1438,Aldor,Greymane,2,Helmaes Gate
+1439,Uglak,The Cruel,5,Warg Pit
+1440,Faramir,Andarilbearer,3,Citadel View
+1441,Samwise,Noakes,1,Bag End
+1442,Frodo,Gamgee,1,Toadstool Nook
+1443,Bolg,Of Cirith Ungol,5,Mount Doom Outpost
+1444,Amroth,Silverlight,4,Whispering Branch
+1445,Boromir,Gondorian,3,Minas Manor
+1446,Aragorn,Telcontar,3,White Tower Row
+1447,Ramil,Goldsong,4,Mallorn Glade
+1448,Grishnikh,Blacktooth,5,Warg Pit
+1449,Azog,Roteye,5,Black Gate Shack
+1450,Merry,Noakes,1,Honeytree Cottage
+1451,Haldir,Evenstar,4,Golden Bough
+1452,Gorbag,Ashwalker,5,Forge Den
+1453,Brytta,Westfold,2,Westfold Watch
+1454,Cirion,Highguard,3,Citadel View
+1455,Pippin,Chubb,1,Toadstool Nook
+1456,Amroth,Elensar,4,Whispering Branch
+1457,Samwise,Burrows,1,Toadstool Nook
+1458,Mauhar,Roteye,5,Forge Den
+1459,Grishnikh,Darkblade,5,Black Gate Shack
+1460,Frealif,Theodenhall,2,Westfold Watch
+1461,Harin,Telcontar,3,Minas Manor
+1462,Celeborn,Evenstar,4,Whispering Branch
+1463,Frodo,Brandybuck,1,Honeytree Cottage
+1464,Ecthelion,Stewardson,3,Citadel View
+1465,Bolg,Foulbreath,5,Black Gate Shack
+1466,Harin,Gondorian,3,Citadel View
+1467,Merry,Burrows,1,Foxglove Field
+1468,Ecthelion,Andarilbearer,3,Citadel View
+1469,Mauhar,Of Cirith Ungol,5,Black Gate Shack
+1470,Boromir,Valeborn,3,White Tower Row
+1471,Celeborn,Silverlight,4,Golden Bough
+1472,Aragorn,Telcontar,3,White Tower Row
+1473,Nimrodel,Elensar,4,Mallorn Glade
+1474,Cirion,Telcontar,3,Citadel View
+1475,Azog,Blacktooth,5,Mount Doom Outpost
+1476,Brytta,Goldmane,2,Westfold Watch
+1477,Brytta,Aoredson,2,Westfold Watch
+1478,Galadriel,Goldsong,4,Mallorn Glade
+1479,Orophin,Lorienleaf,4,Mallorn Glade
+1480,Wulf,Aoredson,2,Westfold Watch
+1481,Shagrat,Foulbreath,5,Warg Pit
+1482,Shagrat,Ashwalker,5,Black Gate Shack
+1483,Cirion,Telcontar,3,Minas Manor
+1484,Nimrodel,Evenstar,4,Golden Bough
+1485,Shagrat,Of Cirith Ungol,5,Forge Den
+1486,Frodo,Brandybuck,1,Bag End
+1487,Mardil,Gondorian,3,Minas Manor
+1488,Denethor,Minaswalker,3,Citadel View
+1489,Aowyn,Theodenhall,2,Snowmane Stables
+1490,Celeborn,Elensar,4,Golden Bough
+1491,Grishnikh,Of Cirith Ungol,5,Black Gate Shack
+1492,Grishnikh,The Cruel,5,Forge Den
+1493,Anirion,Minaswalker,3,Pelennor Hollow
+1494,Ramil,Silverlight,4,Mallorn Glade
+1495,Haldir,Evenstar,4,Whispering Branch
+1496,Lathien,Silverlight,4,Mallorn Glade
+1497,Leofric,Shieldarm,2,Horsehall
+1498,Snaga,Blacktooth,5,Black Gate Shack
+1499,Celeborn,Lorienleaf,4,Mallorn Glade
+1500,Wulf,Aoredson,2,Snowmane Stables
+1501,Frodo,Baggins,1,Foxglove Field
+1502,Harin,Gondorian,3,Minas Manor
+1503,Lugdush,Ashwalker,5,Forge Den
+1504,Mauhar,The Cruel,5,Forge Den
+1505,Ecthelion,Valeborn,3,White Tower Row
+1506,Marigold,Took,1,Honeytree Cottage
+1507,Leofric,Theodenhall,2,Westfold Watch
+1508,Ecthelion,Highguard,3,White Tower Row
+1509,Frealif,Shieldarm,2,Horsehall
+1510,Brytta,Shieldarm,2,Horsehall
+1511,Theodred,Shieldarm,2,Helmaes Gate
+1512,Pippin,Took,1,Sunmeadow
+1513,Frodo,Brandybuck,1,Sunmeadow
+1514,Brytta,Mearasbrow,2,Horsehall
+1515,Nimrodel,Silverlight,4,Whispering Branch
+1516,Uglak,Of Cirith Ungol,5,Forge Den
+1517,Hamfast,Proudfoot,1,Honeytree Cottage
+1518,Amroth,Lorienleaf,4,Silvan Reach
+1519,Amroth,Silverlight,4,Silvan Reach
+1520,Bolg,Foulbreath,5,Forge Den
+1521,Grama,Westfold,2,Westfold Watch
+1522,Amroth,Silverlight,4,Silvan Reach
+1523,Galadriel,Goldsong,4,Golden Bough
+1524,Nimrodel,Lorienleaf,4,Golden Bough
+1525,Wulf,Shieldarm,2,Helmaes Gate
+1526,Brytta,Westfold,2,Horsehall
+1527,Belladonna,Cotton,1,Sunmeadow
+1528,Merry,Cotton,1,Greenhill Hall
+1529,Haldir,Goldsong,4,Silvan Reach
+1530,Aowyn,Mearasbrow,2,Helmaes Gate
+1531,Aomer,Shieldarm,2,Helmaes Gate
+1532,Bolg,Foulbreath,5,Mount Doom Outpost
+1533,Celeborn,Silverlight,4,Whispering Branch
+1534,Hamfast,Chubb,1,Crickhollow
+1535,Mauhar,Of Cirith Ungol,5,Mount Doom Outpost
+1536,Aowyn,Westfold,2,Helmaes Gate
+1537,Belladonna,Brandybuck,1,Sunmeadow
+1538,Lathien,Elensar,4,Silvan Reach
+1539,Aowyn,Greymane,2,Helmaes Gate
+1540,Celeborn,Goldsong,4,Mallorn Glade
+1541,Uglak,Of Cirith Ungol,5,Black Gate Shack
+1542,Lugdush,Roteye,5,Black Gate Shack
+1543,Snaga,Of Cirith Ungol,5,Forge Den
+1544,Faramir,Stewardson,3,Citadel View
+1545,Galadriel,Starwhisper,4,Silvan Reach
+1546,Bolg,Roteye,5,Forge Den
+1547,Mauhar,Darkblade,5,Mount Doom Outpost
+1548,Haldir,Lorienleaf,4,Mallorn Glade
+1549,Snaga,Blacktooth,5,Mount Doom Outpost
+1550,Haldir,Elensar,4,Silvan Reach
+1551,Aldor,Goldmane,2,Horsehall
+1552,Galadriel,Starwhisper,4,Silvan Reach
+1553,Ramil,Elensar,4,Silvan Reach
+1554,Imrahil,Andarilbearer,3,White Tower Row
+1555,Wulf,Mearasbrow,2,Helmaes Gate
+1556,Anirion,Highguard,3,Pelennor Hollow
+1557,Shagrat,Blacktooth,5,Mount Doom Outpost
+1558,Orophin,Goldsong,4,Golden Bough
+1559,Theodred,Goldmane,2,Horsehall
+1560,Imrahil,Andarilbearer,3,Citadel View
+1561,Amroth,Goldsong,4,Golden Bough
+1562,Hamfast,Proudfoot,1,Toadstool Nook
+1563,Imrahil,Stewardson,3,Minas Manor
+1564,Aowyn,Mearasbrow,2,Snowmane Stables
+1565,Ecthelion,Minaswalker,3,Citadel View
+1566,Cirion,Minaswalker,3,Citadel View
+1567,Cirion,Minaswalker,3,Minas Manor
+1568,Uglak,Roteye,5,Forge Den
+1569,Rosie,Cotton,1,Honeytree Cottage
+1570,Theodred,Goldmane,2,Westfold Watch
+1571,Aomer,Greymane,2,Helmaes Gate
+1572,Grama,Greymane,2,Horsehall
+1573,Galadriel,Goldsong,4,Mallorn Glade
+1574,Wulf,Westfold,2,Westfold Watch
+1575,Aldor,Theodenhall,2,Horsehall
+1576,Rosie,Chubb,1,Foxglove Field
+1577,Amroth,Starwhisper,4,Silvan Reach
+1578,Orophin,Goldsong,4,Golden Bough
+1579,Harin,Telcontar,3,Pelennor Hollow
+1580,Azog,Ashwalker,5,Forge Den
+1581,Galadriel,Evenstar,4,Mallorn Glade
+1582,Galadriel,Silverlight,4,Golden Bough
+1583,Belladonna,Baggins,1,Crickhollow
+1584,Aowyn,Mearasbrow,2,Horsehall
+1585,Galadriel,Elensar,4,Mallorn Glade
+1586,Celeborn,Evenstar,4,Golden Bough
+1587,Gorbag,Blacktooth,5,Forge Den
+1588,Belladonna,Baggins,1,Bag End
+1589,Grishnikh,Blacktooth,5,Warg Pit
+1590,Orophin,Goldsong,4,Whispering Branch
+1591,Amroth,Evenstar,4,Whispering Branch
+1592,Samwise,Burrows,1,Honeytree Cottage
+1593,Mardil,Stewardson,3,Citadel View
+1594,Imrahil,Telcontar,3,White Tower Row
+1595,Lathien,Lorienleaf,4,Silvan Reach
+1596,Haldir,Elensar,4,Golden Bough
+1597,Mauhar,Roteye,5,Forge Den
+1598,Grishnikh,Blacktooth,5,Mount Doom Outpost
+1599,Uglak,Foulbreath,5,Warg Pit
+1600,Aldor,Aoredson,2,Westfold Watch
+1601,Nimrodel,Silverlight,4,Whispering Branch
+1602,Grama,Greymane,2,Horsehall
+1603,Anirion,Minaswalker,3,White Tower Row
+1604,Ramil,Lorienleaf,4,Silvan Reach
+1605,Orophin,Silverlight,4,Golden Bough
+1606,Frodo,Took,1,Crickhollow
+1607,Celeborn,Silverlight,4,Whispering Branch
+1608,Anirion,Andarilbearer,3,Pelennor Hollow
+1609,Celeborn,Evenstar,4,Mallorn Glade
+1610,Brytta,Aoredson,2,Snowmane Stables
+1611,Nimrodel,Lorienleaf,4,Mallorn Glade
+1612,Theodred,Shieldarm,2,Snowmane Stables
+1613,Gorbag,Ashwalker,5,Forge Den
+1614,Uglak,Ashwalker,5,Forge Den
+1615,Marigold,Chubb,1,Bag End
+1616,Amroth,Silverlight,4,Silvan Reach
+1617,Shagrat,Foulbreath,5,Black Gate Shack
+1618,Lugdush,Darkblade,5,Forge Den
+1619,Belladonna,Chubb,1,Sunmeadow
+1620,Marigold,Burrows,1,Bag End
+1621,Galadriel,Lorienleaf,4,Silvan Reach
+1622,Theodred,Westfold,2,Westfold Watch
+1623,Lathien,Evenstar,4,Silvan Reach
+1624,Aowyn,Aoredson,2,Helmaes Gate
+1625,Rosie,Proudfoot,1,Bag End
+1626,Mardil,Minaswalker,3,Citadel View
+1627,Nimrodel,Lorienleaf,4,Silvan Reach
+1628,Anirion,Valeborn,3,Citadel View
+1629,Leofric,Theodenhall,2,Horsehall
+1630,Celeborn,Goldsong,4,Whispering Branch
+1631,Ecthelion,Valeborn,3,Citadel View
+1632,Cirion,Andarilbearer,3,Pelennor Hollow
+1633,Orophin,Starwhisper,4,Mallorn Glade
+1634,Anirion,Gondorian,3,Minas Manor
+1635,Ramil,Goldsong,4,Golden Bough
+1636,Cirion,Andarilbearer,3,Pelennor Hollow
+1637,Daisy,Hornblower,1,Sunmeadow
+1638,Lathien,Lorienleaf,4,Whispering Branch
+1639,Rosie,Proudfoot,1,Greenhill Hall
+1640,Grishnikh,Foulbreath,5,Warg Pit
+1641,Frodo,Hornblower,1,Toadstool Nook
+1642,Harin,Valeborn,3,Citadel View
+1643,Leofric,Westfold,2,Snowmane Stables
+1644,Rosie,Hornblower,1,Sunmeadow
+1645,Merry,Proudfoot,1,Sunmeadow
+1646,Samwise,Took,1,Sunmeadow
+1647,Fastred,Goldmane,2,Westfold Watch
+1648,Theodred,Shieldarm,2,Westfold Watch
+1649,Pippin,Chubb,1,Honeytree Cottage
+1650,Snaga,Foulbreath,5,Black Gate Shack
+1651,Aldor,Greymane,2,Helmaes Gate
+1652,Aowyn,Greymane,2,Helmaes Gate
+1653,Leofric,Mearasbrow,2,Snowmane Stables
+1654,Lathien,Starwhisper,4,Golden Bough
+1655,Samwise,Baggins,1,Foxglove Field
+1656,Shagrat,Blacktooth,5,Warg Pit
+1657,Grama,Westfold,2,Snowmane Stables
+1658,Amroth,Goldsong,4,Silvan Reach
+1659,Mardil,Minaswalker,3,Citadel View
+1660,Boromir,Minaswalker,3,Pelennor Hollow
+1661,Aldor,Goldmane,2,Westfold Watch
+1662,Bolg,The Cruel,5,Mount Doom Outpost
+1663,Azog,Blacktooth,5,Mount Doom Outpost
+1664,Pippin,Cotton,1,Bag End
+1665,Aomer,Goldmane,2,Helmaes Gate
+1666,Boromir,Stewardson,3,White Tower Row
+1667,Hamfast,Burrows,1,Honeytree Cottage
+1668,Grishnikh,Of Cirith Ungol,5,Forge Den
+1669,Marigold,Cotton,1,Crickhollow
+1670,Harin,Minaswalker,3,Pelennor Hollow
+1671,Uglak,Roteye,5,Black Gate Shack
+1672,Haldir,Evenstar,4,Mallorn Glade
+1673,Lathien,Starwhisper,4,Mallorn Glade
+1674,Leofric,Greymane,2,Westfold Watch
+1675,Merry,Proudfoot,1,Crickhollow
+1676,Shagrat,Darkblade,5,Forge Den
+1677,Aldor,Greymane,2,Snowmane Stables
+1678,Belladonna,Burrows,1,Sunmeadow
+1679,Denethor,Valeborn,3,Minas Manor
+1680,Lugdush,Foulbreath,5,Mount Doom Outpost
+1681,Marigold,Brandybuck,1,Crickhollow
+1682,Gorbag,Of Cirith Ungol,5,Warg Pit
+1683,Frodo,Brandybuck,1,Crickhollow
+1684,Cirion,Gondorian,3,Minas Manor
+1685,Grishnikh,Darkblade,5,Warg Pit
+1686,Galadriel,Starwhisper,4,Silvan Reach
+1687,Harin,Stewardson,3,Pelennor Hollow
+1688,Belladonna,Chubb,1,Greenhill Hall
+1689,Grishnikh,Blacktooth,5,Mount Doom Outpost
+1690,Cirion,Gondorian,3,Pelennor Hollow
+1691,Samwise,Burrows,1,Sunmeadow
+1692,Orophin,Starwhisper,4,Mallorn Glade
+1693,Celeborn,Silverlight,4,Whispering Branch
+1694,Bilbo,Proudfoot,1,Foxglove Field
+1695,Haldir,Silverlight,4,Whispering Branch
+1696,Denethor,Valeborn,3,Citadel View
+1697,Celeborn,Elensar,4,Silvan Reach
+1698,Aowyn,Aoredson,2,Horsehall
+1699,Haldir,Starwhisper,4,Golden Bough
+1700,Aomer,Mearasbrow,2,Snowmane Stables
+1701,Grishnikh,Darkblade,5,Black Gate Shack
+1702,Harin,Gondorian,3,Pelennor Hollow
+1703,Lugdush,Foulbreath,5,Mount Doom Outpost
+1704,Azog,Ashwalker,5,Forge Den
+1705,Haldir,Evenstar,4,Golden Bough
+1706,Nimrodel,Silverlight,4,Silvan Reach
+1707,Nimrodel,Goldsong,4,Whispering Branch
+1708,Mauhar,Roteye,5,Mount Doom Outpost
+1709,Harin,Highguard,3,Citadel View
+1710,Boromir,Valeborn,3,Minas Manor
+1711,Aomer,Greymane,2,Horsehall
+1712,Rosie,Hornblower,1,Toadstool Nook
+1713,Denethor,Highguard,3,White Tower Row
+1714,Lathien,Goldsong,4,Golden Bough
+1715,Wulf,Shieldarm,2,Helmaes Gate
+1716,Nimrodel,Silverlight,4,Golden Bough
+1717,Azog,Darkblade,5,Mount Doom Outpost
+1718,Mauhar,Ashwalker,5,Black Gate Shack
+1719,Nimrodel,Starwhisper,4,Mallorn Glade
+1720,Cirion,Andarilbearer,3,Citadel View
+1721,Marigold,Noakes,1,Crickhollow
+1722,Orophin,Goldsong,4,Golden Bough
+1723,Faramir,Minaswalker,3,White Tower Row
+1724,Aldor,Westfold,2,Horsehall
+1725,Haldir,Starwhisper,4,Silvan Reach
+1726,Fastred,Shieldarm,2,Westfold Watch
+1727,Cirion,Telcontar,3,White Tower Row
+1728,Mardil,Telcontar,3,Minas Manor
+1729,Aragorn,Telcontar,3,Pelennor Hollow
+1730,Mardil,Valeborn,3,Minas Manor
+1731,Azog,Foulbreath,5,Warg Pit
+1732,Cirion,Highguard,3,Minas Manor
+1733,Shagrat,Of Cirith Ungol,5,Black Gate Shack
+1734,Belladonna,Burrows,1,Greenhill Hall
+1735,Bolg,Darkblade,5,Warg Pit
+1736,Brytta,Aoredson,2,Horsehall
+1737,Bilbo,Gamgee,1,Foxglove Field
+1738,Theodred,Theodenhall,2,Snowmane Stables
+1739,Amroth,Goldsong,4,Silvan Reach
+1740,Haldir,Lorienleaf,4,Mallorn Glade
+1741,Mauhar,Darkblade,5,Forge Den
+1742,Fastred,Westfold,2,Snowmane Stables
+1743,Ramil,Lorienleaf,4,Mallorn Glade
+1744,Lathien,Goldsong,4,Whispering Branch
+1745,Orophin,Goldsong,4,Mallorn Glade
+1746,Merry,Chubb,1,Greenhill Hall
+1747,Merry,Brandybuck,1,Foxglove Field
+1748,Mardil,Gondorian,3,Citadel View
+1749,Fastred,Mearasbrow,2,Snowmane Stables
+1750,Lathien,Lorienleaf,4,Whispering Branch
+1751,Aldor,Mearasbrow,2,Snowmane Stables
+1752,Ecthelion,Andarilbearer,3,Citadel View
+1753,Bolg,Ashwalker,5,Warg Pit
+1754,Boromir,Telcontar,3,Minas Manor
+1755,Nimrodel,Silverlight,4,Mallorn Glade
+1756,Bolg,Of Cirith Ungol,5,Black Gate Shack
+1757,Grishnikh,Blacktooth,5,Warg Pit
+1758,Ecthelion,Andarilbearer,3,Minas Manor
+1759,Celeborn,Goldsong,4,Mallorn Glade
+1760,Shagrat,Of Cirith Ungol,5,Warg Pit
+1761,Aragorn,Highguard,3,White Tower Row
+1762,Imrahil,Gondorian,3,White Tower Row
+1763,Nimrodel,Starwhisper,4,Silvan Reach
+1764,Harin,Minaswalker,3,White Tower Row
+1765,Boromir,Highguard,3,Pelennor Hollow
+1766,Boromir,Stewardson,3,Citadel View
+1767,Grama,Greymane,2,Helmaes Gate
+1768,Samwise,Gamgee,1,Sunmeadow
+1769,Fastred,Westfold,2,Snowmane Stables
+1770,Denethor,Telcontar,3,Minas Manor
+1771,Merry,Hornblower,1,Crickhollow
+1772,Bolg,Roteye,5,Black Gate Shack
+1773,Theodred,Mearasbrow,2,Horsehall
+1774,Theodred,Theodenhall,2,Helmaes Gate
+1775,Wulf,Goldmane,2,Snowmane Stables
+1776,Lathien,Elensar,4,Whispering Branch
+1777,Cirion,Highguard,3,Pelennor Hollow
+1778,Grishnikh,Ashwalker,5,Mount Doom Outpost
+1779,Lugdush,Of Cirith Ungol,5,Mount Doom Outpost
+1780,Lugdush,Roteye,5,Black Gate Shack
+1781,Faramir,Valeborn,3,Citadel View
+1782,Pippin,Burrows,1,Crickhollow
+1783,Aldor,Goldmane,2,Westfold Watch
+1784,Boromir,Minaswalker,3,Minas Manor
+1785,Aomer,Theodenhall,2,Westfold Watch
+1786,Mardil,Telcontar,3,White Tower Row
+1787,Theodred,Aoredson,2,Helmaes Gate
+1788,Denethor,Minaswalker,3,Minas Manor
+1789,Pippin,Baggins,1,Toadstool Nook
+1790,Snaga,Ashwalker,5,Warg Pit
+1791,Aomer,Shieldarm,2,Helmaes Gate
+1792,Harin,Minaswalker,3,Pelennor Hollow
+1793,Marigold,Chubb,1,Bag End
+1794,Hamfast,Brandybuck,1,Toadstool Nook
+1795,Azog,Of Cirith Ungol,5,Forge Den
+1796,Aragorn,Valeborn,3,Minas Manor
+1797,Aomer,Mearasbrow,2,Horsehall
+1798,Celeborn,Silverlight,4,Whispering Branch
+1799,Bilbo,Chubb,1,Bag End
+1800,Belladonna,Took,1,Crickhollow
+1801,Lugdush,Blacktooth,5,Warg Pit
+1802,Imrahil,Andarilbearer,3,Pelennor Hollow
+1803,Celeborn,Evenstar,4,Whispering Branch
+1804,Amroth,Silverlight,4,Mallorn Glade
+1805,Ramil,Silverlight,4,Whispering Branch
+1806,Boromir,Gondorian,3,Pelennor Hollow
+1807,Leofric,Mearasbrow,2,Helmaes Gate
+1808,Daisy,Baggins,1,Crickhollow
+1809,Harin,Telcontar,3,White Tower Row
+1810,Amroth,Evenstar,4,Mallorn Glade
+1811,Samwise,Burrows,1,Honeytree Cottage
+1812,Samwise,Took,1,Foxglove Field
+1813,Ramil,Silverlight,4,Whispering Branch
+1814,Lathien,Goldsong,4,Golden Bough
+1815,Belladonna,Took,1,Toadstool Nook
+1816,Bolg,Blacktooth,5,Warg Pit
+1817,Frodo,Burrows,1,Bag End
+1818,Grama,Shieldarm,2,Helmaes Gate
+1819,Theodred,Shieldarm,2,Westfold Watch
+1820,Bolg,Blacktooth,5,Mount Doom Outpost
+1821,Imrahil,Telcontar,3,Pelennor Hollow
+1822,Rosie,Proudfoot,1,Crickhollow
+1823,Aomer,Aoredson,2,Snowmane Stables
+1824,Rosie,Chubb,1,Honeytree Cottage
+1825,Uglak,Roteye,5,Mount Doom Outpost
+1826,Amroth,Silverlight,4,Whispering Branch
+1827,Mauhar,Of Cirith Ungol,5,Black Gate Shack
+1828,Grishnikh,Darkblade,5,Black Gate Shack
+1829,Azog,Foulbreath,5,Black Gate Shack
+1830,Brytta,Greymane,2,Helmaes Gate
+1831,Gorbag,Roteye,5,Forge Den
+1832,Amroth,Silverlight,4,Golden Bough
+1833,Ramil,Silverlight,4,Golden Bough
+1834,Nimrodel,Goldsong,4,Whispering Branch
+1835,Denethor,Valeborn,3,Minas Manor
+1836,Uglak,Ashwalker,5,Black Gate Shack
+1837,Celeborn,Starwhisper,4,Golden Bough
+1838,Ecthelion,Stewardson,3,Minas Manor
+1839,Bolg,Darkblade,5,Mount Doom Outpost
+1840,Uglak,Roteye,5,Mount Doom Outpost
+1841,Samwise,Burrows,1,Toadstool Nook
+1842,Uglak,Ashwalker,5,Mount Doom Outpost
+1843,Belladonna,Gamgee,1,Foxglove Field
+1844,Theodred,Aoredson,2,Horsehall
+1845,Aomer,Shieldarm,2,Snowmane Stables
+1846,Boromir,Gondorian,3,Minas Manor
+1847,Belladonna,Took,1,Honeytree Cottage
+1848,Brytta,Shieldarm,2,Helmaes Gate
+1849,Brytta,Theodenhall,2,Snowmane Stables
+1850,Frealif,Shieldarm,2,Horsehall
+1851,Uglak,Darkblade,5,Warg Pit
+1852,Merry,Took,1,Bag End
+1853,Aldor,Aoredson,2,Horsehall
+1854,Samwise,Noakes,1,Honeytree Cottage
+1855,Amroth,Silverlight,4,Silvan Reach
+1856,Nimrodel,Lorienleaf,4,Mallorn Glade
+1857,Shagrat,Roteye,5,Mount Doom Outpost
+1858,Orophin,Lorienleaf,4,Mallorn Glade
+1859,Denethor,Andarilbearer,3,Citadel View
+1860,Pippin,Baggins,1,Crickhollow
+1861,Aldor,Goldmane,2,Helmaes Gate
+1862,Faramir,Highguard,3,Minas Manor
+1863,Aragorn,Highguard,3,White Tower Row
+1864,Haldir,Goldsong,4,Mallorn Glade
+1865,Merry,Cotton,1,Bag End
+1866,Theodred,Greymane,2,Westfold Watch
+1867,Faramir,Telcontar,3,Minas Manor
+1868,Uglak,Ashwalker,5,Warg Pit
+1869,Leofric,Shieldarm,2,Horsehall
+1870,Haldir,Evenstar,4,Silvan Reach
+1871,Merry,Took,1,Sunmeadow
+1872,Mauhar,Blacktooth,5,Warg Pit
+1873,Theodred,Greymane,2,Horsehall
+1874,Brytta,Theodenhall,2,Horsehall
+1875,Anirion,Valeborn,3,Citadel View
+1876,Theodred,Goldmane,2,Westfold Watch
+1877,Merry,Cotton,1,Foxglove Field
+1878,Pippin,Brandybuck,1,Bag End
+1879,Wulf,Shieldarm,2,Horsehall
+1880,Aragorn,Minaswalker,3,Citadel View
+1881,Lugdush,Ashwalker,5,Warg Pit
+1882,Mauhar,The Cruel,5,Mount Doom Outpost
+1883,Mardil,Telcontar,3,White Tower Row
+1884,Haldir,Silverlight,4,Mallorn Glade
+1885,Pippin,Proudfoot,1,Crickhollow
+1886,Orophin,Elensar,4,Silvan Reach
+1887,Boromir,Gondorian,3,Pelennor Hollow
+1888,Amroth,Lorienleaf,4,Whispering Branch
+1889,Denethor,Gondorian,3,Citadel View
+1890,Lugdush,Foulbreath,5,Mount Doom Outpost
+1891,Snaga,Of Cirith Ungol,5,Warg Pit
+1892,Haldir,Lorienleaf,4,Mallorn Glade
+1893,Galadriel,Silverlight,4,Whispering Branch
+1894,Rosie,Chubb,1,Bag End
+1895,Lugdush,Foulbreath,5,Black Gate Shack
+1896,Merry,Brandybuck,1,Honeytree Cottage
+1897,Galadriel,Elensar,4,Golden Bough
+1898,Imrahil,Gondorian,3,Citadel View
+1899,Bolg,Ashwalker,5,Mount Doom Outpost
+1900,Cirion,Stewardson,3,Minas Manor
+1901,Hamfast,Took,1,Foxglove Field
+1902,Merry,Burrows,1,Toadstool Nook
+1903,Aowyn,Shieldarm,2,Helmaes Gate
+1904,Bolg,Blacktooth,5,Mount Doom Outpost
+1905,Mauhar,Darkblade,5,Warg Pit
+1906,Merry,Baggins,1,Bag End
+1907,Anirion,Highguard,3,White Tower Row
+1908,Grishnikh,Roteye,5,Forge Den
+1909,Frodo,Took,1,Honeytree Cottage
+1910,Aowyn,Aoredson,2,Horsehall
+1911,Ramil,Elensar,4,Silvan Reach
+1912,Bolg,Blacktooth,5,Forge Den
+1913,Lathien,Evenstar,4,Whispering Branch
+1914,Boromir,Valeborn,3,Citadel View
+1915,Leofric,Goldmane,2,Westfold Watch
+1916,Azog,The Cruel,5,Mount Doom Outpost
+1917,Galadriel,Elensar,4,Golden Bough
+1918,Nimrodel,Goldsong,4,Golden Bough
+1919,Samwise,Took,1,Greenhill Hall
+1920,Haldir,Silverlight,4,Silvan Reach
+1921,Ecthelion,Highguard,3,White Tower Row
+1922,Orophin,Goldsong,4,Golden Bough
+1923,Aragorn,Valeborn,3,Pelennor Hollow
+1924,Cirion,Valeborn,3,Pelennor Hollow
+1925,Daisy,Hornblower,1,Bag End
+1926,Frealif,Goldmane,2,Helmaes Gate
+1927,Boromir,Telcontar,3,Citadel View
+1928,Haldir,Lorienleaf,4,Whispering Branch
+1929,Ramil,Silverlight,4,Mallorn Glade
+1930,Anirion,Stewardson,3,Pelennor Hollow
+1931,Orophin,Silverlight,4,Silvan Reach
+1932,Gorbag,Foulbreath,5,Forge Den
+1933,Hamfast,Hornblower,1,Sunmeadow
+1934,Celeborn,Goldsong,4,Mallorn Glade
+1935,Frodo,Took,1,Greenhill Hall
+1936,Ecthelion,Valeborn,3,White Tower Row
+1937,Faramir,Valeborn,3,Minas Manor
+1938,Harin,Gondorian,3,Citadel View
+1939,Bilbo,Baggins,1,Greenhill Hall
+1940,Nimrodel,Goldsong,4,Whispering Branch
+1941,Gorbag,Of Cirith Ungol,5,Black Gate Shack
+1942,Rosie,Hornblower,1,Toadstool Nook
+1943,Uglak,Blacktooth,5,Forge Den
+1944,Lathien,Evenstar,4,Mallorn Glade
+1945,Orophin,Starwhisper,4,Whispering Branch
+1946,Merry,Burrows,1,Honeytree Cottage
+1947,Theodred,Shieldarm,2,Snowmane Stables
+1948,Uglak,Ashwalker,5,Warg Pit
+1949,Aragorn,Stewardson,3,Citadel View
+1950,Uglak,Roteye,5,Black Gate Shack
+1951,Ramil,Silverlight,4,Golden Bough
+1952,Galadriel,Evenstar,4,Golden Bough
+1953,Marigold,Took,1,Crickhollow
+1954,Wulf,Shieldarm,2,Horsehall
+1955,Imrahil,Andarilbearer,3,Minas Manor
+1956,Lugdush,Blacktooth,5,Mount Doom Outpost
+1957,Leofric,Aoredson,2,Horsehall
+1958,Aragorn,Highguard,3,White Tower Row
+1959,Ramil,Lorienleaf,4,Mallorn Glade
+1960,Orophin,Elensar,4,Golden Bough
+1961,Bilbo,Took,1,Toadstool Nook
+1962,Bilbo,Gamgee,1,Foxglove Field
+1963,Snaga,The Cruel,5,Forge Den
+1964,Aomer,Mearasbrow,2,Westfold Watch
+1965,Fastred,Greymane,2,Horsehall
+1966,Cirion,Highguard,3,White Tower Row
+1967,Shagrat,Ashwalker,5,Mount Doom Outpost
+1968,Hamfast,Chubb,1,Honeytree Cottage
+1969,Uglak,Darkblade,5,Black Gate Shack
+1970,Celeborn,Elensar,4,Whispering Branch
+1971,Bilbo,Hornblower,1,Greenhill Hall
+1972,Fastred,Greymane,2,Westfold Watch
+1973,Merry,Baggins,1,Foxglove Field
+1974,Orophin,Goldsong,4,Whispering Branch
+1975,Belladonna,Took,1,Toadstool Nook
+1976,Theodred,Greymane,2,Snowmane Stables
+1977,Galadriel,Goldsong,4,Mallorn Glade
+1978,Ecthelion,Gondorian,3,Citadel View
+1979,Grishnikh,The Cruel,5,Warg Pit
+1980,Ecthelion,Gondorian,3,Citadel View
+1981,Amroth,Evenstar,4,Whispering Branch
+1982,Orophin,Elensar,4,Mallorn Glade
+1983,Amroth,Silverlight,4,Whispering Branch
+1984,Brytta,Mearasbrow,2,Horsehall
+1985,Amroth,Elensar,4,Mallorn Glade
+1986,Snaga,Roteye,5,Mount Doom Outpost
+1987,Fastred,Westfold,2,Snowmane Stables
+1988,Lathien,Silverlight,4,Silvan Reach
+1989,Aowyn,Theodenhall,2,Horsehall
+1990,Uglak,Ashwalker,5,Forge Den
+1991,Snaga,The Cruel,5,Forge Den
+1992,Fastred,Greymane,2,Horsehall
+1993,Frodo,Gamgee,1,Sunmeadow
+1994,Anirion,Minaswalker,3,White Tower Row
+1995,Nimrodel,Goldsong,4,Mallorn Glade
+1996,Boromir,Highguard,3,White Tower Row
+1997,Snaga,Blacktooth,5,Black Gate Shack
+1998,Ecthelion,Highguard,3,Minas Manor
+1999,Rosie,Gamgee,1,Greenhill Hall

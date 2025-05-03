@@ -1,0 +1,74 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "HTTP": {
+                "inputs": {
+                    "method": "GET",
+                    "uri": "http://api.open-notify.org/iss-now.json"
+                },
+                "runAfter": {},
+                "runtimeConfiguration": {
+                    "contentTransfer": {
+                        "transferMode": "Chunked"
+                    }
+                },
+                "type": "Http"
+            },
+            "Send_event": {
+                "inputs": {
+                    "body": {
+                        "ContentData": "@{base64(body('HTTP'))}"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['eventhubs']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/@{encodeURIComponent('es_1a0b4049-9431-4eaf-aa7b-2cf365fe548c')}/events"
+                },
+                "runAfter": {
+                    "HTTP": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "Recurrence": {
+                "evaluatedRecurrence": {
+                    "frequency": "Minute",
+                    "interval": 15,
+                    "timeZone": "Eastern Standard Time"
+                },
+                "recurrence": {
+                    "frequency": "Minute",
+                    "interval": 15,
+                    "timeZone": "Eastern Standard Time"
+                },
+                "type": "Recurrence"
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {
+                "eventhubs": {
+                    "connectionId": "/subscriptions/808e6c54-cb85-47e1-a825-be042c134eae/resourceGroups/fabric-pause-when-needed/providers/Microsoft.Web/connections/eventhubs",
+                    "connectionName": "eventhubs",
+                    "id": "/subscriptions/808e6c54-cb85-47e1-a825-be042c134eae/providers/Microsoft.Web/locations/eastus/managedApis/eventhubs"
+                }
+            }
+        }
+    }
+}
