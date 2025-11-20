@@ -1,0 +1,96 @@
+
+
+BASE QUERY 
+
+public_transport
+    | project
+    fetched_at_sec_utc = bin(fetched_at, 1s), //allows us to round to the nearest second
+    fetched_at_sec_pst = datetime_add(""hour"", -8, bin(fetched_at, 1s)),
+    fetched_at_sec_cst = datetime_add("hour", -6, bin(fetched_at, 1s)),
+    fetched_at_date = startofday(datetime_add(""hour"", -8, bin(fetched_at, 1s))),
+    fetched_at_time = format_datetime(datetime(2000-01-01) + (datetime_add(""hour"", -8, bin(fetched_at, 1s)) - startofday(datetime_add(""hour"", -8, bin(fetched_at, 1s)))), ""h:mm:ss tt""),
+    headSign = arrival_tripHeadsign,
+    vehicleId = arrival_vehicleId,
+    //stop info
+    totalStopsInTrip = arrival_totalStopsInTrip,
+    numberOfStopsAway = arrival_numberOfStopsAway,
+    stopSequence = arrival_stopSequence,
+    //geo data
+    lastKnownLat = arrival_tripStatus_lastKnownLocation_lat,
+    lastKnownLong = arrival_tripStatus_lastKnownLocation_lon,
+    positionLat = arrival_tripStatus_position_lat,
+    positionLong = arrival_tripStatus_position_lon,
+    //time stamps
+    predictedArrivalTime = unixtime_milliseconds_todatetime(arrival_predictedArrivalTime),
+    predictedDepartureTime = unixtime_milliseconds_todatetime(arrival_predictedDepartureTime),
+    scheduledDepartureTime = unixtime_milliseconds_todatetime(arrival_scheduledDepartureTime),
+    scheduledArrivalTime = unixtime_milliseconds_todatetime(arrival_scheduledArrivalTime),
+    statusLastUpdateTime = unixtime_milliseconds_todatetime(arrival_tripStatus_lastUpdateTime),
+    lastLocationUpdateTime = unixtime_milliseconds_todatetime(arrival_tripStatus_lastLocationUpdateTime),
+    lastUpdateDateTime = unixtime_milliseconds_todatetime(arrival_lastUpdateTime),
+    //statuses
+    arrival_status,
+    tripStatus = arrival_tripStatus_status,
+    //other
+    routeShortName = arrival_routeShortName,
+    scheduleDeviation = arrival_tripStatus_scheduleDeviation,
+    blockTripSequence = arrival_blockTripSequence,
+    statusBlockTripSequence = arrival_tripStatus_blockTripSequence,
+    nextStopTimeOffset = arrival_tripStatus_nextStopTimeOffset,
+    scheduledDistanceAlongTrip = arrival_tripStatus_scheduledDistanceAlongTrip,
+    totalDistanceAlongTrip = arrival_tripStatus_totalDistanceAlongTrip,
+    distanceAlongTrip = arrival_tripStatus_distanceAlongTrip,
+    phase = arrival_tripStatus_phase,
+    activeTripId = arrival_tripStatus_activeTripId,
+    distanceFromStop = arrival_distanceFromStop,
+    tripId = arrival_tripId,
+    routeId = arrival_routeId
+    //| where isnotnull( vehicleId)
+    //and vehicleId <> ''
+
+CARD (ORDER OF THE WHERE MATTERS)
+base_public_transit
+| where fetched_at_sec_utc between (fetched_at_sec_start .. fetched_at_sec_end)
+| summarize avg(scheduleDeviation)
+
+
+
+TABLE 
+base_public_transit
+| where fetched_at_sec_pst between (fetched_at_sec_pst_start .. fetched_at_sec_pst_end)
+
+
+MAP 
+base_public_transit
+| project 
+    lastKnownLong, 
+    lastKnownLat, 
+    vehicleId, 
+    fetched_at_utc = bin(fetched_at_sec_utc, 1s),
+    tripId,
+    scheduleDeviation
+| render scatterchart with (kind = map)
+| where isnotnull( lastKnownLat) 
+and lastKnownLat  != ''
+and lastKnownLat  != 0
+and fetched_at_utc between (fetched_at_sec_start .. fetched_at_sec_end)
+
+
+FILTERED TO JUST THIS TIMEFRAME 
+let last_fetched_time =
+base_public_transit
+| summarize max(fetched_at_sec_pst)
+| project max_fetched_at_sec_pst;
+base_public_transit
+| where fetched_at_sec_pst in (last_fetched_time)
+
+
+ADDING A NEW COLUMN 
+let last_fetched_time =
+base_public_transit
+| summarize max(fetched_at_sec_pst)
+| project max_fetched_at_sec_pst;
+base_public_transit
+//| where fetched_at_sec_pst in (last_fetched_time)
+| extend 
+    is_last_fetch = case(fetched_at_sec_pst in (last_fetched_time),1,0)
