@@ -15,6 +15,8 @@ let
     EndDate = #date(Date.Year(DateTime.LocalNow())+1,1,1),
     Length = Duration.Days(EndDate - StartDate),
     Today = DateTime.LocalNow(),
+    //uncomment the filtered rows step below to use it
+    TestDate = #date(2025, 12, 31),
 
 //Create list of dates using our variables. #duration increments by (days,hours,minutes,seconds)
     Source = List.Dates(StartDate, Length, #duration(1, 0, 0, 0)),
@@ -23,6 +25,10 @@ let
     #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     #"Renamed Date Column" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Date"}}),
     #"Changed Type to Date" = Table.TransformColumnTypes(#"Renamed Date Column",{{"Date", type date}}),
+
+//Used for testing
+    //#"Filtered Rows" = Table.SelectRows(#"Changed Type to Date", each [Date] = TestDate),
+    // Replace the next step table reference to use
 
 //Create a datekey for easy joins to fact tables
     #"Inserted DateKey" = Table.AddColumn(#"Changed Type to Date", "DateKey", each DateTime.Date([Date]), type date),
@@ -61,9 +67,9 @@ let
     #"Added EndofWeekSunday" = Table.AddColumn(#"Added EndOfWeek+1", "End of Week Sunday", each if [Day Name] = "Sunday" then [Date] else [Custom],type date),
     #"Removed EndOfWeek+1" = Table.RemoveColumns(#"Added EndofWeekSunday",{"Custom"}),
     //WEDate is used for visuals, it can be helpful for end users to see "WE: " before the date so they know this is rolled up to the week level
-    #"Added WEDate" = Table.AddColumn(#"Removed EndOfWeek+1", "W.E. Date", each Text.Combine({"WE : ", Text.From([End of Week Sunday])},"")),
+    #"Added WEDate" = Table.AddColumn(#"Removed EndOfWeek+1", "W.E. Date", each Text.Combine({"WE : ", Text.From([End of Week])},"")),
     //Need this for sorting otherwise it will sort alpha-numerically instead of chronologically
-    #"Inserted WE Week Number" = Table.AddColumn(#"Added WEDate", "W.E. Week Number", each Date.WeekOfYear([End of Week Sunday])-1, Int64.Type),
+    #"Inserted WE Week Number" = Table.AddColumn(#"Added WEDate", "W.E. Week Number", each Date.WeekOfYear([End of Week]), Int64.Type),
     
 //Create ___ To Date Columns
     //Check if the date is before the current month or if it is the current month that it's before the current day of the month
@@ -103,13 +109,12 @@ let
     //if it's within the current year then take the month diff, otherwise do some math to account for how many years ago it is
     #"Added MonthsAgo" = Table.AddColumn(#"Added IsCurrentWTD", "MonthsAgo", each 
         (if [Year] = Date.Year(Today) then Date.Month(Today) - [Month]
-            else Date.Month(Today) - [Month] + (12 * (Date.Year(Today) - [Year])))*-1, Int64.Type),
+            else Date.Month(Today) - [Month] + (12 * (Date.Year(Today) - [Year]))), Int64.Type),
     //use duration days function to get the date difference in days
     #"Added DaysAgo" = Table.AddColumn(#"Added MonthsAgo", "DaysAgo", each 
         Duration.Days(Date.From(Today)-Date.From([Date])),Int64.Type),
-    #"Added WeeksAgo" = Table.AddColumn(#"Added DaysAgo", "Weeks Ago (W.E.)", each 
-        if [Year] = Date.Year(Today) then Date.WeekOfYear(Today) - [W.E. Week Number]
-        else Date.WeekOfYear(Today) - [W.E. Week Number] + 52, type number),
+    //NOTE: Day.Sunday paramter in Date.EndOfWeek means that the week starts on Sunday and ends on Saturday
+    #"Added WeeksAgo" = Table.AddColumn(#"Added DaysAgo", "Weeks Ago (W.E.)", each Number.RoundDown(Duration.Days(Date.From(Date.EndOfWeek(Today, Day.Sunday)) - [End of Week]) / 7), type number),
 
 //Create work day columns
     //Work day of the week reassigns Sunday & Saturday to Friday
@@ -130,6 +135,8 @@ let
 //Feel free to add more holidays. This is currently limited to holidays that are date determined, not moon cycle determined nor day of the month determined
     #"Added Holiday" = Table.AddColumn(#"Added WorkDaysAgo", "IsHoliday", each if [Month Day] = "Jan 1" then 1 else if [Month Day] = "July 4" then 1 else if [Month Day] = "Nov 11" then 1 else if [Month Day] = "Dec 25" then 1 else 0,Int64.Type),
 //Naming date "CalendarDate" makes it much easier to find when building visuals since there are usually quite a few date columns
-    #"Renamed Date for Clarity" = Table.RenameColumns(#"Added Holiday",{{"Date", "CalendarDate"}})
+    #"Renamed Date for Clarity" = Table.RenameColumns(#"Added Holiday",{{"Date", "Date"}}),
+    #"Duplicated Column" = Table.DuplicateColumn(#"Renamed Date for Clarity", "Date", "Date Time"),
+    #"Changed Type" = Table.TransformColumnTypes(#"Duplicated Column",{{"Date Time", type datetime}})
 in
-    #"Renamed Date for Clarity"
+    #"Changed Type"
