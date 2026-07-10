@@ -1,0 +1,99 @@
+<svg viewBox="0 0 960 772" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <rect x="0" y="0" width="960" height="772" rx="16" fill="#14171f"/>
+
+  <text x="28" y="42" fill="#e8eaed" font-size="21" font-weight="700">Our Chat: A Sentiment Rollercoaster</text>
+  <text x="28" y="64" fill="#9aa0aa" font-size="13">from "let's build a fun demo" to "150 ROWS" — with several attempts to quit in between</text>
+
+  <g transform="translate(0,80)">
+    <!-- gridlines -->
+    <g stroke="#2a2f3a" stroke-width="1">
+      <line x1="60" y1="60"  x2="900" y2="60"/>
+      <line x1="60" y1="140" x2="900" y2="140"/>
+      <line x1="60" y1="220" x2="900" y2="220"/>
+      <line x1="60" y1="300" x2="900" y2="300"/>
+      <line x1="60" y1="380" x2="900" y2="380"/>
+    </g>
+    <line x1="60" y1="220" x2="900" y2="220" stroke="#3b424f" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+    <g fill="#9aa0aa" font-size="11" text-anchor="end">
+      <text x="54" y="64">+10</text>
+      <text x="54" y="224">0</text>
+      <text x="54" y="384">-10</text>
+    </g>
+    <text x="22" y="220" fill="#6b7280" font-size="11" transform="rotate(-90 22 220)" text-anchor="middle">mood</text>
+
+    <!-- the line -->
+    <polyline fill="none" stroke="#f0a020" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+      points="70,92 130.8,316 191.5,124 252.3,108 313.1,284 373.8,316 434.6,268 495.4,204 556.2,348 616.9,316 677.7,332 738.5,188 799.2,60 860,76"/>
+
+    <!-- dots + numbers -->
+    <g font-size="11" font-weight="700" fill="#e8eaed" text-anchor="middle">
+      <circle cx="70"    cy="92"  r="6" fill="#46a758"/><text x="70"    y="83">1</text>
+      <circle cx="130.8" cy="316" r="6" fill="#e5484d"/><text x="130.8" y="337">2</text>
+      <circle cx="191.5" cy="124" r="6" fill="#46a758"/><text x="191.5" y="115">3</text>
+      <circle cx="252.3" cy="108" r="6" fill="#46a758"/><text x="252.3" y="99">4</text>
+      <circle cx="313.1" cy="284" r="6" fill="#e5484d"/><text x="313.1" y="305">5</text>
+      <circle cx="373.8" cy="316" r="6" fill="#e5484d"/><text x="373.8" y="337">6</text>
+      <circle cx="434.6" cy="268" r="6" fill="#e5484d"/><text x="434.6" y="289">7</text>
+      <circle cx="495.4" cy="204" r="6" fill="#f0a020"/><text x="495.4" y="195">8</text>
+      <circle cx="556.2" cy="348" r="6" fill="#e5484d"/><text x="556.2" y="369">9</text>
+      <circle cx="616.9" cy="316" r="6" fill="#e5484d"/><text x="616.9" y="337">10</text>
+      <circle cx="677.7" cy="332" r="6" fill="#e5484d"/><text x="677.7" y="353">11</text>
+      <circle cx="738.5" cy="188" r="6" fill="#f0a020"/><text x="738.5" y="179">12</text>
+      <circle cx="799.2" cy="60"  r="7" fill="#46a758"/><text x="799.2" y="48">13</text>
+      <circle cx="860"   cy="76"  r="6" fill="#46a758"/><text x="860"   y="67">14</text>
+    </g>
+
+    <!-- callouts -->
+    <g font-size="11.5">
+      <text x="150" y="404" text-anchor="middle" fill="#e5484d">one Activator, endless errors</text>
+
+      <text x="470" y="150" text-anchor="middle" fill="#f0a020">Claude tries to quit (x4)</text>
+      <path d="M420,158 C440,200 400,240 373.8,300" stroke="#f0a020" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M500,158 C520,220 560,300 556.2,332" stroke="#f0a020" stroke-width="1" fill="none" opacity="0.5"/>
+
+      <text x="648" y="410" text-anchor="middle" fill="#e5484d">the wall MS sealed ~4 months earlier</text>
+      <path d="M660,400 C662,372 662,352 662,342" stroke="#e5484d" stroke-width="1" fill="none" opacity="0.5"/>
+
+      <text x="812" y="32" text-anchor="middle" fill="#46a758" font-weight="700">150 ROWS!!!</text>
+    </g>
+  </g>
+
+  <!-- legend -->
+  <g font-size="12.5">
+    <text x="40" y="556" fill="#c4cad3"><tspan fill="#46a758" font-weight="700">1.</tspan> Let's build a fun LOTR demo!</text>
+    <text x="40" y="578" fill="#c4cad3"><tspan fill="#e5484d" font-weight="700">2.</tspan> Wiring the Activator: headers too long?!</text>
+    <text x="40" y="600" fill="#c4cad3"><tspan fill="#46a758" font-weight="700">3.</tspan> Activator finally goes Active (Set alert)</text>
+    <text x="40" y="622" fill="#c4cad3"><tspan fill="#46a758" font-weight="700">4.</tspan> Now measure the cost, easy</text>
+    <text x="40" y="644" fill="#c4cad3"><tspan fill="#e5484d" font-weight="700">5.</tspan> XMLA / Discover: permission denied</text>
+    <text x="40" y="666" fill="#c4cad3"><tspan fill="#e5484d" font-weight="700">6.</tspan> CU measures return blank</text>
+    <text x="40" y="688" fill="#c4cad3"><tspan fill="#e5484d" font-weight="700">7.</tspan> Claude: 'just use the app numbers'</text>
+
+    <text x="500" y="556" fill="#c4cad3"><tspan fill="#f0a020" font-weight="700">8.</tspan> 'don't give up on me' -&gt; one more cell</text>
+    <text x="500" y="578" fill="#c4cad3"><tspan fill="#e5484d" font-weight="700">9.</tspan> 200 timepoints, 0 rows, 13 minutes</text>
+    <text x="500" y="600" fill="#c4cad3"><tspan fill="#e5484d" font-weight="700">10.</tspan> Claude waves the flag again</text>
+    <text x="500" y="622" fill="#c4cad3"><tspan fill="#e5484d" font-weight="700">11.</tspan> research: MS blocked this in March</text>
+    <text x="500" y="644" fill="#c4cad3"><tspan fill="#f0a020" font-weight="700">12.</tspan> 'what about FUAM?' -&gt; a real lead</text>
+    <text x="500" y="666" fill="#c4cad3"><tspan fill="#46a758" font-weight="700">13.</tspan> Day-grain table answers. 150 rows.</text>
+    <text x="500" y="688" fill="#c4cad3"><tspan fill="#46a758" font-weight="700">14.</tspan> Dollars, cleanup, victory lap</text>
+  </g>
+
+  <!-- punchline stats -->
+  <g>
+    <rect x="30"  y="704" width="216" height="52" rx="9" fill="#1c2029"/>
+    <text x="42" y="728" fill="#e5484d" font-size="20" font-weight="800">4</text>
+    <text x="42" y="746" fill="#9aa0aa" font-size="11">times Claude suggested giving up</text>
+
+    <rect x="256" y="704" width="216" height="52" rx="9" fill="#1c2029"/>
+    <text x="268" y="728" fill="#46a758" font-size="20" font-weight="800">4</text>
+    <text x="268" y="746" fill="#9aa0aa" font-size="11">times you said keep going anyway</text>
+
+    <rect x="482" y="704" width="216" height="52" rx="9" fill="#1c2029"/>
+    <text x="494" y="728" fill="#f0a020" font-size="20" font-weight="800">~4 months</text>
+    <text x="494" y="746" fill="#9aa0aa" font-size="11">the wall was up before we hit it</text>
+
+    <rect x="708" y="704" width="222" height="52" rx="9" fill="#1c2029"/>
+    <text x="720" y="728" fill="#e8eaed" font-size="20" font-weight="800">1:34 AM</text>
+    <text x="720" y="746" fill="#9aa0aa" font-size="11">timestamp on the 'no luck' screenshot</text>
+  </g>
+</svg>
