@@ -1,0 +1,247 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "ac9522d694e1ca8c2712",
+  "position": {
+    "x": 792,
+    "y": 424,
+    "z": 14000,
+    "height": 268,
+    "width": 472,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimUser"
+                    }
+                  },
+                  "Property": "User"
+                }
+              },
+              "queryRef": "dimUser.User",
+              "nativeQueryRef": "User"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Interactive CU (s)"
+                }
+              },
+              "queryRef": "_Measures.Interactive CU (s)",
+              "nativeQueryRef": "Interactive CU (s)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Interactive Operations"
+                }
+              },
+              "queryRef": "_Measures.Interactive Operations",
+              "nativeQueryRef": "Interactive Operations"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Failure Rate %"
+                }
+              },
+              "queryRef": "_Measures.Failure Rate %",
+              "nativeQueryRef": "Failure Rate %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Interactive CU (s)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#101828'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "82.41818181818182D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Interactive Operations"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "67.72727272727272D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Interactive CU (s)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "58.38181818181818D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Failure Rate %"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Who uses it'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Interactive CU by person (sampled)'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

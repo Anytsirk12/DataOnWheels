@@ -1,0 +1,229 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "2cf55681b4495f19c29e",
+  "position": {
+    "x": 16,
+    "y": 204,
+    "z": 13000,
+    "height": 232,
+    "width": 760,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimCalendar"
+                    }
+                  },
+                  "Property": "Date"
+                }
+              },
+              "queryRef": "dimCalendar.Date",
+              "nativeQueryRef": "Date",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Daily CU"
+                }
+              },
+              "queryRef": "_Measures.Daily CU",
+              "nativeQueryRef": "Daily CU"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "CU 7-Day Avg"
+                }
+              },
+              "queryRef": "_Measures.CU 7-Day Avg",
+              "nativeQueryRef": "CU 7-Day Avg"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#A9C9F0'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Daily CU"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2A78D6'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.CU 7-Day Avg"
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Daily CU"
+          }
+        },
+        {
+          "properties": {
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.CU 7-Day Avg"
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Is total load trending up?'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'CU per day (light) and 7-day average (dark)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

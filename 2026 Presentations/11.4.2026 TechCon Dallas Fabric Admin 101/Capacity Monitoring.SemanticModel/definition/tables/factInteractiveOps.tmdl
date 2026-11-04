@@ -1,0 +1,181 @@
+/// One row per interactive operation. The raw table holds one row per operation per sampled timepoint (plus a "Power BI Service" companion row for some queries), so the source query keeps one row per operation_id, preferring the named user. Rejected operations arrive with no operation_id and are all kept.
+table factInteractiveOps
+	lineageTag: f1a00001-0001-0001-0001-000000000001
+
+	column operation_start_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f1a00001-0001-0001-0001-000000000011
+		summarizeBy: none
+		sourceColumn: operation_start_time
+
+	column operation_end_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f1a00001-0001-0001-0001-000000000012
+		summarizeBy: none
+		sourceColumn: operation_end_time
+
+	column status
+		dataType: string
+		lineageTag: f1a00001-0001-0001-0001-000000000013
+		summarizeBy: none
+		sourceColumn: status
+
+	column operation
+		dataType: string
+		isHidden
+		lineageTag: f1a00001-0001-0001-0001-000000000014
+		summarizeBy: none
+		sourceColumn: operation
+
+	column user
+		dataType: string
+		isHidden
+		lineageTag: f1a00001-0001-0001-0001-000000000015
+		summarizeBy: none
+		sourceColumn: user
+
+	column operation_id
+		dataType: string
+		isHidden
+		lineageTag: f1a00001-0001-0001-0001-000000000016
+		summarizeBy: none
+		sourceColumn: operation_id
+
+	column billing_type
+		dataType: string
+		isHidden
+		lineageTag: f1a00001-0001-0001-0001-000000000017
+		summarizeBy: none
+		sourceColumn: billing_type
+
+	column workspace_id
+		dataType: string
+		isHidden
+		lineageTag: f1a00001-0001-0001-0001-000000000018
+		summarizeBy: none
+		sourceColumn: workspace_id
+
+	column item_id
+		dataType: string
+		isHidden
+		lineageTag: f1a00001-0001-0001-0001-000000000019
+		summarizeBy: none
+		sourceColumn: item_id
+
+	column duration_s
+		dataType: int64
+		formatString: #,0
+		lineageTag: f1a00001-0001-0001-0001-00000000001a
+		summarizeBy: none
+		sourceColumn: duration_s
+
+	column total_cu_s
+		dataType: double
+		formatString: #,0.00
+		lineageTag: f1a00001-0001-0001-0001-00000000001c
+		summarizeBy: none
+		sourceColumn: total_cu_s
+
+	column throttling_s
+		dataType: int64
+		formatString: #,0
+		lineageTag: f1a00001-0001-0001-0001-00000000001d
+		summarizeBy: none
+		sourceColumn: throttling_s
+
+	column capacity_id
+		dataType: string
+		isHidden
+		lineageTag: f1a00001-0001-0001-0001-00000000001f
+		summarizeBy: none
+		sourceColumn: capacity_id
+
+	column sampled_date
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: f1a00001-0001-0001-0001-000000000020
+		summarizeBy: none
+		sourceColumn: sampled_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column sampled_hour
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f1a00001-0001-0001-0001-000000000021
+		summarizeBy: none
+		sourceColumn: sampled_hour
+
+	column user_key
+		dataType: string
+		isHidden
+		lineageTag: f1a00001-0001-0001-0001-000000000022
+		summarizeBy: none
+		sourceColumn: user_key
+
+	column item_key
+		dataType: string
+		isHidden
+		lineageTag: 16965b49-cc77-43f7-924e-6e1321c0b9fc
+		summarizeBy: none
+		sourceColumn: item_key
+
+	partition factInteractiveOps = m
+		mode: import
+		source =
+				let
+				    Sql = "
+				        WITH x AS (
+				            SELECT
+				                operation_start_time, operation_end_time, status, operation, [user], operation_id, billing_type,
+				                UPPER(workspace_id) AS workspace_id,
+				                UPPER(item_id) AS item_id,
+				                UPPER(capacity_id) AS capacity_id,
+				                duration_s, total_cu_s, throttling_s,
+				                CASE WHEN operation_id IS NULL THEN 1
+				                     ELSE ROW_NUMBER() OVER (
+				                         PARTITION BY operation_id
+				                         ORDER BY CASE WHEN [user] = 'Power BI Service' THEN 1 ELSE 0 END, sampled_timepoint)
+				                END AS rn
+				            FROM dbo.factCapacityMetricsInteractive
+				        )
+				        SELECT
+				            operation_start_time, operation_end_time, status, operation, [user], operation_id, billing_type,
+				            workspace_id, item_id, capacity_id, duration_s, total_cu_s, throttling_s,
+				            CAST(operation_start_time AS date) AS sampled_date,
+				            DATEPART(hour, operation_start_time) AS sampled_hour,
+				            LOWER([user]) AS user_key,
+				            CONCAT(item_id, '||', workspace_id) AS item_key
+				        FROM x
+				        WHERE rn = 1",
+				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Types = Table.TransformColumnTypes(Source, {
+				        {"operation_start_time", type datetime},
+				        {"operation_end_time", type datetime},
+				        {"status", type text},
+				        {"operation", type text},
+				        {"user", type text},
+				        {"operation_id", type text},
+				        {"billing_type", type text},
+				        {"workspace_id", type text},
+				        {"item_id", type text},
+				        {"capacity_id", type text},
+				        {"duration_s", Int64.Type},
+				        {"total_cu_s", type number},
+				        {"throttling_s", Int64.Type},
+				        {"sampled_date", type date},
+				        {"sampled_hour", Int64.Type},
+				        {"user_key", type text},
+				        {"item_key", type text}
+				    })
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

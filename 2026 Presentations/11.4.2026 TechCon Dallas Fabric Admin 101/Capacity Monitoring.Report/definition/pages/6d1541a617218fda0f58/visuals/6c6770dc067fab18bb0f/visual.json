@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "6c6770dc067fab18bb0f",
+  "position": {
+    "x": 16,
+    "y": 8,
+    "z": 0,
+    "height": 60,
+    "width": 680,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Failures and Throttling",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "18pt",
+                      "color": "#101828",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "What is failing or being refused, and is it a new problem or an old one?",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#475467",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

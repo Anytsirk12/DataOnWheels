@@ -1,0 +1,87 @@
+/// Capacity load at each sampled 30-second checkpoint (one per hour today). Built from the RAW timepoint rows before any deduplication: at a sampled checkpoint the Metrics app lists every operation contributing to it, so the sum of timepoint_cu_s is the exact smoothed load at that moment, which is what the Metrics app plots as utilization. Interactive rows are kept only at checkpoints where background was also captured, so the two always add up at the same instants even if interactive is sampled more often.
+table factCapacityLoad
+	lineageTag: 7c1e0f52-3b9a-4f8e-9d61-2a4b8c0e5f11
+
+	column capacity_id
+		dataType: string
+		isHidden
+		lineageTag: 7c1e0f52-3b9a-4f8e-9d61-2a4b8c0e5f12
+		summarizeBy: none
+		sourceColumn: capacity_id
+
+	column sampled_timepoint
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7c1e0f52-3b9a-4f8e-9d61-2a4b8c0e5f13
+		summarizeBy: none
+		sourceColumn: sampled_timepoint
+
+	column workload_type
+		dataType: string
+		isHidden
+		lineageTag: 7c1e0f52-3b9a-4f8e-9d61-2a4b8c0e5f14
+		summarizeBy: none
+		sourceColumn: workload_type
+
+	column timepoint_cu_s
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: 7c1e0f52-3b9a-4f8e-9d61-2a4b8c0e5f15
+		summarizeBy: none
+		sourceColumn: timepoint_cu_s
+
+	column sampled_date
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: 7c1e0f52-3b9a-4f8e-9d61-2a4b8c0e5f16
+		summarizeBy: none
+		sourceColumn: sampled_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Hour (UTC)'
+		dataType: int64
+		formatString: 00
+		lineageTag: 7c1e0f52-3b9a-4f8e-9d61-2a4b8c0e5f17
+		summarizeBy: none
+		sourceColumn: sampled_hour
+
+	partition factCapacityLoad = m
+		mode: import
+		source =
+				let
+				    Sql = "
+				        WITH b AS (
+				            SELECT UPPER(capacity_id) AS capacity_id, sampled_timepoint, SUM(timepoint_cu_s) AS timepoint_cu_s
+				            FROM dbo.factCapacityMetricsBackground
+				            GROUP BY UPPER(capacity_id), sampled_timepoint
+				        ),
+				        i AS (
+				            SELECT UPPER(capacity_id) AS capacity_id, sampled_timepoint, SUM(timepoint_cu_s) AS timepoint_cu_s
+				            FROM dbo.factCapacityMetricsInteractive
+				            GROUP BY UPPER(capacity_id), sampled_timepoint
+				        )
+				        SELECT capacity_id, sampled_timepoint, 'Background' AS workload_type, timepoint_cu_s FROM b
+				        UNION ALL
+				        SELECT i.capacity_id, i.sampled_timepoint, 'Interactive', i.timepoint_cu_s
+				        FROM i
+				        JOIN (SELECT DISTINCT capacity_id, sampled_timepoint FROM b) bt
+				          ON bt.capacity_id = i.capacity_id AND bt.sampled_timepoint = i.sampled_timepoint",
+				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Types = Table.TransformColumnTypes(Source, {
+				        {"capacity_id", type text},
+				        {"sampled_timepoint", type datetime},
+				        {"workload_type", type text},
+				        {"timepoint_cu_s", type number}
+				    }),
+				    AddDate = Table.AddColumn(Types, "sampled_date", each DateTime.Date([sampled_timepoint]), type date),
+				    AddHour = Table.AddColumn(AddDate, "sampled_hour", each Time.Hour([sampled_timepoint]), Int64.Type)
+				in
+				    AddHour
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

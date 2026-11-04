@@ -1,0 +1,27 @@
+/// Disconnected date list for the Before / After page: pick the day you talked to a team and the measures compare the 14 days before it with the 14 days after it.
+table 'Change Date'
+	lineageTag: 2b8e6d4a-5c1f-4e97-a3b2-8f0d1c9e7a01
+
+	column 'Change Date'
+		dataType: dateTime
+		formatString: mmm d, yyyy
+		lineageTag: 2b8e6d4a-5c1f-4e97-a3b2-8f0d1c9e7a02
+		summarizeBy: none
+		sourceColumn: Change Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Change Date' = m
+		mode: import
+		source =
+				let
+				    StartDate = #date(2026, 7, 1),
+				    EndDate = Date.From(DateTime.LocalNow()),
+				    Dates = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1, 0, 0, 0)),
+				    ToTable = Table.FromList(Dates, Splitter.SplitByNothing(), {"Change Date"}),
+				    Typed = Table.TransformColumnTypes(ToTable, {{"Change Date", type date}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

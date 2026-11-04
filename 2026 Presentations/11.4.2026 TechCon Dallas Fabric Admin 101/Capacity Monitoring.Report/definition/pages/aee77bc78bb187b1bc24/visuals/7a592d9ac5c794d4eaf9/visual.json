@@ -1,0 +1,217 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "7a592d9ac5c794d4eaf9",
+  "position": {
+    "x": 16,
+    "y": 424,
+    "z": 13000,
+    "height": 268,
+    "width": 760,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "factBackgroundOps"
+                    }
+                  },
+                  "Property": "operation_start_time"
+                }
+              },
+              "queryRef": "factBackgroundOps.operation_start_time",
+              "nativeQueryRef": "operation_start_time"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimOperation"
+                    }
+                  },
+                  "Property": "Operation"
+                }
+              },
+              "queryRef": "dimOperation.Operation",
+              "nativeQueryRef": "Operation"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "factBackgroundOps"
+                    }
+                  },
+                  "Property": "status"
+                }
+              },
+              "queryRef": "factBackgroundOps.status",
+              "nativeQueryRef": "status"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Background CU (s)"
+                }
+              },
+              "queryRef": "_Measures.Background CU (s)",
+              "nativeQueryRef": "Background CU (s)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Duration (s)"
+                }
+              },
+              "queryRef": "_Measures.Avg Duration (s)",
+              "nativeQueryRef": "Avg Duration (s)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Background CU (s)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#101828'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Heaviest background operations'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Refreshes, pipelines and SQL queries, by CU'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "fd60e236fa7ff91a04b7",
+  "position": {
+    "x": 792,
+    "y": 204,
+    "z": 14000,
+    "height": 232,
+    "width": 472,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimCalendar"
+                    }
+                  },
+                  "Property": "Date"
+                }
+              },
+              "queryRef": "dimCalendar.Date",
+              "nativeQueryRef": "Date",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Peak Utilization %"
+                }
+              },
+              "queryRef": "_Measures.Peak Utilization %",
+              "nativeQueryRef": "Peak Utilization %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Utilization %"
+                }
+              },
+              "queryRef": "_Measures.Avg Utilization %",
+              "nativeQueryRef": "Avg Utilization %"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EB6834'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Peak Utilization %"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2A78D6'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Avg Utilization %"
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Peak Utilization %"
+          }
+        },
+        {
+          "properties": {
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Avg Utilization %"
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'How close to the limit?'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Utilization at hourly checkpoints: daily peak and average'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,180 @@
+/// One row per background operation per item. The raw table repeats every operation once per sampled timepoint for the 24 hours it is smoothed over, and one operation_id can cover several items (SQL endpoint and dataflow queries), so the source query groups to operation + item grain instead of deduplicating on operation_id alone.
+table factBackgroundOps
+	lineageTag: f1a00002-0002-0002-0002-000000000001
+
+	column operation_start_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f1a00002-0002-0002-0002-000000000011
+		summarizeBy: none
+		sourceColumn: operation_start_time
+
+	column operation_end_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f1a00002-0002-0002-0002-000000000012
+		summarizeBy: none
+		sourceColumn: operation_end_time
+
+	column status
+		dataType: string
+		lineageTag: f1a00002-0002-0002-0002-000000000013
+		summarizeBy: none
+		sourceColumn: status
+
+	column operation
+		dataType: string
+		isHidden
+		lineageTag: f1a00002-0002-0002-0002-000000000014
+		summarizeBy: none
+		sourceColumn: operation
+
+	column user
+		dataType: string
+		isHidden
+		lineageTag: f1a00002-0002-0002-0002-000000000015
+		summarizeBy: none
+		sourceColumn: user
+
+	column operation_id
+		dataType: string
+		isHidden
+		lineageTag: f1a00002-0002-0002-0002-000000000016
+		summarizeBy: none
+		sourceColumn: operation_id
+
+	column billing_type
+		dataType: string
+		isHidden
+		lineageTag: f1a00002-0002-0002-0002-000000000017
+		summarizeBy: none
+		sourceColumn: billing_type
+
+	column workspace_id
+		dataType: string
+		isHidden
+		lineageTag: f1a00002-0002-0002-0002-000000000018
+		summarizeBy: none
+		sourceColumn: workspace_id
+
+	column item_id
+		dataType: string
+		isHidden
+		lineageTag: f1a00002-0002-0002-0002-000000000019
+		summarizeBy: none
+		sourceColumn: item_id
+
+	column duration_s
+		dataType: int64
+		formatString: #,0
+		lineageTag: f1a00002-0002-0002-0002-00000000001a
+		summarizeBy: none
+		sourceColumn: duration_s
+
+	column total_cu_s
+		dataType: double
+		formatString: #,0.00
+		lineageTag: f1a00002-0002-0002-0002-00000000001c
+		summarizeBy: none
+		sourceColumn: total_cu_s
+
+	column throttling_s
+		dataType: int64
+		formatString: #,0
+		lineageTag: f1a00002-0002-0002-0002-00000000001d
+		summarizeBy: none
+		sourceColumn: throttling_s
+
+	column capacity_id
+		dataType: string
+		isHidden
+		lineageTag: f1a00002-0002-0002-0002-00000000001f
+		summarizeBy: none
+		sourceColumn: capacity_id
+
+	column sampled_date
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: f1a00002-0002-0002-0002-000000000020
+		summarizeBy: none
+		sourceColumn: sampled_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column sampled_hour
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f1a00002-0002-0002-0002-000000000021
+		summarizeBy: none
+		sourceColumn: sampled_hour
+
+	column item_key
+		dataType: string
+		isHidden
+		lineageTag: 5a5cca9e-5c0a-4158-8944-fb692c010f2b
+		summarizeBy: none
+		sourceColumn: item_key
+
+	column user_key
+		dataType: string
+		isHidden
+		lineageTag: f1a00002-0002-0002-0002-000000000022
+		summarizeBy: none
+		sourceColumn: user_key
+
+	partition factBackgroundOps = m
+		mode: import
+		source =
+				let
+				    Sql = "
+				        WITH g AS (
+				            SELECT
+				                operation_start_time, operation_end_time, status, operation, [user], operation_id, billing_type,
+				                UPPER(workspace_id) AS workspace_id,
+				                UPPER(item_id) AS item_id,
+				                UPPER(capacity_id) AS capacity_id,
+				                MAX(duration_s) AS duration_s,
+				                MAX(total_cu_s) AS total_cu_s,
+				                MAX(throttling_s) AS throttling_s
+				            FROM dbo.factCapacityMetricsBackground
+				            GROUP BY
+				                operation_start_time, operation_end_time, status, operation, [user], operation_id, billing_type,
+				                UPPER(workspace_id), UPPER(item_id), UPPER(capacity_id)
+				        )
+				        SELECT
+				            operation_start_time, operation_end_time, status, operation, [user], operation_id, billing_type,
+				            workspace_id, item_id, capacity_id, duration_s, total_cu_s, throttling_s,
+				            CAST(operation_start_time AS date) AS sampled_date,
+				            DATEPART(hour, operation_start_time) AS sampled_hour,
+				            LOWER([user]) AS user_key,
+				            CONCAT(item_id, '||', workspace_id) AS item_key
+				        FROM g",
+				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Types = Table.TransformColumnTypes(Source, {
+				        {"operation_start_time", type datetime},
+				        {"operation_end_time", type datetime},
+				        {"status", type text},
+				        {"operation", type text},
+				        {"user", type text},
+				        {"operation_id", type text},
+				        {"billing_type", type text},
+				        {"workspace_id", type text},
+				        {"item_id", type text},
+				        {"capacity_id", type text},
+				        {"duration_s", Int64.Type},
+				        {"total_cu_s", type number},
+				        {"throttling_s", Int64.Type},
+				        {"sampled_date", type date},
+				        {"sampled_hour", Int64.Type},
+				        {"user_key", type text},
+				        {"item_key", type text}
+				    })
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

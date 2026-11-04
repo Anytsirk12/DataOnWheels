@@ -1,0 +1,39 @@
+/// Every operation name seen in either workload, so one slicer or axis covers both fact tables.
+table dimOperation
+	lineageTag: 5d2a9c47-1e6b-4f03-8a7d-9b4e2c6f1a01
+
+	column Operation
+		dataType: string
+		lineageTag: 5d2a9c47-1e6b-4f03-8a7d-9b4e2c6f1a02
+		summarizeBy: none
+		sourceColumn: operation
+
+	column Workload
+		dataType: string
+		lineageTag: 5d2a9c47-1e6b-4f03-8a7d-9b4e2c6f1a03
+		summarizeBy: none
+		sourceColumn: workload
+
+	partition dimOperation = m
+		mode: import
+		source =
+				let
+				    Sql = "
+				        SELECT operation,
+				               CASE WHEN COUNT(DISTINCT workload) > 1 THEN 'Both' ELSE MAX(workload) END AS workload
+				        FROM (
+				            SELECT DISTINCT operation, 'Interactive' AS workload FROM dbo.factCapacityMetricsInteractive
+				            UNION ALL
+				            SELECT DISTINCT operation, 'Background' FROM dbo.factCapacityMetricsBackground
+				        ) o
+				        WHERE operation IS NOT NULL
+				        GROUP BY operation",
+				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Types = Table.TransformColumnTypes(Source, {{"operation", type text}, {"workload", type text}})
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

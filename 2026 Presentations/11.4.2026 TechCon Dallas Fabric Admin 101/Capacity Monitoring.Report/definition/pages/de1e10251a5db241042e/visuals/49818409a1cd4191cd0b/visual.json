@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "49818409a1cd4191cd0b",
+  "position": {
+    "x": 16,
+    "y": 8,
+    "z": 0,
+    "height": 60,
+    "width": 680,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Capacity Overview",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "18pt",
+                      "color": "#101828",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Is load rising, what is new or getting worse, and is anything failing? Last 7 days vs the prior 4 weeks.",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#475467",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

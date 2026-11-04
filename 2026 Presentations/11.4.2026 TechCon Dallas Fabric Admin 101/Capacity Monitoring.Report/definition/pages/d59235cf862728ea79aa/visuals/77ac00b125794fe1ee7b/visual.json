@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "77ac00b125794fe1ee7b",
+  "position": {
+    "x": 16,
+    "y": 8,
+    "z": 0,
+    "height": 60,
+    "width": 680,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "What Changed",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "18pt",
+                      "color": "#101828",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Which workspaces and items moved? Expand a workspace to see its items; click a row to filter the charts.",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#475467",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

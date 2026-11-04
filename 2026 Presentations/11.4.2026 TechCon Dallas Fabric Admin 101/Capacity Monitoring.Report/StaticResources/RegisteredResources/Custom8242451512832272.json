@@ -1,0 +1,20 @@
+{
+  "name": "Custom",
+  "textClasses": {
+    "label": {
+      "fontSize": 8
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "filterCard": [
+          {
+            "$id": "Available",
+            "textSize": 9
+          }
+        ]
+      }
+    }
+  }
+}

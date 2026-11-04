@@ -1,0 +1,104 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "41e1480f657ddaf4e098",
+  "position": {
+    "x": 268,
+    "y": 96,
+    "z": 5000,
+    "height": 66,
+    "width": 238,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Peak Utilization (Last 7d) %"
+                }
+              },
+              "queryRef": "_Measures.Peak Utilization (Last 7d) %",
+              "nativeQueryRef": "Peak Utilization (Last 7d) %"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "24D"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "KPI Utilization Color"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Peak utilization, last 7 days'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

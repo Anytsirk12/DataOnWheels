@@ -1,0 +1,207 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "20c511bfc6d4f4be1a3d",
+  "position": {
+    "x": 16,
+    "y": 450,
+    "z": 11000,
+    "height": 242,
+    "width": 1248,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "factCapacityLoad"
+                    }
+                  },
+                  "Property": "Hour (UTC)"
+                }
+              },
+              "queryRef": "factCapacityLoad.Hour (UTC)",
+              "nativeQueryRef": "Hour (UTC)",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimCalendar"
+                    }
+                  },
+                  "Property": "Weekday"
+                }
+              },
+              "queryRef": "dimCalendar.Weekday",
+              "nativeQueryRef": "Weekday",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Utilization %"
+                }
+              },
+              "queryRef": "_Measures.Avg Utilization %",
+              "nativeQueryRef": "Avg Utilization %"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#101828'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "Utilization Heat Color"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "_Measures.Avg Utilization %"
+          }
+        }
+      ],
+      "subTotals": [
+        {
+          "properties": {
+            "rowSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "columnSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "rowHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'When does the pressure hit?'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Average utilization by weekday and hour (UTC). Amber = 80%+, red = 100%+.'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
