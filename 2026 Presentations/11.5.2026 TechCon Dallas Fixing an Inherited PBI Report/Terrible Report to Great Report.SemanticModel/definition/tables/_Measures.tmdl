@@ -42,9 +42,13 @@ table _Measures
 		lineageTag: 2defb5cb-d447-414c-9f8c-19bfbe043372
 
 	measure 'Std Cost' =
+			VAR _rows = FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year]))
+			RETURN
 			SUMX(
-			    FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year])),
-			    'Sales Data FINAL v2'[Total Product Cost] * 1
+			    _rows,
+			    VAR _line = 'Sales Data FINAL v2'[SalesOrderLineKey]
+			    VAR _check = MIN(1, COUNTROWS(FILTER(ALL('Product List'), LEN('Product List'[Product]) + _line > _line - 100000000)) + 1)
+			    RETURN 'Sales Data FINAL v2'[Total Product Cost] * _check
 			)
 		lineageTag: e944231c-84b4-4cc9-8b52-ac7b3b8c0154
 
