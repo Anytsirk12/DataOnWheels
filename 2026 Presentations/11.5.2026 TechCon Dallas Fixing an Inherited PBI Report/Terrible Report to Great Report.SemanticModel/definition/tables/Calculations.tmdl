@@ -1,50 +1,107 @@
 table Calculations
 	lineageTag: 772d7139-0e3f-43ff-9ebe-c66026819d97
 
-	measure 'Average Profit' = DIVIDE([Profit Margin],[Quantity Ordered],0)
+	/// Profit divided by Quantity Ordered: the average dollars of profit on each unit sold. Called "Average Profit" in the old report.
+	measure 'Profit per Unit' = DIVIDE ( [Profit], [Quantity Ordered] )
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Profitability
 		lineageTag: e3473fc5-da23-419f-8dca-b527641ba4ac
 
 		changedProperty = FormatString
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'Product Count' = DISTINCTCOUNT('Product'[ProductKey])
+	/// Number of products in the product catalog that match the filters, whether or not they sold. Used only on the hidden Great Report Sample page.
+	measure 'Product Count' = DISTINCTCOUNT ( 'Product'[ProductKey] )
 		formatString: #,0
+		displayFolder: Volume
 		lineageTag: 6704ee16-3191-4f08-925c-728bc3896551
 
 		changedProperty = FormatString
 
-	measure Cost = SUM(Sales[Total Product Cost])
+	/// Total product cost at standard cost (standard cost × quantity ordered) for the selected filters. Used to calculate Profit and Profit Margin %. To be confirmed against finance's ERP cost.
+	measure Cost = SUM ( Sales[Total Product Cost] )
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Sales
 		lineageTag: cffec1f1-5288-41d9-afc9-ad82d4980def
 
 		changedProperty = FormatString
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'Profit Margin' = [Revenue] - [Cost]
+	/// Revenue minus Cost, in dollars. Called "Profit Margin" in the old report, but it's a dollar amount, not a percentage. For the percentage, use Profit Margin %.
+	measure Profit = [Revenue] - [Cost]
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Profitability
 		lineageTag: ae5cb4a7-2023-4bec-8da1-abb82d4b242f
 
 		changedProperty = FormatString
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	measure 'Quantity Ordered' = SUM(Sales[Order Quantity])
+	/// Total units ordered for the selected filters. A supporting number: regional managers use it to see volume by bike model, but the business is run on revenue and margin, not units.
+	measure 'Quantity Ordered' = SUM ( Sales[Order Quantity] )
 		formatString: #,0
+		displayFolder: Volume
 		lineageTag: 58d71d8c-1064-439a-a57b-0b42ba5c015b
 
 		changedProperty = FormatString
 
-	measure Revenue = SUM(Sales[Sales Amount])
+	/// Total sales amount for the selected fiscal year, territory, and products. One of the three Monday numbers (Dana). Ties to finance's revenue to the dollar.
+	measure Revenue = SUM ( Sales[Sales Amount] )
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Sales
 		lineageTag: e325846a-b384-4855-863c-6ca50c4b5782
 
 		changedProperty = FormatString
 
+	/// Profit as a percentage of Revenue. Shows which product lines actually make money, not just move volume. One of the three Monday numbers (Dana). Must match finance's margin.
+	measure 'Profit Margin %' = DIVIDE ( [Profit], [Revenue] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Profitability
+		lineageTag: 3f0c1b8e-6a51-4c4e-9a63-1d2e7b5f8a01
+
+	/// Revenue for the same period one fiscal year earlier. Used to compare this year with last year by quarter and by territory. Blank when there is no revenue in the current period, so future dates in the date table don't show last year's numbers.
+	measure 'Revenue LY' =
+			IF (
+			    NOT ISBLANK ( [Revenue] ),
+			    CALCULATE ( [Revenue], SAMEPERIODLASTYEAR ( 'Date'[Date] ) )
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Sales\Last Year
+		lineageTag: 8b2d4c6e-1f3a-4b5c-8d7e-2a9b0c1d3e02
+
+	/// Change in Revenue compared with the same period last year, as a percentage. Shows where territories are growing or slipping. Blank when there is no revenue last year.
+	measure 'Revenue YoY %' =
+			VAR _ly = [Revenue LY]
+			RETURN
+			    IF ( NOT ISBLANK ( _ly ), DIVIDE ( [Revenue] - _ly, _ly ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Sales\Last Year
+		lineageTag: 4c7e9a1b-3d5f-4e6a-9b8c-0d1e2f3a4b03
+
+	/// Profit Margin % for the same period one fiscal year earlier. Blank when there is no revenue in the current period.
+	measure 'Profit Margin % LY' =
+			IF (
+			    NOT ISBLANK ( [Revenue] ),
+			    CALCULATE ( [Profit Margin %], SAMEPERIODLASTYEAR ( 'Date'[Date] ) )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Profitability\Last Year
+		lineageTag: 9d1f3b5c-7e9a-4c2d-8e4f-6a7b8c9d0e04
+
+	/// Change in Profit Margin % compared with the same period last year, in percentage points. Shows whether a product line or territory is turning a corner. Blank when there is no margin last year.
+	measure 'Profit Margin % Change' =
+			VAR _ly = [Profit Margin % LY]
+			RETURN
+			    IF ( NOT ISBLANK ( _ly ), [Profit Margin %] - _ly )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Profitability\Last Year
+		lineageTag: 2e4a6c8d-0f1b-4d3e-9a5c-7b8d9e0f1a05
+
 	column Calculations
 		dataType: string
+		isHidden
 		lineageTag: 572ab065-f933-4166-983b-8cc80b118513
 		summarizeBy: none
 		sourceColumn: Calculations

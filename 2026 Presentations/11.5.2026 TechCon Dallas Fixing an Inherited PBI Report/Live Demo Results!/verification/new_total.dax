@@ -1,0 +1,2 @@
+EVALUATE
+ROW("Qty", [Quantity Ordered], "Revenue", [Revenue], "Cost", [Cost], "Products", DISTINCTCOUNT(Sales[ProductKey]), "AvgProfit", [Profit per Unit])

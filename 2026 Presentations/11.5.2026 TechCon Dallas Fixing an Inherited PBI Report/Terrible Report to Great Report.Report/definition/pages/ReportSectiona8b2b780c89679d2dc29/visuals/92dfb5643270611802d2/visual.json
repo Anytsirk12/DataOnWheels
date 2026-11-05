@@ -79,11 +79,11 @@
                       "Entity": "Calculations"
                     }
                   },
-                  "Property": "Profit Margin"
+                  "Property": "Profit"
                 }
               },
-              "queryRef": "Calculations.Profit Margin",
-              "nativeQueryRef": "Profit Margin"
+              "queryRef": "Calculations.Profit",
+              "nativeQueryRef": "Profit"
             }
           ]
         }
@@ -141,7 +141,7 @@
             }
           },
           "selector": {
-            "metadata": "Calculations.Profit Margin"
+            "metadata": "Calculations.Profit"
           }
         },
         {

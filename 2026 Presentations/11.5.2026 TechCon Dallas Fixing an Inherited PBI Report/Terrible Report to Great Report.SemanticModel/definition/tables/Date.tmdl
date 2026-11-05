@@ -1,8 +1,10 @@
 table Date
 	lineageTag: 37ba3d56-06e8-4b17-bcd3-a02ece75a2dc
+	dataCategory: Time
 
 	column DateKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: b1f8a6e0-f4e0-4e15-9bcb-f3879e0da30d
 		summarizeBy: none
@@ -12,6 +14,7 @@ table Date
 
 	column Date
 		dataType: dateTime
+		isKey
 		formatString: Short Date
 		lineageTag: 3ab7c322-2153-410a-8285-d47147bee7c5
 		summarizeBy: none
@@ -37,309 +40,6 @@ table Date
 
 		annotation SummarizationSetBy = Automatic
 
-	column Month
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: c7b9ba35-9f38-4dbd-83a5-116416340e41
-		summarizeBy: none
-		sourceColumn: Month
-
-		variation Variation
-			isDefault
-			relationship: 3c3a4da0-0999-48ec-8534-274c97ba1d5c
-			defaultHierarchy: LocalDateTable_5b521612-82e1-469a-8f09-1b05677ae324.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column 'Full Date'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 7266fc84-2350-4287-92a2-6db684534de4
-		summarizeBy: none
-		sourceColumn: Full Date
-
-		variation Variation
-			isDefault
-			relationship: 87bcec33-e532-471a-a09f-f0bc14ef562b
-			defaultHierarchy: LocalDateTable_19528da0-7021-469c-a26d-2769539e708c.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column MonthKey
-		dataType: int64
-		formatString: 0
-		lineageTag: 773465cb-9bf3-4b84-92b2-eed4f1c3eac7
-		summarizeBy: count
-		sourceColumn: MonthKey
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Month Name'
-		dataType: string
-		lineageTag: 19fd325b-2fe4-49a6-bf59-8d953195eb7a
-		summarizeBy: none
-		sourceColumn: Month Name
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Day Name'
-		dataType: string
-		lineageTag: 76b2cc24-8d21-48ad-aee9-0afa4fac9dcb
-		summarizeBy: none
-		sourceColumn: Day Name
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Day of Week'
-		dataType: int64
-		formatString: 0
-		lineageTag: 678cf71d-69ac-4d03-a35d-3ac2493b8b36
-		summarizeBy: sum
-		sourceColumn: Day of Week
-
-		annotation SummarizationSetBy = Automatic
-
-	column MMM
-		dataType: string
-		lineageTag: 88095fd7-99f9-4a07-b699-92a9a65e63c2
-		summarizeBy: none
-		sourceColumn: MMM
-
-		annotation SummarizationSetBy = Automatic
-
-	column DDD
-		dataType: string
-		lineageTag: 7209f806-485c-486e-b1bd-efac53e78402
-		summarizeBy: none
-		sourceColumn: DDD
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'End of Week'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: e2f1e55f-4653-4e4f-a417-234204811b80
-		summarizeBy: none
-		sourceColumn: End of Week
-
-		variation Variation
-			isDefault
-			relationship: 1fc846bc-8b01-4ced-860d-d527dcf89bb1
-			defaultHierarchy: LocalDateTable_a24eb4ee-0a5f-4aa1-bafb-7b5ee3d2d152.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column 'End of Week Sunday'
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: 2ea8cb01-418f-4f6c-97a1-6d629688fda4
-		summarizeBy: none
-		sourceColumn: End of Week Sunday
-
-		variation Variation
-			isDefault
-			relationship: 44298422-ef26-4818-aff6-217405ab01f6
-			defaultHierarchy: LocalDateTable_5a75ac49-7809-4a76-b23d-fbc0479e952d.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column Day
-		dataType: int64
-		formatString: 0
-		lineageTag: 88a6ab90-09a1-4563-8b2f-0e87795d6bc7
-		summarizeBy: sum
-		sourceColumn: Day
-
-		annotation SummarizationSetBy = Automatic
-
-	column Year
-		dataType: int64
-		formatString: 0
-		lineageTag: 36e3d6fc-0ee0-4a87-9ea9-84c2e950b859
-		summarizeBy: sum
-		sourceColumn: Year
-
-		annotation SummarizationSetBy = Automatic
-
-	column IsWeekend
-		dataType: int64
-		formatString: 0
-		lineageTag: d73562dd-f7d1-4ffb-99df-9406bc2bb523
-		summarizeBy: sum
-		sourceColumn: IsWeekend
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Month Day'
-		dataType: string
-		lineageTag: ee37de63-7737-402e-8f8e-ca5ce5bf694d
-		summarizeBy: none
-		sourceColumn: Month Day
-
-		annotation SummarizationSetBy = Automatic
-
-	column IsHoliday
-		dataType: int64
-		formatString: 0
-		lineageTag: 249a3fee-6cbc-42ea-ba2f-c59c31380398
-		summarizeBy: sum
-		sourceColumn: IsHoliday
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Month Day Sort'
-		dataType: string
-		lineageTag: fac28135-0237-4cd1-b77a-3eea34f4fccb
-		summarizeBy: none
-		sourceColumn: Month Day Sort
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'W.E. Date'
-		dataType: string
-		lineageTag: f9db2498-0a32-443a-8462-69ea9056035a
-		summarizeBy: none
-		sourceColumn: W.E. Date
-
-		annotation SummarizationSetBy = Automatic
-
-	column IsMTD
-		dataType: int64
-		formatString: 0
-		lineageTag: f2bc91e3-f7db-48b5-b2ab-bd187fcd5c8b
-		summarizeBy: sum
-		sourceColumn: IsMTD
-
-		annotation SummarizationSetBy = Automatic
-
-	column IsYTD
-		dataType: int64
-		formatString: 0
-		lineageTag: e1cf8992-39b9-427f-b6e7-44eee060b332
-		summarizeBy: sum
-		sourceColumn: IsYTD
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'W.E. Week Number'
-		dataType: int64
-		formatString: 0
-		lineageTag: bd9dd349-ee26-4ce0-9f37-90967bd5f33a
-		summarizeBy: sum
-		sourceColumn: W.E. Week Number
-
-		annotation SummarizationSetBy = Automatic
-
-	column IsWTD
-		dataType: int64
-		formatString: 0
-		lineageTag: 848423b3-c49c-4187-9ccd-36cc128a82c9
-		summarizeBy: sum
-		sourceColumn: IsWTD
-
-		annotation SummarizationSetBy = Automatic
-
-	column IsCurrentYTD
-		dataType: double
-		lineageTag: d7f87e92-fd81-4a8c-8a32-7f56f6ff84d7
-		summarizeBy: sum
-		sourceColumn: IsCurrentYTD
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column IsCurrentMTD
-		dataType: double
-		lineageTag: c99d6731-80b4-41f2-91cc-447199416282
-		summarizeBy: sum
-		sourceColumn: IsCurrentMTD
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column IsCurrentWTD
-		dataType: double
-		lineageTag: 20ae73ca-86bc-4af0-81f6-faf1e70f98e0
-		summarizeBy: sum
-		sourceColumn: IsCurrentWTD
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Month Year'
-		dataType: string
-		lineageTag: 44d0e936-f824-4634-b708-e8872bbbf83e
-		summarizeBy: none
-		sourceColumn: Month Year
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Weeks Ago (W.E.)'
-		dataType: double
-		lineageTag: 75144fec-2c11-4005-a55e-9ff5a798c419
-		summarizeBy: sum
-		sourceColumn: Weeks Ago (W.E.)
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column MonthsAgo
-		dataType: int64
-		formatString: 0
-		lineageTag: f3425c0d-3119-4a97-82e6-573e92b1c888
-		summarizeBy: sum
-		sourceColumn: MonthsAgo
-
-		annotation SummarizationSetBy = Automatic
-
-	column DaysAgo
-		dataType: int64
-		formatString: 0
-		lineageTag: 9c039089-ecd5-4ba9-9276-161988b3d5d8
-		summarizeBy: sum
-		sourceColumn: DaysAgo
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Work Day of Week'
-		dataType: int64
-		formatString: 0
-		lineageTag: 20e0e017-2383-4d07-974d-13c08f914ed2
-		summarizeBy: sum
-		sourceColumn: Work Day of Week
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Work Days Ago'
-		dataType: int64
-		formatString: 0
-		lineageTag: 03a9367c-4ab4-4eb4-9baf-a091897dc19c
-		summarizeBy: sum
-		sourceColumn: Work Days Ago
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Month Number'
-		dataType: int64
-		formatString: 0
-		lineageTag: bc5edb18-740b-4d92-a86d-f74549c89498
-		summarizeBy: sum
-		sourceColumn: Month Number
-
-		annotation SummarizationSetBy = Automatic
-
 	partition Date-62ba02af-e383-4681-aa2a-0fb89a0a2b1c = m
 		mode: import
 		source =
@@ -349,9 +49,10 @@ table Date
 				    #"Changed Type" = Table.TransformColumnTypes(Date_Table,{{"DateKey", Int64.Type}, {"Date", type date}, {"Fiscal Year", type text}, {"Fiscal Quarter", type text}, {"Month", type date}, {"Full Date", type date}, {"MonthKey", Int64.Type}}),
 				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Date"}, Calendar, {"DateDate"}, "Calendar", JoinKind.LeftOuter),
 				    #"Expanded Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Calendar", {"Month Name", "Day Name", "Day of Week", "MMM", "DDD", "End of Week", "End of Week Sunday", "Day", "Year", "IsWeekend", "Month Day", "IsHoliday", "Month Day Sort", "W.E. Date", "IsMTD", "IsYTD", "W.E. Week Number", "IsWTD", "IsCurrentYTD", "IsCurrentMTD", "IsCurrentWTD", "Month Year", "Weeks Ago (W.E.)", "MonthsAgo", "DaysAgo", "Work Day of Week", "Work Days Ago"}, {"Month Name", "Day Name", "Day of Week", "MMM", "DDD", "End of Week", "End of Week Sunday", "Day", "Year", "IsWeekend", "Month Day", "IsHoliday", "Month Day Sort", "W.E. Date", "IsMTD", "IsYTD", "W.E. Week Number", "IsWTD", "IsCurrentYTD", "IsCurrentMTD", "IsCurrentWTD", "Month Year", "Weeks Ago (W.E.)", "MonthsAgo", "DaysAgo", "Work Day of Week", "Work Days Ago"}),
-				    #"Inserted Month" = Table.AddColumn(#"Expanded Calendar", "Month Number", each Date.Month([Date]), Int64.Type)
+				    #"Inserted Month" = Table.AddColumn(#"Expanded Calendar", "Month Number", each Date.Month([Date]), Int64.Type),
+				    #"Kept Columns"= Table.SelectColumns(#"Inserted Month",{"DateKey","Date","Fiscal Year","Fiscal Quarter"})
 				in
-				    #"Inserted Month"
+				    #"Kept Columns"
 
 	annotation PBI_ResultType = Table
 

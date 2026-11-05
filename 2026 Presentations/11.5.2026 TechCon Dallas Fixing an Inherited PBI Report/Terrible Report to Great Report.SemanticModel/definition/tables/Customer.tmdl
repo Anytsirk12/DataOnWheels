@@ -3,6 +3,7 @@ table Customer
 
 	column CustomerKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 0043e180-914a-4ef7-b027-ec9154ceda22
 		summarizeBy: none
@@ -26,47 +27,16 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Customer ID'
-		dataType: string
-		lineageTag: 7262af0d-53cc-4277-87c3-417037bfd0b7
-		summarizeBy: none
-		sourceColumn: Customer ID
-
-		annotation SummarizationSetBy = Automatic
-
-	column Customer
-		dataType: string
-		lineageTag: b9ee8915-aaee-4d38-8bdf-28fae68342f9
-		summarizeBy: none
-		sourceColumn: Customer
-
-		annotation SummarizationSetBy = Automatic
-
-	column City
-		dataType: string
-		lineageTag: 39ccd0ae-936e-43b8-9ee7-4f9d6f991b68
-		summarizeBy: none
-		sourceColumn: City
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Postal Code'
-		dataType: string
-		lineageTag: 891c81b0-8cc2-49cd-831c-87341842f094
-		summarizeBy: none
-		sourceColumn: Postal Code
-
-		annotation SummarizationSetBy = Automatic
-
 	partition Customer-3e0f94b2-7289-4133-ac76-a4f3cf9bf5c8 = m
 		mode: import
 		source =
 				let
 				    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
 				    Customer_Table = Source{[Item="Customer",Kind="Table"]}[Data],
-				    #"Changed Type1" = Table.TransformColumnTypes(Customer_Table,{{"CustomerKey", Int64.Type}, {"Customer ID", type text}, {"Customer", type text}, {"City", type text}, {"State-Province", type text}, {"Country-Region", type text}, {"Postal Code", type text}})
+				    #"Changed Type1" = Table.TransformColumnTypes(Customer_Table,{{"CustomerKey", Int64.Type}, {"Customer ID", type text}, {"Customer", type text}, {"City", type text}, {"State-Province", type text}, {"Country-Region", type text}, {"Postal Code", type text}}),
+				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type1",{"CustomerKey","State-Province","Country-Region"})
 				in
-				    #"Changed Type1"
+				    #"Columns removed by Measure Killer"
 
 	annotation PBI_NavigationStepName = Navigation
 

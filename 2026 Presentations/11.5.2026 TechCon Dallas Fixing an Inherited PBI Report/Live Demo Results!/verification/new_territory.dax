@@ -1,0 +1,10 @@
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Sales Territory'[Region],
+    'Date'[Fiscal Year],
+    "Revenue", [Revenue],
+    "Cost", [Cost],
+    "Profit", [Profit],
+    "Margin %", [Profit Margin %]
+)
+ORDER BY 'Date'[Fiscal Year], 'Sales Territory'[Region]

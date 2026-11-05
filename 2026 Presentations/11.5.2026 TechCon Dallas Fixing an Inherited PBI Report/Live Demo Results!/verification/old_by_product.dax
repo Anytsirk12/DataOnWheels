@@ -1,0 +1,11 @@
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Date'[Fiscal Year],
+    'Sales Data FINAL v2'[Subcategory],
+    'Sales Data FINAL v2'[Model],
+    'Sales Data FINAL v2'[Product],
+    "Qty", [Qty Ordered],
+    "Revenue", [Total Revenue],
+    "Products", [# Products],
+    "AvgProfit", [Avg Profit]
+)

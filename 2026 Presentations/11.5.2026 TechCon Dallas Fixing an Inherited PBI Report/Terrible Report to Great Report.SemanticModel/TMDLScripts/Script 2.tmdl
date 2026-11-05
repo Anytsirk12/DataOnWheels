@@ -1,0 +1,165 @@
+createOrReplace
+
+	ref table _Measures
+
+		measure '# Products' =
+				COUNTROWS(
+				    DISTINCT(
+				        SELECTCOLUMNS(
+				            FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year])),
+				            "pk", 'Sales Data FINAL v2'[ProductKey]
+				        )
+				    )
+				)
+			lineageTag: d4b67892-6ca7-49c2-a19f-9e17d99836b7
+
+		measure '% of Total Revenue' = [Total Revenue] / CALCULATE([Total Revenue], ALL('Sales Data FINAL v2'))
+			lineageTag: 64ae07ae-0b7e-4563-9bba-1caa5ad284f8
+
+		measure 'Avg Price' = AVERAGE('Sales Data FINAL v2'[Unit Price Calc])
+			lineageTag: 382d9356-9e85-4e73-b5f3-0dc14a06aa91
+
+		measure 'Avg Profit' =
+				VAR _fy = VALUES('Date'[Fiscal Year])
+				VAR _rows = FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN _fy)
+				VAR _profit =
+				    SUMX(
+				        _rows,
+				        CALCULATE(SUM('Sales Data FINAL v2'[Sales Amount])) - CALCULATE(SUM('Sales Data FINAL v2'[Total Product Cost]))
+				    )
+				VAR _qty = SUMX(_rows, 'Sales Data FINAL v2'[Order Quantity])
+				RETURN
+				IFERROR(_profit / _qty, 0)
+			lineageTag: 2defb5cb-d447-414c-9f8c-19bfbe043372
+
+		measure 'Avg Profit (Pie)' =
+				VAR _fy = VALUES('Date'[Fiscal Year])
+				VAR _rows = FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN _fy)
+				VAR _profit =
+				    SUMX(
+				        _rows,
+				        VAR _line = 'Sales Data FINAL v2'[SalesOrderLineKey]
+				        VAR _check = MIN(1, COUNTROWS(FILTER(_rows, 'Sales Data FINAL v2'[SalesOrderLineKey] <= _line)))
+				        RETURN (CALCULATE(SUM('Sales Data FINAL v2'[Sales Amount])) - CALCULATE(SUM('Sales Data FINAL v2'[Total Product Cost]))) * _check
+				    )
+				VAR _qty = SUMX(_rows, 'Sales Data FINAL v2'[Order Quantity])
+				RETURN
+				IFERROR(_profit / _qty, 0)
+			lineageTag: d9f4731d-c8ca-4543-bf2b-778294dd2ce9
+
+		measure 'Bike Revenue' = CALCULATE([Total Revenue], FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Is Bike] = "Yes"))
+			lineageTag: b1861c1e-4c3d-43b1-b5a7-9f13ed8e11d1
+
+		measure 'Customer Count' = COUNTROWS(DISTINCT('Sales Data FINAL v2'[CustomerKey]))
+			lineageTag: b18ff55b-9385-4db5-9b03-a5b6e8cc4bfe
+
+		measure 'Greg''s Profit' = SUMX('Sales Data FINAL v2', 'Sales Data FINAL v2'[Sales Amount]) - SUMX('Sales Data FINAL v2', 'Sales Data FINAL v2'[Total Product Cost])
+			lineageTag: bcba71bb-c3d5-42b6-8b19-e9a280cc6e25
+
+		measure 'Margin TEMP' = ([Total Revenue] - [Std Cost]) / [Total Revenue]
+			lineageTag: 4f52026c-0aed-441c-94ea-50f82c8db95e
+
+		measure Measure = SUM('Sales Data FINAL v2'[Row Count Helper])
+			lineageTag: 9e71c171-29c1-44b0-8fcf-5aacfefbfd60
+
+		measure 'Measure 2' = [Measure] * 2
+			lineageTag: 1dc07d58-8476-431e-901d-63685567e63c
+
+		measure 'Order Count' = COUNTROWS('Sales Data FINAL v2')
+			lineageTag: 639d353c-a58c-4e02-b561-7d7431ecbaaf
+
+		measure 'Profit %' = IFERROR(SUM('Sales Data FINAL v2'[Profit]) / SUM('Sales Data FINAL v2'[Sales Amount]), BLANK())
+			lineageTag: 35505de0-34f5-4212-b591-ce6d535cf187
+
+		measure 'Qty Ordered' =
+				VAR _fy = VALUES('Date'[Fiscal Year])
+				RETURN
+				SUMX(
+				    FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN _fy),
+				    'Sales Data FINAL v2'[Order Quantity]
+				)
+			lineageTag: 61f88b1d-bb74-4911-b4ca-b3581f7c58f5
+
+		measure 'Revenue LY' = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Sales Data FINAL v2'[Order Date]))
+			lineageTag: a96f00b5-4713-4e01-91fa-a8bc861736ab
+
+		measure 'Revenue Rank' = RANKX(ALL('Sales Data FINAL v2'[Model]), [Total Revenue])
+			lineageTag: fc957fde-c9d8-4de6-a6e8-446fd9653f09
+
+		measure 'Revenue Text Measure' = FORMAT([Total Revenue], "$#,0.00")
+			lineageTag: 33eadeba-54aa-4b8d-9997-d3f6b4859780
+
+		measure 'Revenue YTD' = CALCULATE([Total Revenue], DATESYTD('Sales Data FINAL v2'[Order Date]))
+			lineageTag: 18fcacdc-626b-4471-aab6-d370573466d5
+
+		measure 'Std Cost' =
+				VAR _rows = FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year]))
+				RETURN
+				SUMX(
+				    _rows,
+				    VAR _line = 'Sales Data FINAL v2'[SalesOrderLineKey]
+				    VAR _check = MIN(1, COUNTROWS(FILTER(ALL('Product List'), LEN('Product List'[Product]) + _line > _line - 100000000)) + 1)
+				    RETURN 'Sales Data FINAL v2'[Total Product Cost] * _check
+				)
+			lineageTag: e944231c-84b4-4cc9-8b52-ac7b3b8c0154
+
+		measure Test = 1
+			lineageTag: 33785564-cced-489d-a0a3-4a826896a1b1
+
+		measure 'Total Revenue' =
+				CALCULATE(
+				    SUMX('Sales Data FINAL v2', 'Sales Data FINAL v2'[Sales Amount]),
+				    FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year]))
+				)
+			lineageTag: 87c34225-cd96-423f-9d7b-5ab5a0ac5429
+
+		measure 'Total Revenue (2)' = SUMX('Sales Data FINAL v2', 'Sales Data FINAL v2'[Order Quantity] * 'Sales Data FINAL v2'[Unit Price Calc])
+			lineageTag: b293b9cc-54e4-4b11-a356-2e38436a4892
+
+		measure 'Total Revenue OLD' = SUM('Sales Data FINAL v2'[Sales Amount])
+			lineageTag: 9daf4ff6-a6a4-49f0-bcb2-aace38e73a44
+
+	ref table Calculations
+
+		measure 'Average Profit' = DIVIDE([Profit Margin],[Quantity Ordered],0)
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: e3473fc5-da23-419f-8dca-b527641ba4ac
+
+			changedProperty = FormatString
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure Cost = SUM(Sales[Total Product Cost])
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: cffec1f1-5288-41d9-afc9-ad82d4980def
+
+			changedProperty = FormatString
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Product Count' = DISTINCTCOUNT('Product'[ProductKey])
+			formatString: #,0
+			lineageTag: 6704ee16-3191-4f08-925c-728bc3896551
+
+			changedProperty = FormatString
+
+		measure 'Profit Margin' = [Revenue] - [Cost]
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: ae5cb4a7-2023-4bec-8da1-abb82d4b242f
+
+			changedProperty = FormatString
+
+			annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+		measure 'Quantity Ordered' = SUM(Sales[Order Quantity])
+			formatString: #,0
+			lineageTag: 58d71d8c-1064-439a-a57b-0b42ba5c015b
+
+			changedProperty = FormatString
+
+		measure Revenue = SUM(Sales[Sales Amount])
+			formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+			lineageTag: e325846a-b384-4855-863c-6ca50c4b5782
+
+			changedProperty = FormatString
+

@@ -72,11 +72,11 @@
                       "Entity": "Calculations"
                     }
                   },
-                  "Property": "Average Profit"
+                  "Property": "Profit per Unit"
                 }
               },
-              "queryRef": "Calculations.Average Profit",
-              "nativeQueryRef": "Average Profit"
+              "queryRef": "Calculations.Profit per Unit",
+              "nativeQueryRef": "Profit per Unit"
             }
           ]
         }

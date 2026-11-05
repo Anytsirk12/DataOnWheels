@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "82e61df564d5d2e7dd22",
+  "name": "c3e5a7b9d1f2b4d6f8a0",
   "position": {
     "x": 0,
-    "y": 0,
+    "y": 184,
     "z": 2000,
-    "height": 267.99051148079815,
-    "width": 527.09034248593,
+    "height": 250,
+    "width": 640,
     "tabOrder": 2000
   },
   "visual": {
-    "visualType": "scatterChart",
+    "visualType": "lineChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,48 +20,29 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Sales Data FINAL v2"
+                      "Entity": "Date"
                     }
                   },
-                  "Property": "Category"
+                  "Property": "Fiscal Year"
                 }
               },
-              "queryRef": "Sales Data FINAL v2.Category",
+              "queryRef": "Date.Fiscal Year",
+              "nativeQueryRef": "Fiscal Year",
               "active": true
-            }
-          ]
-        },
-        "Size": {
-          "projections": [
+            },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Measures"
+                      "Entity": "Date"
                     }
                   },
-                  "Property": "Avg Profit"
+                  "Property": "Fiscal Quarter"
                 }
               },
-              "queryRef": "_Measures.Avg Profit"
-            }
-          ]
-        },
-        "X": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "# Products"
-                }
-              },
-              "queryRef": "_Measures.# Products",
+              "queryRef": "Date.Fiscal Quarter",
+              "nativeQueryRef": "Fiscal Quarter",
               "active": true
             }
           ]
@@ -73,13 +54,28 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Measures"
+                      "Entity": "Calculations"
                     }
                   },
-                  "Property": "Qty Ordered"
+                  "Property": "Revenue"
                 }
               },
-              "queryRef": "_Measures.Qty Ordered"
+              "queryRef": "Calculations.Revenue",
+              "nativeQueryRef": "Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Calculations"
+                    }
+                  },
+                  "Property": "Revenue LY"
+                }
+              },
+              "queryRef": "Calculations.Revenue LY",
+              "nativeQueryRef": "Revenue LY"
             }
           ]
         }
@@ -88,41 +84,37 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "_Measures"
+                    "Entity": "Date"
                   }
                 },
-                "Property": "# Products"
+                "Property": "Fiscal Year"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Date"
+                  }
+                },
+                "Property": "Fiscal Quarter"
+              }
+            },
+            "direction": "Ascending"
           }
         ],
         "isDefaultSort": true
       }
     },
-    "objects": {
-      "dataPoint": [
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 2,
-                      "Percent": -0.5
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      ],
-      "categoryLabels": [
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
         {
           "properties": {
             "show": {
@@ -131,39 +123,24 @@
                   "Value": "true"
                 }
               }
-            }
-          }
-        }
-      ]
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue by Fiscal Quarter, This Year vs Last Year'"
+                }
+              }
+            },
             "alignment": {
               "expr": {
                 "Literal": {
-                  "Value": "'center'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "background": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+                  "Value": "'left'"
                 }
               }
             }
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

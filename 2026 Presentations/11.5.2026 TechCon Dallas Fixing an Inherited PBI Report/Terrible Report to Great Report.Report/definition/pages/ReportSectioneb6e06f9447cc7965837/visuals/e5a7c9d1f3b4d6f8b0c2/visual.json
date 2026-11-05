@@ -1,71 +1,52 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "e42608299e5a48c94cc1",
+  "name": "e5a7c9d1f3b4d6f8b0c2",
   "position": {
-    "x": 527.09034248593,
-    "y": 411.51149630226826,
+    "x": 760,
+    "y": 438,
     "z": 4000,
-    "height": 308.63362222670122,
-    "width": 753.16764601001569,
+    "height": 282,
+    "width": 520,
     "tabOrder": 4000
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "clusteredBarChart",
     "query": {
       "queryState": {
-        "Values": {
+        "Category": {
           "projections": [
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Sales Data FINAL v2"
+                      "Entity": "Sales Territory"
                     }
                   },
-                  "Property": "Model"
+                  "Property": "Region"
                 }
               },
-              "queryRef": "Sales Data FINAL v2.Model"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Sales Data FINAL v2"
-                    }
-                  },
-                  "Property": "Product"
-                }
-              },
-              "queryRef": "Sales Data FINAL v2.Product"
-            },
+              "queryRef": "Sales Territory.Region",
+              "nativeQueryRef": "Region",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Measures"
+                      "Entity": "Calculations"
                     }
                   },
-                  "Property": "# Products"
+                  "Property": "Revenue"
                 }
               },
-              "queryRef": "_Measures.# Products"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Std Cost"
-                }
-              },
-              "queryRef": "_Measures.Std Cost"
+              "queryRef": "Calculations.Revenue",
+              "nativeQueryRef": "Revenue"
             }
           ]
         }
@@ -74,37 +55,26 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Sales Data FINAL v2"
+                    "Entity": "Calculations"
                   }
                 },
-                "Property": "Model"
+                "Property": "Revenue"
               }
             },
-            "direction": "Ascending"
+            "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
-      "columnHeaders": [
+      "dataPoint": [
         {
           "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            },
-            "backColor": {
+            "fill": {
               "solid": {
                 "color": {
                   "expr": {
@@ -119,10 +89,10 @@
           }
         }
       ],
-      "grid": [
+      "labels": [
         {
           "properties": {
-            "gridHorizontal": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "true"
@@ -132,20 +102,13 @@
           }
         }
       ],
-      "values": [
+      "legend": [
         {
           "properties": {
-            "fontFamily": {
+            "position": {
               "expr": {
                 "Literal": {
-                  "Value": "'''Comic Sans MS'''"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "12D"
+                  "Value": "'TopCenter'"
                 }
               }
             }
@@ -160,21 +123,21 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Adventure Works Data Sample'"
+                  "Value": "'Revenue by Sales Territory'"
                 }
               }
             },
             "alignment": {
               "expr": {
                 "Literal": {
-                  "Value": "'center'"
+                  "Value": "'left'"
                 }
               }
             }
@@ -182,6 +145,32 @@
         }
       ],
       "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
         {
           "properties": {
             "show": {

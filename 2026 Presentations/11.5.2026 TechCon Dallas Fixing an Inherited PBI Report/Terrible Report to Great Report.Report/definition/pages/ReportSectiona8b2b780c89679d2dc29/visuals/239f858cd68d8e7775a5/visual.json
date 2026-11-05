@@ -42,10 +42,10 @@
                       "Entity": "Calculations"
                     }
                   },
-                  "Property": "Average Profit"
+                  "Property": "Profit per Unit"
                 }
               },
-              "queryRef": "Calculations.Average Profit"
+              "queryRef": "Calculations.Profit per Unit"
             }
           ]
         }
@@ -60,7 +60,7 @@
                     "Entity": "Calculations"
                   }
                 },
-                "Property": "Average Profit"
+                "Property": "Profit per Unit"
               }
             },
             "direction": "Descending"

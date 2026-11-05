@@ -73,7 +73,7 @@
                   "Property": "Product Count"
                 }
               },
-              "queryRef": "_Measures.Product Count"
+              "queryRef": "Calculations.Product Count"
             },
             {
               "field": {
@@ -86,7 +86,7 @@
                   "Property": "Quantity Ordered"
                 }
               },
-              "queryRef": "_Measures.Quantity Ordered"
+              "queryRef": "Calculations.Quantity Ordered"
             },
             {
               "field": {
@@ -96,10 +96,10 @@
                       "Entity": "Calculations"
                     }
                   },
-                  "Property": "Average Profit"
+                  "Property": "Profit per Unit"
                 }
               },
-              "queryRef": "_Measures.Average Profit"
+              "queryRef": "Calculations.Profit per Unit"
             },
             {
               "field": {
@@ -237,7 +237,7 @@
             }
           },
           "selector": {
-            "metadata": "_Measures.Average Profit"
+            "metadata": "Calculations.Profit per Unit"
           }
         },
         {
@@ -293,7 +293,7 @@
             }
           },
           "selector": {
-            "metadata": "_Measures.Quantity Ordered"
+            "metadata": "Calculations.Quantity Ordered"
           }
         },
         {

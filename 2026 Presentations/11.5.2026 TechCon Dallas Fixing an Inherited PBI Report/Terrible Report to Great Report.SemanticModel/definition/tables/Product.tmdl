@@ -42,51 +42,16 @@ table Product
 
 		annotation SummarizationSetBy = Automatic
 
-	column SKU
-		dataType: string
-		lineageTag: 27884226-3d7c-4952-a39c-2857c52147f3
-		summarizeBy: none
-		sourceColumn: SKU
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Standard Cost'
-		dataType: double
-		lineageTag: 53fe2cc7-9d75-4a46-914c-9e9772a7c61b
-		summarizeBy: none
-		sourceColumn: Standard Cost
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column Color
-		dataType: string
-		lineageTag: 82658150-51b5-4927-a07a-d020b0db09f5
-		summarizeBy: none
-		sourceColumn: Color
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'List Price'
-		dataType: double
-		lineageTag: ffc807f2-b885-444e-b8e6-00400c462212
-		summarizeBy: none
-		sourceColumn: List Price
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	partition Product-465d0abd-bb61-4e64-b3e1-c42513518d8d = m
 		mode: import
 		source =
 				let
 				    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
 				    Product_Table = Source{[Item="Product",Kind="Table"]}[Data],
-				    #"Changed Type" = Table.TransformColumnTypes(Product_Table,{{"ProductKey", Int64.Type}, {"SKU", type text}, {"Product", type text}, {"Standard Cost", type number}, {"Color", type text}, {"List Price", type number}, {"Model", type text}, {"Subcategory", type text}, {"Category", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(Product_Table,{{"ProductKey", Int64.Type}, {"SKU", type text}, {"Product", type text}, {"Standard Cost", type number}, {"Color", type text}, {"List Price", type number}, {"Model", type text}, {"Subcategory", type text}, {"Category", type text}}),
+				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type",{"ProductKey","Model","Product","Category","Subcategory"})
 				in
-				    #"Changed Type"
+				    #"Columns removed by Measure Killer"
 
 	annotation PBI_ResultType = Table
 

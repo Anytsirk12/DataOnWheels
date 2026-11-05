@@ -1,0 +1,10 @@
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Date'[Fiscal Year],
+    "Qty", [Qty Ordered],
+    "Revenue", [Total Revenue],
+    "Cost", [Std Cost],
+    "Products", [# Products],
+    "AvgProfit", [Avg Profit]
+)
+ORDER BY 'Date'[Fiscal Year]

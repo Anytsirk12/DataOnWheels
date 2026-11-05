@@ -1,66 +1,75 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "0943d91fc56e13b401f1",
+  "name": "a1c3e5f7091b2d4f6a8c",
   "position": {
-    "x": 778.56959022620515,
-    "y": 19.051458162142051,
-    "z": 8000,
-    "height": 114.3087489728523,
-    "width": 157.49205414037428,
-    "tabOrder": 8000
+    "x": 1040,
+    "y": 4,
+    "z": 5500,
+    "height": 64,
+    "width": 232,
+    "tabOrder": 5500
   },
   "visual": {
-    "visualType": "card",
+    "visualType": "slicer",
     "query": {
       "queryState": {
         "Values": {
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Measures"
+                      "Entity": "Sales Territory"
                     }
                   },
-                  "Property": "Qty Ordered"
+                  "Property": "Region"
                 }
               },
-              "queryRef": "_Measures.Qty Ordered",
-              "nativeQueryRef": "Qty Ordered"
+              "queryRef": "Sales Territory.Region",
+              "nativeQueryRef": "Region",
+              "active": true
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "_Measures"
-                  }
-                },
-                "Property": "Qty Ordered"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "objects": {
-      "categoryLabels": [
+      "data": [
         {
           "properties": {
-            "color": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "header": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "items": [
+        {
+          "properties": {
+            "fontColor": {
               "solid": {
                 "color": {
                   "expr": {
                     "ThemeDataColor": {
-                      "ColorId": 0,
+                      "ColorId": 1,
                       "Percent": 0
                     }
                   }

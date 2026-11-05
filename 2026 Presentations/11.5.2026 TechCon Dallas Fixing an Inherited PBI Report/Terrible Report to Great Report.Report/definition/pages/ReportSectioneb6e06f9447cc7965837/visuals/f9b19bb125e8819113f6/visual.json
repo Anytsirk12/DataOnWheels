@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "f9b19bb125e8819113f6",
   "position": {
-    "x": 468.355795148248,
-    "y": 0,
+    "x": 80,
+    "y": 12,
     "z": 0,
-    "height": 45.714285714285715,
-    "width": 343.28840970350404,
+    "height": 45,
+    "width": 420,
     "tabOrder": 0
   },
   "visual": {
@@ -19,10 +19,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Terrible Report",
+                    "value": "Sales Performance",
                     "textStyle": {
                       "fontSize": "16pt",
-                      "color": "#ffffff"
+                      "color": "#252423"
                     }
                   }
                 ],

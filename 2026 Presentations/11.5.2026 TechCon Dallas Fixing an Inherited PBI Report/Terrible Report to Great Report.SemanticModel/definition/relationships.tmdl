@@ -2,16 +2,6 @@ relationship 1b30f944-1b57-442e-8aca-e675c231c290
 	fromColumn: Sales.ProductKey
 	toColumn: Product.ProductKey
 
-relationship fedea08d-465f-4b03-8f02-5426af7fb80b
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: 'Sales Order'.SalesOrderLineKey
-	toColumn: Sales.SalesOrderLineKey
-
-relationship 7148b2ed-5ec0-44a9-a4cb-314226113ce2
-	fromColumn: Sales.ResellerKey
-	toColumn: Reseller.ResellerKey
-
 relationship b203e473-2010-4e15-8455-4f81238242f1
 	fromColumn: Sales.CustomerKey
 	toColumn: Customer.CustomerKey
@@ -23,24 +13,4 @@ relationship 42788a80-fa14-4522-8714-ecd801dfbf55
 relationship a56e93b6-7802-427b-bde3-087b9aaffdb2
 	fromColumn: Sales.OrderDateKey
 	toColumn: Date.DateKey
-
-relationship 3c3a4da0-0999-48ec-8534-274c97ba1d5c
-	joinOnDateBehavior: datePartOnly
-	fromColumn: Date.Month
-	toColumn: LocalDateTable_5b521612-82e1-469a-8f09-1b05677ae324.Date
-
-relationship 87bcec33-e532-471a-a09f-f0bc14ef562b
-	joinOnDateBehavior: datePartOnly
-	fromColumn: Date.'Full Date'
-	toColumn: LocalDateTable_19528da0-7021-469c-a26d-2769539e708c.Date
-
-relationship 1fc846bc-8b01-4ced-860d-d527dcf89bb1
-	joinOnDateBehavior: datePartOnly
-	fromColumn: Date.'End of Week'
-	toColumn: LocalDateTable_a24eb4ee-0a5f-4aa1-bafb-7b5ee3d2d152.Date
-
-relationship 44298422-ef26-4818-aff6-217405ab01f6
-	joinOnDateBehavior: datePartOnly
-	fromColumn: Date.'End of Week Sunday'
-	toColumn: LocalDateTable_5a75ac49-7809-4a76-b23d-fbc0479e952d.Date
 

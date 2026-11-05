@@ -1,26 +1,9 @@
 table Sales
 	lineageTag: 87bc4eb3-915f-474f-9897-45616a6e72a5
 
-	column SalesOrderLineKey
-		dataType: int64
-		formatString: 0
-		lineageTag: 8e456b4e-cd30-4cdb-beef-a9d05ccd7437
-		summarizeBy: none
-		sourceColumn: SalesOrderLineKey
-
-		annotation SummarizationSetBy = Automatic
-
-	column ResellerKey
-		dataType: int64
-		formatString: 0
-		lineageTag: 079fb478-9b68-47b4-9b36-4400f4536652
-		summarizeBy: none
-		sourceColumn: ResellerKey
-
-		annotation SummarizationSetBy = Automatic
-
 	column CustomerKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: c1fcc286-444a-42e4-95ac-9507c6c272b7
 		summarizeBy: none
@@ -30,6 +13,7 @@ table Sales
 
 	column ProductKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 4c320e55-5551-4efb-8f64-a3532c9737ba
 		summarizeBy: none
@@ -39,6 +23,7 @@ table Sales
 
 	column OrderDateKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 67930bd2-328a-4dcc-97d8-7df5237fb44a
 		summarizeBy: none
@@ -48,6 +33,7 @@ table Sales
 
 	column SalesTerritoryKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: f76012e9-274f-477c-ae3f-12d4fc565d0f
 		summarizeBy: none
@@ -57,6 +43,7 @@ table Sales
 
 	column 'Order Quantity'
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 189c5cfe-5b37-412e-9cbc-1a0dd5b1e45c
 		summarizeBy: sum
@@ -66,6 +53,7 @@ table Sales
 
 	column 'Total Product Cost'
 		dataType: double
+		isHidden
 		lineageTag: 6fe08715-25d0-4fff-8a86-42f95b3ce67b
 		summarizeBy: sum
 		sourceColumn: Total Product Cost
@@ -76,6 +64,7 @@ table Sales
 
 	column 'Sales Amount'
 		dataType: double
+		isHidden
 		lineageTag: 32c4171f-4201-4165-9e22-64f8b5d844d9
 		summarizeBy: sum
 		sourceColumn: Sales Amount
@@ -84,99 +73,16 @@ table Sales
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column DueDateKey
-		dataType: int64
-		formatString: 0
-		lineageTag: fd98708a-38d0-4da1-b6ec-859257b19bad
-		summarizeBy: count
-		sourceColumn: DueDateKey
-
-		annotation SummarizationSetBy = Automatic
-
-	column ShipDateKey
-		dataType: int64
-		formatString: 0
-		lineageTag: cc010998-18ba-4ac5-80f4-05a3770c994c
-		summarizeBy: count
-		sourceColumn: ShipDateKey
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Unit Price'
-		dataType: double
-		lineageTag: 5f8b3f60-8c4f-4297-9e13-38ac32375465
-		summarizeBy: sum
-		sourceColumn: Unit Price
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Extended Amount'
-		dataType: double
-		lineageTag: 8efebe36-69f9-449e-8387-b9229d4e5578
-		summarizeBy: sum
-		sourceColumn: Extended Amount
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column 'Unit Price Discount Pct'
-		dataType: int64
-		formatString: 0
-		lineageTag: 98227dae-b81b-46e8-a674-70736f518666
-		summarizeBy: sum
-		sourceColumn: Unit Price Discount Pct
-
-		annotation SummarizationSetBy = Automatic
-
-	column 'Product Standard Cost'
-		dataType: double
-		lineageTag: 8ee8db54-aea4-4769-ae19-dccd386fa16a
-		summarizeBy: sum
-		sourceColumn: Product Standard Cost
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column OrderDateKeyAdjusted
-		dataType: int64
-		formatString: 0
-		lineageTag: 879e1127-e579-4c34-8464-2d1dabef72a7
-		summarizeBy: sum
-		sourceColumn: OrderDateKeyAdjusted
-
-		annotation SummarizationSetBy = Automatic
-
-	column DueDateKeyAdjusted
-		dataType: int64
-		formatString: 0
-		lineageTag: aec15117-5e69-43bd-8bbc-36838fdc3486
-		summarizeBy: sum
-		sourceColumn: DueDateKeyAdjusted
-
-		annotation SummarizationSetBy = Automatic
-
-	column ShipDateKeyAdjusted
-		dataType: int64
-		formatString: 0
-		lineageTag: c03ff89f-c166-4f61-bbd1-90d9518658cc
-		summarizeBy: sum
-		sourceColumn: ShipDateKeyAdjusted
-
-		annotation SummarizationSetBy = Automatic
-
 	partition Sales-30c332c1-abbe-409c-aac5-571a1ec5c825 = m
 		mode: import
 		source =
 				let
 				    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
 				    Sales_Table = Source{[Item="Sales",Kind="Table"]}[Data],
-				    #"Changed Type" = Table.TransformColumnTypes(Sales_Table,{{"SalesOrderLineKey", Int64.Type}, {"ResellerKey", Int64.Type}, {"CustomerKey", Int64.Type}, {"ProductKey", Int64.Type}, {"OrderDateKey", Int64.Type}, {"DueDateKey", Int64.Type}, {"ShipDateKey", Int64.Type}, {"SalesTerritoryKey", Int64.Type}, {"Order Quantity", Int64.Type}, {"Unit Price", type number}, {"Extended Amount", type number}, {"Unit Price Discount Pct", Int64.Type}, {"Product Standard Cost", type number}, {"Total Product Cost", type number}, {"Sales Amount", type number}, {"OrderDateKeyAdjusted", Int64.Type}, {"DueDateKeyAdjusted", Int64.Type}, {"ShipDateKeyAdjusted", Int64.Type}})
+				    #"Changed Type" = Table.TransformColumnTypes(Sales_Table,{{"SalesOrderLineKey", Int64.Type}, {"ResellerKey", Int64.Type}, {"CustomerKey", Int64.Type}, {"ProductKey", Int64.Type}, {"OrderDateKey", Int64.Type}, {"DueDateKey", Int64.Type}, {"ShipDateKey", Int64.Type}, {"SalesTerritoryKey", Int64.Type}, {"Order Quantity", Int64.Type}, {"Unit Price", type number}, {"Extended Amount", type number}, {"Unit Price Discount Pct", Int64.Type}, {"Product Standard Cost", type number}, {"Total Product Cost", type number}, {"Sales Amount", type number}, {"OrderDateKeyAdjusted", Int64.Type}, {"DueDateKeyAdjusted", Int64.Type}, {"ShipDateKeyAdjusted", Int64.Type}}),
+				    #"Kept Columns"= Table.SelectColumns(#"Changed Type",{"Order Quantity","Sales Amount","SalesTerritoryKey","Total Product Cost","OrderDateKey","ProductKey","CustomerKey"})
 				in
-				    #"Changed Type"
+				    #"Kept Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

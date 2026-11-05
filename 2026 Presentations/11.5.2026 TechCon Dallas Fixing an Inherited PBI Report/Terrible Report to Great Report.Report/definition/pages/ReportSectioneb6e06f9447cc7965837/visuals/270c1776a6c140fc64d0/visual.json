@@ -3,10 +3,10 @@
   "name": "270c1776a6c140fc64d0",
   "position": {
     "x": 0,
-    "y": 267.99051148079815,
+    "y": 438,
     "z": 3000,
-    "height": 452.15460704817133,
-    "width": 516.92956479945428,
+    "height": 282,
+    "width": 760,
     "tabOrder": 3000
   },
   "visual": {
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Sales Data FINAL v2"
+                      "Entity": "Product"
                     }
                   },
                   "Property": "Subcategory"
                 }
               },
-              "queryRef": "Sales Data FINAL v2.Subcategory",
+              "queryRef": "Product.Subcategory",
               "active": true,
               "displayName": "Subcategory | Model | Product"
             },
@@ -35,13 +35,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Sales Data FINAL v2"
+                      "Entity": "Product"
                     }
                   },
                   "Property": "Model"
                 }
               },
-              "queryRef": "Sales Data FINAL v2.Model",
+              "queryRef": "Product.Model",
               "active": false
             },
             {
@@ -49,13 +49,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Sales Data FINAL v2"
+                      "Entity": "Product"
                     }
                   },
                   "Property": "Product"
                 }
               },
-              "queryRef": "Sales Data FINAL v2.Product",
+              "queryRef": "Product.Product",
               "active": false
             }
           ]
@@ -67,39 +67,56 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Measures"
+                      "Entity": "Calculations"
                     }
                   },
-                  "Property": "# Products"
+                  "Property": "Quantity Ordered"
                 }
               },
-              "queryRef": "_Measures.# Products"
+              "queryRef": "Calculations.Quantity Ordered",
+              "nativeQueryRef": "Quantity Ordered"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Measures"
+                      "Entity": "Calculations"
                     }
                   },
-                  "Property": "Qty Ordered"
+                  "Property": "Revenue"
                 }
               },
-              "queryRef": "_Measures.Qty Ordered"
+              "queryRef": "Calculations.Revenue",
+              "nativeQueryRef": "Revenue"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Measures"
+                      "Entity": "Calculations"
                     }
                   },
-                  "Property": "Avg Profit"
+                  "Property": "Profit Margin %"
                 }
               },
-              "queryRef": "_Measures.Avg Profit"
+              "queryRef": "Calculations.Profit Margin %",
+              "nativeQueryRef": "Profit Margin %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Calculations"
+                    }
+                  },
+                  "Property": "Profit per Unit"
+                }
+              },
+              "queryRef": "Calculations.Profit per Unit",
+              "nativeQueryRef": "Profit per Unit"
             }
           ]
         }
@@ -111,10 +128,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "_Measures"
+                    "Entity": "Calculations"
                   }
                 },
-                "Property": "# Products"
+                "Property": "Quantity Ordered"
               }
             },
             "direction": "Descending"
@@ -223,7 +240,7 @@
             }
           },
           "selector": {
-            "metadata": "_Measures.Average Profit"
+            "metadata": "Calculations.Profit per Unit"
           }
         },
         {
@@ -279,7 +296,7 @@
             }
           },
           "selector": {
-            "metadata": "_Measures.Quantity Ordered"
+            "metadata": "Calculations.Quantity Ordered"
           }
         }
       ]
@@ -291,21 +308,21 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Adventure Works Data Sample'"
+                  "Value": "'Product Performance by Subcategory, Model, and Product'"
                 }
               }
             },
             "alignment": {
               "expr": {
                 "Literal": {
-                  "Value": "'center'"
+                  "Value": "'left'"
                 }
               }
             }

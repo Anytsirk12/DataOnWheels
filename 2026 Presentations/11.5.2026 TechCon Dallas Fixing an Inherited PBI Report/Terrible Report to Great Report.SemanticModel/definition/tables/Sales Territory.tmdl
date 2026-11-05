@@ -3,6 +3,7 @@ table 'Sales Territory'
 
 	column SalesTerritoryKey
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 6b98c518-0d4f-47bc-a028-1ae75ed83a25
 		summarizeBy: none
@@ -12,7 +13,7 @@ table 'Sales Territory'
 
 	column Region
 		dataType: string
-		lineageTag: 1c253974-baae-4792-86be-c52c6ab66afd
+		lineageTag: dd9bc829-40ff-4a0b-92a9-c544ae0a0613
 		summarizeBy: none
 		sourceColumn: Region
 
@@ -20,7 +21,7 @@ table 'Sales Territory'
 
 	column Country
 		dataType: string
-		lineageTag: a1d72576-3289-435b-b124-9344092543e1
+		lineageTag: f607c4fb-d29a-429e-8044-0d88e55518b7
 		summarizeBy: none
 		sourceColumn: Country
 
@@ -28,7 +29,7 @@ table 'Sales Territory'
 
 	column Group
 		dataType: string
-		lineageTag: 23daa00b-d274-416d-aee3-3803f8e4767f
+		lineageTag: 9e957369-bf86-4a9d-8d8a-5a927dd82d0e
 		summarizeBy: none
 		sourceColumn: Group
 
@@ -40,9 +41,10 @@ table 'Sales Territory'
 				let
 				    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
 				    SalesTerritory_Table = Source{[Item="SalesTerritory",Kind="Table"]}[Data],
-				    #"Changed Type1" = Table.TransformColumnTypes(SalesTerritory_Table,{{"SalesTerritoryKey", Int64.Type}, {"Region", type text}, {"Country", type text}, {"Group", type text}})
+				    #"Changed Type1" = Table.TransformColumnTypes(SalesTerritory_Table,{{"SalesTerritoryKey", Int64.Type}, {"Region", type text}, {"Country", type text}, {"Group", type text}}),
+				    #"Kept Columns"= Table.SelectColumns(#"Changed Type1",{"SalesTerritoryKey","Region","Country","Group"})
 				in
-				    #"Changed Type1"
+				    #"Kept Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

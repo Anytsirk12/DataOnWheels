@@ -1,0 +1,11 @@
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Date'[Fiscal Year],
+    'Product'[Subcategory],
+    'Product'[Model],
+    'Product'[Product],
+    "Qty", [Quantity Ordered],
+    "Revenue", [Revenue],
+    "Products", DISTINCTCOUNT(Sales[ProductKey]),
+    "AvgProfit", [Profit per Unit]
+)
