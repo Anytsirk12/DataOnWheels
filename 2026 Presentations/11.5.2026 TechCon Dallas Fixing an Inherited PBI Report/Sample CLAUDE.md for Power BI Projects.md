@@ -26,6 +26,23 @@ Fill in the Project context section, delete the rules that don't apply to you, a
 5. **Prove the numbers didn't change.** Before a refactor, write a DAX query (EVALUATE SUMMARIZECOLUMNS) that returns the key measures by the key dimensions and save its output. Rerun it after the change. Every difference must be either an intended fix that you explain or a bug.
 6. **Say when something is untested.** If a change uses a pattern you haven't seen work in this project, tell me before I open it.
 
+## Checklists
+
+The `Checklists/` folder holds one checklist per phase of the rebuild:
+
+- `01 Inspect - First Steps and Stakeholders.md`
+- `02 Architect - Quick Wins.md`
+- `03 Architect - Visual and Model Best Practices.md`
+- `04 Build - Rebuild and Verify.md`
+
+When I ask you to run a checklist:
+
+- Go through every item and mark it ✅ done or already fine, ❌ needs work, or ❓ needs a human.
+- Give the evidence for each item: the file and line, or exactly what you found.
+- Use each item's **AI check** column for how to verify it from the PBIP files. Items marked **Human** need me or a stakeholder.
+- Don't change any files while running a checklist. Report first, then wait for me to pick what to fix.
+- Save the filled-in results as `Checklists/results/<checklist name> <date>.md`, so the review travels with the project.
+
 ## Safety rules for PBIP files
 
 - **Identify items by `.platform`, not by folder name.** In Fabric Git integration, renaming an item changes `displayName` in `.platform`, not the folder name. Read `displayName` and `logicalId` before you edit anything.

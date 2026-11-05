@@ -43,14 +43,21 @@ table Calculations
 
 		changedProperty = FormatString
 
+	column Calculations
+		dataType: string
+		lineageTag: 572ab065-f933-4166-983b-8cc80b118513
+		summarizeBy: none
+		sourceColumn: Calculations
+
+		annotation SummarizationSetBy = Automatic
+
 	partition Calculations-c228e5a2-0a91-4041-9a8f-02558c6d16fc = m
 		mode: import
 		source =
 				let
-				    Source = "",
-				    #"Columns removed by Measure Killer"= Table.RemoveColumns(Source,{"Calculations"})
+				    Source = ""
 				in
-				    #"Columns removed by Measure Killer"
+				    Source
 
 	annotation PBI_NavigationStepName = Navigation
 

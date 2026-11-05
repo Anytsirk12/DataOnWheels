@@ -28,6 +28,11 @@ ref table 'Product List'
 ref table 'Model Profit Summary'
 ref table 'Date Copy'
 ref table _Measures
+ref table DateTableTemplate_03c70551-e166-442e-9fa8-d730b4cbd6c8
+ref table LocalDateTable_5b521612-82e1-469a-8f09-1b05677ae324
+ref table LocalDateTable_19528da0-7021-469c-a26d-2769539e708c
+ref table LocalDateTable_a24eb4ee-0a5f-4aa1-bafb-7b5ee3d2d152
+ref table LocalDateTable_5a75ac49-7809-4a76-b23d-fbc0479e952d
 
 ref cultureInfo en-US
 

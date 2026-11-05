@@ -99,6 +99,21 @@ table _Measures
 	measure 'Measure 2' = [Measure] * 2
 		lineageTag: 1dc07d58-8476-431e-901d-63685567e63c
 
+	measure 'Avg Profit (Pie)' =
+			VAR _fy = VALUES('Date'[Fiscal Year])
+			VAR _rows = FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN _fy)
+			VAR _profit =
+			    SUMX(
+			        _rows,
+			        VAR _line = 'Sales Data FINAL v2'[SalesOrderLineKey]
+			        VAR _check = MIN(1, COUNTROWS(FILTER(_rows, 'Sales Data FINAL v2'[SalesOrderLineKey] <= _line)))
+			        RETURN (CALCULATE(SUM('Sales Data FINAL v2'[Sales Amount])) - CALCULATE(SUM('Sales Data FINAL v2'[Total Product Cost]))) * _check
+			    )
+			VAR _qty = SUMX(_rows, 'Sales Data FINAL v2'[Order Quantity])
+			RETURN
+			IFERROR(_profit / _qty, 0)
+		lineageTag: d9f4731d-c8ca-4543-bf2b-778294dd2ce9
+
 	column Placeholder
 		isHidden
 		formatString: 0
@@ -110,6 +125,5 @@ table _Measures
 
 	partition _Measures = calculated
 		mode: import
-		source =
-				ROW("Placeholder", 1)
+		source = ROW("Placeholder", 1)
 

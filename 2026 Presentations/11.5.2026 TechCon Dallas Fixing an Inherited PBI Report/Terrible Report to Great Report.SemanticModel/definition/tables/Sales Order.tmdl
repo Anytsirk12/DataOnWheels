@@ -10,18 +10,41 @@ table 'Sales Order'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Channel
+		dataType: string
+		lineageTag: 037aac32-7050-437d-bc39-25490c4348ff
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Order'
+		dataType: string
+		lineageTag: 560f7f3c-cb35-4b94-a365-caaaef3361b4
+		summarizeBy: none
+		sourceColumn: Sales Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Order Line'
+		dataType: string
+		lineageTag: 13c9925f-5c5a-4194-900e-9ada90470e95
+		summarizeBy: none
+		sourceColumn: Sales Order Line
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Sales Order-b585b3f7-2f27-41ac-9d8e-68d023d16efe' = m
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://dataonwheels-my.sharepoint.com/personal/kristyna_dataonwheels_com/Documents/Temp%20Prep/AdventureWorks%20Sales.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
 				    SalesOrder_Table = Source{[Item="SalesOrder",Kind="Table"]}[Data],
-				    #"Changed Type" = Table.TransformColumnTypes(SalesOrder_Table,{{"Channel", type text}, {"SalesOrderLineKey", Int64.Type}, {"Sales Order", type text}, {"Sales Order Line", type text}}),
-				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type",{"SalesOrderLineKey"})
+				    #"Changed Type" = Table.TransformColumnTypes(SalesOrder_Table,{{"Channel", type text}, {"SalesOrderLineKey", Int64.Type}, {"Sales Order", type text}, {"Sales Order Line", type text}})
 				in
-				    #"Columns removed by Measure Killer"
+				    #"Changed Type"
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Exception
+	annotation PBI_ResultType = Table
 

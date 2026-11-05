@@ -10,16 +10,39 @@ table 'Sales Territory'
 
 		annotation SummarizationSetBy = Automatic
 
+	column Region
+		dataType: string
+		lineageTag: 1c253974-baae-4792-86be-c52c6ab66afd
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: a1d72576-3289-435b-b124-9344092543e1
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Group
+		dataType: string
+		lineageTag: 23daa00b-d274-416d-aee3-3803f8e4767f
+		summarizeBy: none
+		sourceColumn: Group
+
+		annotation SummarizationSetBy = Automatic
+
 	partition 'Sales Territory-a8ffe985-e98d-44af-b04c-65c4851c3843' = m
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(Web.Contents("https://dataonwheels-my.sharepoint.com/personal/kristyna_dataonwheels_com/Documents/Temp%20Prep/AdventureWorks%20Sales.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
 				    SalesTerritory_Table = Source{[Item="SalesTerritory",Kind="Table"]}[Data],
-				    #"Changed Type1" = Table.TransformColumnTypes(SalesTerritory_Table,{{"SalesTerritoryKey", Int64.Type}, {"Region", type text}, {"Country", type text}, {"Group", type text}}),
-				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type1",{"SalesTerritoryKey"})
+				    #"Changed Type1" = Table.TransformColumnTypes(SalesTerritory_Table,{{"SalesTerritoryKey", Int64.Type}, {"Region", type text}, {"Country", type text}, {"Group", type text}})
 				in
-				    #"Columns removed by Measure Killer"
+				    #"Changed Type1"
 
 	annotation PBI_NavigationStepName = Navigation
 

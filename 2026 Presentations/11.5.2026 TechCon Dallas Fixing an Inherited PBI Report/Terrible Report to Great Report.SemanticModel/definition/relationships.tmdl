@@ -24,3 +24,23 @@ relationship a56e93b6-7802-427b-bde3-087b9aaffdb2
 	fromColumn: Sales.OrderDateKey
 	toColumn: Date.DateKey
 
+relationship 3c3a4da0-0999-48ec-8534-274c97ba1d5c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.Month
+	toColumn: LocalDateTable_5b521612-82e1-469a-8f09-1b05677ae324.Date
+
+relationship 87bcec33-e532-471a-a09f-f0bc14ef562b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.'Full Date'
+	toColumn: LocalDateTable_19528da0-7021-469c-a26d-2769539e708c.Date
+
+relationship 1fc846bc-8b01-4ced-860d-d527dcf89bb1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.'End of Week'
+	toColumn: LocalDateTable_a24eb4ee-0a5f-4aa1-bafb-7b5ee3d2d152.Date
+
+relationship 44298422-ef26-4818-aff6-217405ab01f6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.'End of Week Sunday'
+	toColumn: LocalDateTable_5a75ac49-7809-4a76-b23d-fbc0479e952d.Date
+

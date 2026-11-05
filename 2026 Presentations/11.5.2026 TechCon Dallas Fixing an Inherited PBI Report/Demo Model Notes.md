@@ -16,14 +16,15 @@ These are the deliberately bad changes made to `Terrible Report to Great Report.
 
 **Auto date/time is turned on** (`__PBI_TimeIntelligenceEnabled = 1`). After a refresh, Desktop builds hidden local date tables for every date column, including the ones in the calculated tables.
 
-### Measures in `_Measures` (22: 5 used, 17 unused)
+### Measures in `_Measures` (23: 6 used, 17 unused)
 
 | Measure | Used by | Bad practice | Clean equivalent |
 |---|---|---|---|
 | `Qty Ordered` | Quantity card, matrix, scatter | Iterates over a FILTER of the whole table and uses `IN VALUES('Date'[Fiscal Year])` as a fake relationship | `SUM(Sales[Order Quantity])` |
 | `Total Revenue` | Revenue by state funnel | FILTER of the table as a CALCULATE argument, SUMX on a single column | `SUM(Sales[Sales Amount])` |
 | `# Products` | Product count card, matrix, scatter, table | COUNTROWS of DISTINCT of SELECTCOLUMNS of FILTER | `DISTINCTCOUNT(Sales[ProductKey])` |
-| `Avg Profit` | Pie, matrix, scatter | **Context transition on every row** (CALCULATE inside SUMX over ~120K rows), `/` instead of DIVIDE, and IFERROR. This is the one that makes the page painfully slow. | `DIVIDE([Revenue] - [Cost], [Quantity Ordered], 0)` |
+| `Avg Profit` | Matrix, scatter | Context transition on every row (CALCULATE inside SUMX), `/` instead of DIVIDE, and IFERROR. The engine optimizes this well at 120K rows, so it's ugly but not slow. | `DIVIDE([Revenue] - [Cost], [Quantity Ordered], 0)` |
+| `Avg Profit (Pie)` | Pie only | **A duplicate of `Avg Profit` that's painfully slow.** For every row, it counts the rows in the same slice with a `<=` comparison, then multiplies the profit by `MIN(1, that count)`, which is always 1. A `<=` comparison can't be turned into a join or cached, so the work grows with the square of each slice's row count, every time. Measured on 11.5.26: **~22 s** for the pie with no year selected and **~12 s** for FY2020 (the current `Avg Profit` takes ~240 ms), with identical results for every model. It's only used in the pie, because on the matrix grand total or the scatter it would run for minutes. | Same as `Avg Profit` |
 | `Std Cost` | Model/product cost table | FILTER iterator, multiplies by 1 | `SUM(Sales[Total Product Cost])` |
 
 Unused: `Total Revenue OLD`, `Total Revenue (2)`, `Revenue LY`, `Revenue YTD`, `Profit %`, `Margin TEMP`, `Greg's Profit`, `Avg Price`, `Order Count`, `Customer Count`, `Bike Revenue`, `% of Total Revenue`, `Revenue Rank`, `Revenue Text Measure`, `Test`, `Measure`, and `Measure 2`. They have no format strings, no descriptions, and no display folders. Several of them use `/` instead of DIVIDE, IFERROR, or FORMAT, which returns text.
@@ -56,6 +57,7 @@ SUMMARIZECOLUMNS(
     "Bad Cost", [Std Cost],
     "Clean Cost", [Cost],
     "Bad Avg Profit", [Avg Profit],
+    "Bad Avg Profit (Pie)", [Avg Profit (Pie)],
     "Clean Avg Profit", [Average Profit],
     "Bad Products", [# Products],
     "Clean Products", DISTINCTCOUNT(Sales[ProductKey])
@@ -67,6 +69,6 @@ ORDER BY 'Date'[Fiscal Year]
 
 ## Before you open it
 
-- **Refresh once in Desktop** so the calculated tables get built. Until then, the Terrible page visuals will show errors.
-- **The `Calculations` table's M partition looks broken.** It reads `Source = ""` and then calls `Table.RemoveColumns` on that text, which Measure Killer left behind. If the refresh fails on `Calculations`, that's the cause, not the new tables.
-- **The calculated-table TMDL is untested.** It follows the TMDL Doctor rules (every calculated-table column has `sourceColumn: [Name]`) and passes the TMDL Doctor linter, but there was no working calculated table in your models to copy from. If Desktop refuses to open the project, the error message will name the table.
+- **Opened, refreshed, and saved in Desktop on 11.5.26.** Desktop kept the calculated tables and measures as written. Auto date/time added four hidden `LocalDateTable_*` tables and a `DateTableTemplate_*` table, which are worth pointing out during the Auto date/time quick win.
+- **The `Calculations` partition is now `Source = ""`.** The leftover `Table.RemoveColumns` step from Measure Killer is gone, so that table refreshes cleanly.
+- **To reset the demo,** close Desktop, delete the `.pbip` file and its `.Report` and `.SemanticModel` folders, and extract `Terrible Report DEMO RESET 11052026.zip` into this folder. It holds the terrible version as refreshed on 11.5.26, including the data cache, so it opens without a refresh.

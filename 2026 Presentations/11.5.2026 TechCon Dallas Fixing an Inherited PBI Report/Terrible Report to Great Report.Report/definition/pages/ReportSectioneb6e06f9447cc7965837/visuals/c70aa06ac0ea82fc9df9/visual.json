@@ -42,10 +42,10 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avg Profit"
+                  "Property": "Avg Profit (Pie)"
                 }
               },
-              "queryRef": "_Measures.Avg Profit"
+              "queryRef": "_Measures.Avg Profit (Pie)"
             }
           ]
         }
@@ -60,7 +60,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Avg Profit"
+                "Property": "Avg Profit (Pie)"
               }
             },
             "direction": "Descending"

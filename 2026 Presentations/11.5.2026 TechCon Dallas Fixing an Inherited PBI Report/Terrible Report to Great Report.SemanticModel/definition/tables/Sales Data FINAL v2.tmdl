@@ -127,14 +127,14 @@ table 'Sales Data FINAL v2'
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'State-Province'
+	column State-Province
 		lineageTag: bd27f0e1-a543-4d87-9aa5-acdb3717d8df
 		summarizeBy: none
 		sourceColumn: [State-Province]
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Country-Region'
+	column Country-Region
 		lineageTag: c5951a41-6319-458e-a51c-967161081057
 		summarizeBy: none
 		sourceColumn: [Country-Region]
