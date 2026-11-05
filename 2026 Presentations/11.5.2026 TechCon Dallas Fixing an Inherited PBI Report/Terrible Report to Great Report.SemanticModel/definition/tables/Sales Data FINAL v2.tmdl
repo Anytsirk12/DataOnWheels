@@ -1,0 +1,243 @@
+table 'Sales Data FINAL v2'
+	lineageTag: 18c3b4ae-3b06-407f-81f1-c86ddbd4021a
+
+	column SalesOrderLineKey
+		formatString: 0
+		lineageTag: d13c45bf-34d7-4b43-b54c-587143229e07
+		summarizeBy: sum
+		sourceColumn: [SalesOrderLineKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		formatString: 0
+		lineageTag: 34acec7e-5cb4-47ec-b890-1dde8068f9f5
+		summarizeBy: sum
+		sourceColumn: [ProductKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		formatString: 0
+		lineageTag: 8e0283e0-93d0-46e3-920a-84fcf3067d52
+		summarizeBy: sum
+		sourceColumn: [CustomerKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResellerKey
+		formatString: 0
+		lineageTag: 6387a411-a77a-4adc-af77-f646e065b297
+		summarizeBy: sum
+		sourceColumn: [ResellerKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTerritoryKey
+		formatString: 0
+		lineageTag: 4e52ae82-d309-4a41-9955-34e374967755
+		summarizeBy: sum
+		sourceColumn: [SalesTerritoryKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDateKey
+		formatString: 0
+		lineageTag: 13f9cd07-3314-4c2b-8e1f-0d2bf5e0e564
+		summarizeBy: sum
+		sourceColumn: [OrderDateKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Quantity'
+		formatString: 0
+		lineageTag: aba1c83c-cc48-4ce8-9a4f-ea503bc82c15
+		summarizeBy: sum
+		sourceColumn: [Order Quantity]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Amount'
+		lineageTag: 93496603-94b0-4207-8322-abeddff91999
+		summarizeBy: sum
+		sourceColumn: [Sales Amount]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Product Cost'
+		lineageTag: 5ec16a14-8acf-4f17-8240-c412d6950cb0
+		summarizeBy: sum
+		sourceColumn: [Total Product Cost]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Profit
+		lineageTag: d41eb43f-4a3d-4312-a7b8-8d098c8d70b4
+		summarizeBy: sum
+		sourceColumn: [Profit]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Profit Per Unit'
+		lineageTag: 0bc52ce0-bd91-44a9-8fe5-b46e4f60bffa
+		summarizeBy: sum
+		sourceColumn: [Profit Per Unit]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Price Calc'
+		lineageTag: 59acd8cc-381a-4527-9fd1-9c1c0ae7e95b
+		summarizeBy: sum
+		sourceColumn: [Unit Price Calc]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		lineageTag: ecf07b31-8f2b-4dde-b129-da59ec7bb2b7
+		summarizeBy: none
+		sourceColumn: [Product]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model
+		lineageTag: 41863818-ac8c-4b97-a367-89b6ed4eab8b
+		summarizeBy: none
+		sourceColumn: [Model]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subcategory
+		lineageTag: 870ff620-c800-4b1f-bee9-abc57e54ed7f
+		summarizeBy: none
+		sourceColumn: [Subcategory]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		lineageTag: 777b9c10-9a5f-44c4-a9e3-1933aa392d78
+		summarizeBy: none
+		sourceColumn: [Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Bike'
+		lineageTag: e5d315dd-6de8-4820-860d-0f106c7fe7f9
+		summarizeBy: none
+		sourceColumn: [Is Bike]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'State-Province'
+		lineageTag: bd27f0e1-a543-4d87-9aa5-acdb3717d8df
+		summarizeBy: none
+		sourceColumn: [State-Province]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country-Region'
+		lineageTag: c5951a41-6319-458e-a51c-967161081057
+		summarizeBy: none
+		sourceColumn: [Country-Region]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		lineageTag: 603c675f-0357-49ac-a6c2-094afb5d4c1e
+		summarizeBy: none
+		sourceColumn: [Order Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year'
+		lineageTag: 84693d64-96fa-4f1e-8361-261a618ccdd6
+		summarizeBy: none
+		sourceColumn: [Fiscal Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Quarter'
+		lineageTag: 903fb087-55b8-4e1b-9849-559813530e41
+		summarizeBy: none
+		sourceColumn: [Fiscal Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date Text'
+		lineageTag: 6fc5f2dd-8499-4f12-9bc9-23907d1f6ff5
+		summarizeBy: none
+		sourceColumn: [Order Date Text]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		lineageTag: 19fa4b58-82a3-499a-a87e-437ee581e491
+		summarizeBy: none
+		sourceColumn: [Month Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Number'
+		formatString: 0
+		lineageTag: 6911b949-29fc-4faa-87e7-21dbb52d26ef
+		summarizeBy: sum
+		sourceColumn: [Year Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Revenue Text'
+		lineageTag: 437360eb-6ce0-48d9-9431-4bcaa5bb86c6
+		summarizeBy: none
+		sourceColumn: [Revenue Text]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Line Description'
+		lineageTag: 1bdd838c-3c53-44ab-ad57-3531492745ea
+		summarizeBy: none
+		sourceColumn: [Order Line Description]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Row Count Helper'
+		formatString: 0
+		lineageTag: dd5a6fe0-194a-4449-8726-a00f64a56535
+		summarizeBy: sum
+		sourceColumn: [Row Count Helper]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Sales Data FINAL v2' = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS(
+				    Sales,
+				    "SalesOrderLineKey", Sales[SalesOrderLineKey],
+				    "ProductKey", Sales[ProductKey],
+				    "CustomerKey", Sales[CustomerKey],
+				    "ResellerKey", Sales[ResellerKey],
+				    "SalesTerritoryKey", Sales[SalesTerritoryKey],
+				    "OrderDateKey", Sales[OrderDateKey],
+				    "Order Quantity", Sales[Order Quantity],
+				    "Sales Amount", Sales[Sales Amount],
+				    "Total Product Cost", Sales[Total Product Cost],
+				    "Profit", Sales[Sales Amount] - Sales[Total Product Cost],
+				    "Profit Per Unit", DIVIDE(Sales[Sales Amount] - Sales[Total Product Cost], Sales[Order Quantity]),
+				    "Unit Price Calc", DIVIDE(Sales[Sales Amount], Sales[Order Quantity]),
+				    "Product", RELATED('Product'[Product]),
+				    "Model", RELATED('Product'[Model]),
+				    "Subcategory", RELATED('Product'[Subcategory]),
+				    "Category", RELATED('Product'[Category]),
+				    "Is Bike", IF(RELATED('Product'[Category]) = "Bikes", "Yes", "No"),
+				    "State-Province", RELATED(Customer[State-Province]),
+				    "Country-Region", RELATED(Customer[Country-Region]),
+				    "Order Date", RELATED('Date'[Date]),
+				    "Fiscal Year", RELATED('Date'[Fiscal Year]),
+				    "Fiscal Quarter", RELATED('Date'[Fiscal Quarter]),
+				    "Order Date Text", FORMAT(RELATED('Date'[Date]), "mmmm d, yyyy"),
+				    "Month Name", FORMAT(RELATED('Date'[Date]), "mmmm"),
+				    "Year Number", YEAR(RELATED('Date'[Date])),
+				    "Revenue Text", FORMAT(Sales[Sales Amount], "$#,0.00"),
+				    "Order Line Description", RELATED('Product'[Product]) & " | " & RELATED(Customer[State-Province]) & " | " & FORMAT(RELATED('Date'[Date]), "yyyy-mm-dd") & " | Line " & Sales[SalesOrderLineKey],
+				    "Row Count Helper", 1
+				)
+

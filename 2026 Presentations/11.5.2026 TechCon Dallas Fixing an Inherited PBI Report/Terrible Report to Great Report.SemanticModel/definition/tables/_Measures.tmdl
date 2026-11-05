@@ -1,0 +1,115 @@
+table _Measures
+	lineageTag: 1ba31c56-6a66-4b6f-9373-7257e9831947
+
+	measure 'Qty Ordered' =
+			VAR _fy = VALUES('Date'[Fiscal Year])
+			RETURN
+			SUMX(
+			    FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN _fy),
+			    'Sales Data FINAL v2'[Order Quantity]
+			)
+		lineageTag: 61f88b1d-bb74-4911-b4ca-b3581f7c58f5
+
+	measure 'Total Revenue' =
+			CALCULATE(
+			    SUMX('Sales Data FINAL v2', 'Sales Data FINAL v2'[Sales Amount]),
+			    FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year]))
+			)
+		lineageTag: 87c34225-cd96-423f-9d7b-5ab5a0ac5429
+
+	measure '# Products' =
+			COUNTROWS(
+			    DISTINCT(
+			        SELECTCOLUMNS(
+			            FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year])),
+			            "pk", 'Sales Data FINAL v2'[ProductKey]
+			        )
+			    )
+			)
+		lineageTag: d4b67892-6ca7-49c2-a19f-9e17d99836b7
+
+	measure 'Avg Profit' =
+			VAR _fy = VALUES('Date'[Fiscal Year])
+			VAR _rows = FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN _fy)
+			VAR _profit =
+			    SUMX(
+			        _rows,
+			        CALCULATE(SUM('Sales Data FINAL v2'[Sales Amount])) - CALCULATE(SUM('Sales Data FINAL v2'[Total Product Cost]))
+			    )
+			VAR _qty = SUMX(_rows, 'Sales Data FINAL v2'[Order Quantity])
+			RETURN
+			IFERROR(_profit / _qty, 0)
+		lineageTag: 2defb5cb-d447-414c-9f8c-19bfbe043372
+
+	measure 'Std Cost' =
+			SUMX(
+			    FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year])),
+			    'Sales Data FINAL v2'[Total Product Cost] * 1
+			)
+		lineageTag: e944231c-84b4-4cc9-8b52-ac7b3b8c0154
+
+	measure 'Total Revenue OLD' = SUM('Sales Data FINAL v2'[Sales Amount])
+		lineageTag: 9daf4ff6-a6a4-49f0-bcb2-aace38e73a44
+
+	measure 'Total Revenue (2)' = SUMX('Sales Data FINAL v2', 'Sales Data FINAL v2'[Order Quantity] * 'Sales Data FINAL v2'[Unit Price Calc])
+		lineageTag: b293b9cc-54e4-4b11-a356-2e38436a4892
+
+	measure 'Revenue LY' = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Sales Data FINAL v2'[Order Date]))
+		lineageTag: a96f00b5-4713-4e01-91fa-a8bc861736ab
+
+	measure 'Revenue YTD' = CALCULATE([Total Revenue], DATESYTD('Sales Data FINAL v2'[Order Date]))
+		lineageTag: 18fcacdc-626b-4471-aab6-d370573466d5
+
+	measure 'Profit %' = IFERROR(SUM('Sales Data FINAL v2'[Profit]) / SUM('Sales Data FINAL v2'[Sales Amount]), BLANK())
+		lineageTag: 35505de0-34f5-4212-b591-ce6d535cf187
+
+	measure 'Margin TEMP' = ([Total Revenue] - [Std Cost]) / [Total Revenue]
+		lineageTag: 4f52026c-0aed-441c-94ea-50f82c8db95e
+
+	measure 'Greg''s Profit' = SUMX('Sales Data FINAL v2', 'Sales Data FINAL v2'[Sales Amount]) - SUMX('Sales Data FINAL v2', 'Sales Data FINAL v2'[Total Product Cost])
+		lineageTag: bcba71bb-c3d5-42b6-8b19-e9a280cc6e25
+
+	measure 'Avg Price' = AVERAGE('Sales Data FINAL v2'[Unit Price Calc])
+		lineageTag: 382d9356-9e85-4e73-b5f3-0dc14a06aa91
+
+	measure 'Order Count' = COUNTROWS('Sales Data FINAL v2')
+		lineageTag: 639d353c-a58c-4e02-b561-7d7431ecbaaf
+
+	measure 'Customer Count' = COUNTROWS(DISTINCT('Sales Data FINAL v2'[CustomerKey]))
+		lineageTag: b18ff55b-9385-4db5-9b03-a5b6e8cc4bfe
+
+	measure 'Bike Revenue' = CALCULATE([Total Revenue], FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Is Bike] = "Yes"))
+		lineageTag: b1861c1e-4c3d-43b1-b5a7-9f13ed8e11d1
+
+	measure '% of Total Revenue' = [Total Revenue] / CALCULATE([Total Revenue], ALL('Sales Data FINAL v2'))
+		lineageTag: 64ae07ae-0b7e-4563-9bba-1caa5ad284f8
+
+	measure 'Revenue Rank' = RANKX(ALL('Sales Data FINAL v2'[Model]), [Total Revenue])
+		lineageTag: fc957fde-c9d8-4de6-a6e8-446fd9653f09
+
+	measure 'Revenue Text Measure' = FORMAT([Total Revenue], "$#,0.00")
+		lineageTag: 33eadeba-54aa-4b8d-9997-d3f6b4859780
+
+	measure Test = 1
+		lineageTag: 33785564-cced-489d-a0a3-4a826896a1b1
+
+	measure Measure = SUM('Sales Data FINAL v2'[Row Count Helper])
+		lineageTag: 9e71c171-29c1-44b0-8fcf-5aacfefbfd60
+
+	measure 'Measure 2' = [Measure] * 2
+		lineageTag: 1dc07d58-8476-431e-901d-63685567e63c
+
+	column Placeholder
+		isHidden
+		formatString: 0
+		lineageTag: f2909595-9b6f-4d03-833a-c7fa3ee45fd3
+		summarizeBy: sum
+		sourceColumn: [Placeholder]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source =
+				ROW("Placeholder", 1)
+

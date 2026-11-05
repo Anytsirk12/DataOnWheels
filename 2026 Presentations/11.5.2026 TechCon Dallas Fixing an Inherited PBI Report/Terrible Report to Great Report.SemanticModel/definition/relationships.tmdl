@@ -1,0 +1,26 @@
+relationship 1b30f944-1b57-442e-8aca-e675c231c290
+	fromColumn: Sales.ProductKey
+	toColumn: Product.ProductKey
+
+relationship fedea08d-465f-4b03-8f02-5426af7fb80b
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Sales Order'.SalesOrderLineKey
+	toColumn: Sales.SalesOrderLineKey
+
+relationship 7148b2ed-5ec0-44a9-a4cb-314226113ce2
+	fromColumn: Sales.ResellerKey
+	toColumn: Reseller.ResellerKey
+
+relationship b203e473-2010-4e15-8455-4f81238242f1
+	fromColumn: Sales.CustomerKey
+	toColumn: Customer.CustomerKey
+
+relationship 42788a80-fa14-4522-8714-ecd801dfbf55
+	fromColumn: Sales.SalesTerritoryKey
+	toColumn: 'Sales Territory'.SalesTerritoryKey
+
+relationship a56e93b6-7802-427b-bde3-087b9aaffdb2
+	fromColumn: Sales.OrderDateKey
+	toColumn: Date.DateKey
+

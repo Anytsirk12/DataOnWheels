@@ -1,0 +1,223 @@
+Terrible Report Review: Stakeholder Feedback Session
+Adventure Works Cycles
+Recorded meeting transcript (SIMULATED: fictional people and conversation, created for the TechCon Dallas 2026 demo)
+
+Attendees
+- Kristyna Ferris, BI Developer (facilitator)
+- Dana Whitfield, VP of Sales (new owner of the report)
+- Marcus Lee, Regional Sales Manager, Southwest (daily user of the current report)
+- Priya Shah, Senior Financial Analyst
+
+Duration: 10 minutes
+
+-----------------------------------------------------------------------
+
+Kristyna Ferris   0:04
+Thanks for making time, everyone. I've got the report up on screen. This is the one Greg built before he moved over to the operations side. Dana, I know it's yours now, so the goal today is to understand what's working, what isn't, and what decisions you need it to help you make. I'm going to be nosy and ask a lot of questions.
+
+Dana Whitfield   0:21
+Be as nosy as you want. Honestly, I opened it once in my first week, waited for it to load, and then closed it and asked Priya to send me a spreadsheet instead.
+
+Priya Shah   0:30
+Which I have been doing every Monday since.
+
+Kristyna Ferris   0:33
+That's good to know. So right now the real report is a spreadsheet Priya builds by hand. Dana, let's start with the big one. What decisions are you trying to make with this?
+
+Dana Whitfield   0:42
+Two things, mostly. First, which product lines are actually making us money, not just moving volume. We sell a lot of accessories and clothing, but I suspect bikes carry the margin and I want to see that. Second, where are we growing and where are we slipping by region, so I know where to put my reps and my promotion budget next quarter.
+
+Kristyna Ferris   1:05
+So profitability by product, and growth by region. If you could only look at three numbers every Monday, what would they be?
+
+Dana Whitfield   1:13
+Revenue, profit margin as a percentage, and how both of those compare to the same time last year. Volume is nice, but I don't run the business on units.
+
+Kristyna Ferris   1:24
+Got it. Marcus, you're in this report every day. Walk me through how you use it.
+
+Marcus Lee   1:29
+Sure. I pick my fiscal year up here with these buttons, then I go straight to the big table in the bottom left, the one with Subcategory, then Model, then Product. I expand Road Bikes and Mountain Bikes and look at quantity ordered by model. That table is honestly the only reason I open the report. I'd be upset if it went away.
+
+Kristyna Ferris   1:47
+That's really helpful. So the fiscal year buttons and the Subcategory to Model to Product drill-down are working for you. What about the rest of the page?
+
+Marcus Lee   1:55
+Okay, so, the pie chart. I don't know what it is trying to tell me. There are what, forty-something slices? The legend runs off the side and you have to click the little arrow to page through it. I can't tell which model is which color.
+
+Dana Whitfield   2:07
+I asked Greg's old analyst about that pie once. She said it was average profit by model, and I said "average of what," and she didn't know.
+
+Priya Shah   2:15
+I can actually answer that one, because I tried to reconcile it. The "Average Profit" number is total profit divided by quantity ordered. So it's profit per unit. That's a fine number, but it's not what anyone thinks it is from the name. And then there's a measure called "Profit Margin" that's actually profit in dollars, not a percentage. So when Dana asks me for margin, I can't take it from the report, because the report's margin is dollars.
+
+Kristyna Ferris   2:38
+That's a big one. So the names don't match what the numbers mean. I'm writing down: rename "Profit Margin" to "Profit," add a true margin percentage, and either rename "Average Profit" to something like "Profit per Unit" or drop it.
+
+Priya Shah   2:51
+Yes, please. That alone would save me an hour a week of explaining.
+
+Kristyna Ferris   2:55
+What about the chart up in the top left, with the dots?
+
+Marcus Lee   2:59
+The scatter chart? I've never once looked at it on purpose. It's product count against quantity ordered, sized by average profit, by category. There are four dots. I don't know what decision I'd make from that.
+
+Dana Whitfield   3:09
+Cut it.
+
+Kristyna Ferris   3:11
+Noted. And the little chart in the middle, "Revenue by State-Province"?
+
+Marcus Lee   3:15
+That one's a funnel chart, I think? It's got one giant spike and then everything else is a sliver. It's supposed to show revenue by state, but you can't read the state names, and a funnel doesn't make sense for states anyway. Nobody drops out of California on the way to Oregon.
+
+Dana Whitfield   3:28
+But the question behind it matters. I do want to see revenue by region. I'd like a map, or even just a ranked bar chart. I want to see my territories, not every state, though. I manage by sales territory, not by state.
+
+Kristyna Ferris   3:40
+That's a good catch. So the grain you care about is sales territory. Is that the same as the Sales Territory table in the data, or is it a different grouping?
+
+Dana Whitfield   3:48
+It should be the same. Northwest, Southwest, Central, Northeast, Southeast, and then the international ones.
+
+Priya Shah   3:55
+It is the same. And the data has it, it's just not used anywhere in the report. The report uses the customer's state instead, which is different, because a reseller in Arizona can be managed by the Southwest territory but ship to a customer somewhere else.
+
+Kristyna Ferris   4:08
+Perfect, so revenue should be sliced by the Sales Territory table, not the customer's state. That might also explain some numbers not tying out. Speaking of which, what about the table in the bottom right, with Model, Product, Product Count, and Cost?
+
+Priya Shah   4:20
+That table is a mystery. It has a total cost of ninety-seven point two million at the bottom, and I have no idea what that represents. It doesn't match my cost numbers from the ERP. It might be standard cost times something, but I can't tell what. Every row has a product count of one, because it's at the product level already, so that column is useless too.
+
+Dana Whitfield   4:38
+If finance can't tie it out, I don't want it on my report. I'd rather have no number than a wrong one.
+
+Kristyna Ferris   4:44
+Completely agree. I'll trace where that cost number comes from before we decide whether it's wrong or just labeled badly. Are there any other numbers you don't trust?
+
+Priya Shah   4:53
+The fiscal year buttons have a "(Blank)" option. When you click it, you get some sales with no fiscal year. I think there are order dates that don't match the date table. That's a data quality issue I've flagged before and it never got fixed.
+
+Kristyna Ferris   5:05
+Great, that's a landmine I want to know about. I'll check the date relationship and how much revenue falls into blank. Marcus, the two big numbers at the top, 397 and 275K, do you use those?
+
+Marcus Lee   5:16
+The 275K, quantity ordered, yes, I glance at it. The 397 product count, no. It's the same number every time I look at it.
+
+Dana Whitfield   5:24
+I'd swap those for revenue and margin percent. Those are my numbers.
+
+Kristyna Ferris   5:28
+Okay. Let me ask about speed. Dana, you mentioned it was slow to load. Marcus, do you notice that too?
+
+Marcus Lee   5:34
+Every time. It takes, I don't know, fifteen, twenty seconds when I change the fiscal year. Sometimes the pie just spins. I've learned to click the year and go get coffee.
+
+Kristyna Ferris   5:43
+Good to know. I'll run Performance Analyzer and look at the model. There's at least one relationship in there that filters in both directions, which can slow things down, and I want to see what the pie and the table are doing under the hood.
+
+Dana Whitfield   5:55
+I don't need to know how, I just need it to not be slow.
+
+Kristyna Ferris   5:58
+Fair. Next question: who else uses this report, and how do they slice it?
+
+Dana Whitfield   6:03
+My regional managers, so Marcus and the four others. Me. Priya on the finance side. And the CFO occasionally gets a screenshot from me in a deck.
+
+Marcus Lee   6:12
+The regional managers all filter to their own territory, or they would if they could. Right now there's no territory filter, so I just eyeball my products.
+
+Kristyna Ferris   6:20
+So a territory slicer would be a big win for the managers. And it sounds like the CFO screenshot means the top of the page needs to be readable on its own.
+
+Dana Whitfield   6:28
+Yes. If I can screenshot the top half and drop it in a slide, that's ideal.
+
+Kristyna Ferris   6:33
+How often do you need these answers? Daily, weekly, monthly?
+
+Dana Whitfield   6:37
+Weekly for me. Monday morning. Marcus and the managers look daily.
+
+Priya Shah   6:42
+The data refreshes overnight, so daily is realistic.
+
+Kristyna Ferris   6:46
+And where does the data live today? Is everything in this report from the same source?
+
+Priya Shah   6:51
+All of it comes from the sales data warehouse, the same one my spreadsheet pulls from. Same tables. Which is why it's so frustrating that the numbers don't match.
+
+Kristyna Ferris   6:59
+That's actually good news. Same source means we should be able to reconcile to your spreadsheet. Priya, would you be willing to share last Monday's spreadsheet? I'd like to use it as the answer key when I check the new numbers.
+
+Priya Shah   7:10
+Absolutely. I'll send it after this call.
+
+Kristyna Ferris   7:13
+Thank you. Dana, is there anything you want that the report doesn't do at all today?
+
+Dana Whitfield   7:19
+Trend over time. Right now everything is one fiscal year at a time. I want to see revenue and margin by quarter, this year against last year, so I can see if we're turning a corner.
+
+Marcus Lee   7:30
+Oh, and if we're wishing, could it email me every morning? And could it pull in our CRM pipeline? And forecasts?
+
+Dana Whitfield   7:37
+Marcus.
+
+Marcus Lee   7:38
+I'm just saying.
+
+Kristyna Ferris   7:40
+I love the enthusiasm. Let me write those down as "phase two" ideas: morning email subscription, CRM pipeline, and forecasting. Pipeline and forecasts are new data sources, so they're a separate project. Email subscriptions we can probably set up easily once the report is rebuilt, so I'll note that as a quick follow-up rather than part of this rebuild.
+
+Dana Whitfield   7:58
+That's fair. Let's get the core right first.
+
+Kristyna Ferris   8:01
+Okay, let me play back what I heard and you tell me if I've got it. Keep: the fiscal year filter, the Subcategory to Model to Product table, and quantity ordered as a supporting number. Fix: rename Profit Margin to Profit, add a real margin percentage, rethink Average Profit, replace the state funnel with revenue by sales territory, add a territory slicer, investigate the blank fiscal year, and trace the ninety-seven million cost number. Cut: the scatter chart, the pie chart, the product count card, and probably the cost table. Add: revenue and margin cards, and a trend by quarter compared to last year. And it needs to be fast.
+
+Dana Whitfield   8:38
+That's it. That's exactly it.
+
+Priya Shah   8:40
+Agreed. And make sure the margin matches mine.
+
+Marcus Lee   8:43
+As long as my table stays.
+
+Kristyna Ferris   8:45
+Your table stays. Last question, and it's the important one. How will we know this is done? What does "done" look like to each of you?
+
+Dana Whitfield   8:52
+Done is: I open it Monday morning, it loads in a few seconds, I see revenue, margin, and how we compare to last year, by territory, and I stop asking Priya for the spreadsheet.
+
+Priya Shah   9:03
+Done for me is: the revenue, cost, and margin numbers tie to my spreadsheet for last fiscal year, to the dollar, by territory.
+
+Marcus Lee   9:10
+Done for me is: I can filter to the Southwest and still drill into my bike models.
+
+Kristyna Ferris   9:15
+That's great. I'm going to write all of this up and send it to the three of you today, so we all have the same list. I'm also going to put a copy on a hidden page inside the report itself, so whoever owns this next knows why it was built this way.
+
+Dana Whitfield   9:28
+I like that. Greg didn't leave us anything.
+
+Kristyna Ferris   9:31
+Which is exactly why we're here. Thanks, everyone. I'll have a first pass for you to look at by the end of next week.
+
+Dana Whitfield   9:37
+Thanks, Kristyna.
+
+Priya Shah   9:38
+Thanks.
+
+Marcus Lee   9:39
+Thanks. Don't touch my table.
+
+-----------------------------------------------------------------------
+End of transcript

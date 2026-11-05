@@ -1,0 +1,27 @@
+table 'Sales Territory'
+	lineageTag: 70267f3a-89d2-4475-af25-354fe8067838
+
+	column SalesTerritoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b98c518-0d4f-47bc-a028-1ae75ed83a25
+		summarizeBy: none
+		sourceColumn: SalesTerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Sales Territory-a8ffe985-e98d-44af-b04c-65c4851c3843' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://dataonwheels-my.sharepoint.com/personal/kristyna_dataonwheels_com/Documents/Temp%20Prep/AdventureWorks%20Sales.xlsx"), null, true),
+				    SalesTerritory_Table = Source{[Item="SalesTerritory",Kind="Table"]}[Data],
+				    #"Changed Type1" = Table.TransformColumnTypes(SalesTerritory_Table,{{"SalesTerritoryKey", Int64.Type}, {"Region", type text}, {"Country", type text}, {"Group", type text}}),
+				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type1",{"SalesTerritoryKey"})
+				in
+				    #"Columns removed by Measure Killer"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

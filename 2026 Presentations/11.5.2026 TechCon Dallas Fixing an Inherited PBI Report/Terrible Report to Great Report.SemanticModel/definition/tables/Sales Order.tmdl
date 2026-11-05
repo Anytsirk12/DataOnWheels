@@ -1,0 +1,27 @@
+table 'Sales Order'
+	lineageTag: a4f038ac-cdb1-4f95-9d89-28fe0f57b69c
+
+	column SalesOrderLineKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 7cd66841-0ee7-4fb8-8e3f-4aa49407710c
+		summarizeBy: none
+		sourceColumn: SalesOrderLineKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Sales Order-b585b3f7-2f27-41ac-9d8e-68d023d16efe' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://dataonwheels-my.sharepoint.com/personal/kristyna_dataonwheels_com/Documents/Temp%20Prep/AdventureWorks%20Sales.xlsx"), null, true),
+				    SalesOrder_Table = Source{[Item="SalesOrder",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SalesOrder_Table,{{"Channel", type text}, {"SalesOrderLineKey", Int64.Type}, {"Sales Order", type text}, {"Sales Order Line", type text}}),
+				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type",{"SalesOrderLineKey"})
+				in
+				    #"Columns removed by Measure Killer"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

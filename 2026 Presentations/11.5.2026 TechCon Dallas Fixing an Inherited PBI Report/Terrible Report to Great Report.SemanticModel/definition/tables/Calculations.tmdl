@@ -1,0 +1,58 @@
+table Calculations
+	lineageTag: 772d7139-0e3f-43ff-9ebe-c66026819d97
+
+	measure 'Average Profit' = DIVIDE([Profit Margin],[Quantity Ordered],0)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: e3473fc5-da23-419f-8dca-b527641ba4ac
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Product Count' = DISTINCTCOUNT('Product'[ProductKey])
+		formatString: #,0
+		lineageTag: 6704ee16-3191-4f08-925c-728bc3896551
+
+		changedProperty = FormatString
+
+	measure Cost = SUM(Sales[Total Product Cost])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: cffec1f1-5288-41d9-afc9-ad82d4980def
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Profit Margin' = [Revenue] - [Cost]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: ae5cb4a7-2023-4bec-8da1-abb82d4b242f
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Quantity Ordered' = SUM(Sales[Order Quantity])
+		formatString: #,0
+		lineageTag: 58d71d8c-1064-439a-a57b-0b42ba5c015b
+
+		changedProperty = FormatString
+
+	measure Revenue = SUM(Sales[Sales Amount])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: e325846a-b384-4855-863c-6ca50c4b5782
+
+		changedProperty = FormatString
+
+	partition Calculations-c228e5a2-0a91-4041-9a8f-02558c6d16fc = m
+		mode: import
+		source =
+				let
+				    Source = "",
+				    #"Columns removed by Measure Killer"= Table.RemoveColumns(Source,{"Calculations"})
+				in
+				    #"Columns removed by Measure Killer"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

@@ -1,0 +1,43 @@
+table Customer
+	lineageTag: 4106660e-d80f-4a4d-a861-f6590371eac4
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0043e180-914a-4ef7-b027-ec9154ceda22
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column State-Province
+		dataType: string
+		lineageTag: ee986b49-543a-4c03-83fc-978b66918625
+		summarizeBy: none
+		sourceColumn: State-Province
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country-Region
+		dataType: string
+		lineageTag: ae6cffc1-8b6d-44ca-9cb5-c5b424d6a15a
+		summarizeBy: none
+		sourceColumn: Country-Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customer-3e0f94b2-7289-4133-ac76-a4f3cf9bf5c8 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://dataonwheels-my.sharepoint.com/personal/kristyna_dataonwheels_com/Documents/Temp%20Prep/AdventureWorks%20Sales.xlsx"), null, true),
+				    Customer_Table = Source{[Item="Customer",Kind="Table"]}[Data],
+				    #"Changed Type1" = Table.TransformColumnTypes(Customer_Table,{{"CustomerKey", Int64.Type}, {"Customer ID", type text}, {"Customer", type text}, {"City", type text}, {"State-Province", type text}, {"Country-Region", type text}, {"Postal Code", type text}}),
+				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type1",{"CustomerKey","State-Province","Country-Region"})
+				in
+				    #"Columns removed by Measure Killer"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

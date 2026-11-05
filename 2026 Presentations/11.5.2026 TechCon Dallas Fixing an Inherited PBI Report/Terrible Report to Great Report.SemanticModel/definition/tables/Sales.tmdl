@@ -1,0 +1,101 @@
+table Sales
+	lineageTag: 87bc4eb3-915f-474f-9897-45616a6e72a5
+
+	column SalesOrderLineKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e456b4e-cd30-4cdb-beef-a9d05ccd7437
+		summarizeBy: none
+		sourceColumn: SalesOrderLineKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResellerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 079fb478-9b68-47b4-9b36-4400f4536652
+		summarizeBy: none
+		sourceColumn: ResellerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: c1fcc286-444a-42e4-95ac-9507c6c272b7
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c320e55-5551-4efb-8f64-a3532c9737ba
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 67930bd2-328a-4dcc-97d8-7df5237fb44a
+		summarizeBy: none
+		sourceColumn: OrderDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTerritoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f76012e9-274f-477c-ae3f-12d4fc565d0f
+		summarizeBy: none
+		sourceColumn: SalesTerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Quantity'
+		dataType: int64
+		formatString: 0
+		lineageTag: 189c5cfe-5b37-412e-9cbc-1a0dd5b1e45c
+		summarizeBy: sum
+		sourceColumn: Order Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Product Cost'
+		dataType: double
+		lineageTag: 6fe08715-25d0-4fff-8a86-42f95b3ce67b
+		summarizeBy: sum
+		sourceColumn: Total Product Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Sales Amount'
+		dataType: double
+		lineageTag: 32c4171f-4201-4165-9e22-64f8b5d844d9
+		summarizeBy: sum
+		sourceColumn: Sales Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Sales-30c332c1-abbe-409c-aac5-571a1ec5c825 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://dataonwheels-my.sharepoint.com/personal/kristyna_dataonwheels_com/Documents/Temp%20Prep/AdventureWorks%20Sales.xlsx"), null, true),
+				    Sales_Table = Source{[Item="Sales",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Sales_Table,{{"SalesOrderLineKey", Int64.Type}, {"ResellerKey", Int64.Type}, {"CustomerKey", Int64.Type}, {"ProductKey", Int64.Type}, {"OrderDateKey", Int64.Type}, {"DueDateKey", Int64.Type}, {"ShipDateKey", Int64.Type}, {"SalesTerritoryKey", Int64.Type}, {"Order Quantity", Int64.Type}, {"Unit Price", type number}, {"Extended Amount", type number}, {"Unit Price Discount Pct", Int64.Type}, {"Product Standard Cost", type number}, {"Total Product Cost", type number}, {"Sales Amount", type number}, {"OrderDateKeyAdjusted", Int64.Type}, {"DueDateKeyAdjusted", Int64.Type}, {"ShipDateKeyAdjusted", Int64.Type}}),
+				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type",{"Order Quantity","ProductKey","SalesOrderLineKey","ResellerKey","SalesTerritoryKey","CustomerKey","OrderDateKey","Sales Amount","Total Product Cost"})
+				in
+				    #"Columns removed by Measure Killer"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,55 @@
+table Date
+	lineageTag: 37ba3d56-06e8-4b17-bcd3-a02ece75a2dc
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: b1f8a6e0-f4e0-4e15-9bcb-f3879e0da30d
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 3ab7c322-2153-410a-8285-d47147bee7c5
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Fiscal Year'
+		dataType: string
+		lineageTag: 1d98b298-bea7-456e-899a-d9aa61f41139
+		summarizeBy: none
+		sourceColumn: Fiscal Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Quarter'
+		dataType: string
+		lineageTag: 609a05f5-9561-4f3e-b59c-3f9da6c15d26
+		summarizeBy: none
+		sourceColumn: Fiscal Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date-62ba02af-e383-4681-aa2a-0fb89a0a2b1c = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://dataonwheels-my.sharepoint.com/personal/kristyna_dataonwheels_com/Documents/Temp%20Prep/AdventureWorks%20Sales.xlsx"), null, true),
+				    Date_Table = Source{[Item="Date",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Date_Table,{{"DateKey", Int64.Type}, {"Date", type date}, {"Fiscal Year", type text}, {"Fiscal Quarter", type text}, {"Month", type date}, {"Full Date", type date}, {"MonthKey", Int64.Type}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Date"}, Calendar, {"DateDate"}, "Calendar", JoinKind.LeftOuter),
+				    #"Expanded Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Calendar", {"Month Name", "Day Name", "Day of Week", "MMM", "DDD", "End of Week", "End of Week Sunday", "Day", "Year", "IsWeekend", "Month Day", "IsHoliday", "Month Day Sort", "W.E. Date", "IsMTD", "IsYTD", "W.E. Week Number", "IsWTD", "IsCurrentYTD", "IsCurrentMTD", "IsCurrentWTD", "Month Year", "Weeks Ago (W.E.)", "MonthsAgo", "DaysAgo", "Work Day of Week", "Work Days Ago"}, {"Month Name", "Day Name", "Day of Week", "MMM", "DDD", "End of Week", "End of Week Sunday", "Day", "Year", "IsWeekend", "Month Day", "IsHoliday", "Month Day Sort", "W.E. Date", "IsMTD", "IsYTD", "W.E. Week Number", "IsWTD", "IsCurrentYTD", "IsCurrentMTD", "IsCurrentWTD", "Month Year", "Weeks Ago (W.E.)", "MonthsAgo", "DaysAgo", "Work Day of Week", "Work Days Ago"}),
+				    #"Inserted Month" = Table.AddColumn(#"Expanded Calendar", "Month Number", each Date.Month([Date]), Int64.Type),
+				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Inserted Month",{"Fiscal Year","Date","DateKey","Fiscal Quarter"})
+				in
+				    #"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

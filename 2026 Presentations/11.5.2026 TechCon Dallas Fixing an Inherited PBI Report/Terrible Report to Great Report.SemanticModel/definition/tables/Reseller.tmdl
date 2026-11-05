@@ -1,0 +1,27 @@
+table Reseller
+	lineageTag: 04fcacf4-5053-4c82-a01e-16d983c0d8d3
+
+	column ResellerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8af40fb0-6411-4ffe-b807-abc1b6a5616e
+		summarizeBy: none
+		sourceColumn: ResellerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Reseller-6a635704-4c3b-41ad-b731-e2bdbc08fc84 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://dataonwheels-my.sharepoint.com/personal/kristyna_dataonwheels_com/Documents/Temp%20Prep/AdventureWorks%20Sales.xlsx"), null, true),
+				    Reseller_Table = Source{[Item="Reseller",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Reseller_Table,{{"ResellerKey", Int64.Type}, {"Reseller ID", type text}, {"Business Type", type text}, {"Reseller", type text}, {"City", type text}, {"State-Province", type text}, {"Country-Region", type text}, {"Postal Code", type text}}),
+				    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type",{"ResellerKey"})
+				in
+				    #"Columns removed by Measure Killer"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

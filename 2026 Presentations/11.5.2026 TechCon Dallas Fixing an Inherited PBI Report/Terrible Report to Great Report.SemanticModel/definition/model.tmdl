@@ -1,0 +1,33 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Product","Sales","Customer","Sales Order","Sales Territory","Reseller","Date","Calculations","Calendar"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["CalcGroup","DaxQueryView_Desktop","TMDLView_Desktop","DevMode"]
+
+ref table Product
+ref table Sales
+ref table Customer
+ref table 'Sales Order'
+ref table 'Sales Territory'
+ref table Reseller
+ref table Date
+ref table Calculations
+ref table 'Sales Data FINAL v2'
+ref table 'Product List'
+ref table 'Model Profit Summary'
+ref table 'Date Copy'
+ref table _Measures
+
+ref cultureInfo en-US
+

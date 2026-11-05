@@ -1,0 +1,42 @@
+table 'Product List'
+	lineageTag: 11c6b158-a888-4898-8a02-f6871ab1db8b
+
+	column Category
+		lineageTag: 0d75ea0a-d46f-4ebd-ab28-6b44e2103f55
+		summarizeBy: none
+		sourceColumn: [Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subcategory
+		lineageTag: 5ed5a376-6350-4b31-8199-2ee4674dee0e
+		summarizeBy: none
+		sourceColumn: [Subcategory]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Model
+		lineageTag: e8d4024f-f7ba-4108-952d-602d11211926
+		summarizeBy: none
+		sourceColumn: [Model]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		lineageTag: e99037a0-68c4-4f2e-88e2-5582012a6aad
+		summarizeBy: none
+		sourceColumn: [Product]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Product List' = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS(
+				    SUMMARIZE('Sales Data FINAL v2', 'Sales Data FINAL v2'[Category], 'Sales Data FINAL v2'[Subcategory], 'Sales Data FINAL v2'[Model], 'Sales Data FINAL v2'[Product]),
+				    "Category", 'Sales Data FINAL v2'[Category],
+				    "Subcategory", 'Sales Data FINAL v2'[Subcategory],
+				    "Model", 'Sales Data FINAL v2'[Model],
+				    "Product", 'Sales Data FINAL v2'[Product]
+				)
+
