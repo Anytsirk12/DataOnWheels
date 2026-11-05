@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Terrible Report to Great Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2b57c885-1366-4d8f-a439-12d06303ddcd"
+  }
+}

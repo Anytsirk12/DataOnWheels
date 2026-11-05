@@ -1,0 +1,20 @@
+/// Slicer table for Interactive vs Background. Filters factCapacityLoad through its relationship; the operation-level measures read the selection with SELECTEDVALUE because the two operation tables are separate.
+table Workload
+	lineageTag: 9a4f2e1c-7b3d-4c58-b6e0-1d8f3a5c7e01
+
+	column Workload
+		dataType: string
+		lineageTag: 9a4f2e1c-7b3d-4c58-b6e0-1d8f3a5c7e02
+		summarizeBy: none
+		sourceColumn: Workload
+
+	partition Workload = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Workload = text], {{"Interactive"}, {"Background"}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

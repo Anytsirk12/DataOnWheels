@@ -1,0 +1,16 @@
+DEFINE
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			ROLLUPADDISSUBTOTAL(ROLLUPGROUP('Product'[Model], 'Product'[Product]), "IsGrandTotalRowTotal"),
+			"Product_Count", 'Calculations'[Product Count],
+			"Cost", 'Calculations'[Cost]
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(502, __DS0Core, [IsGrandTotalRowTotal], 0, 'Product'[Model], 1, 'Product'[Product], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	[IsGrandTotalRowTotal] DESC, 'Product'[Model], 'Product'[Product]

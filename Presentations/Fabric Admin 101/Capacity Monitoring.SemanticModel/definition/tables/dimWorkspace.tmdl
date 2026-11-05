@@ -1,0 +1,81 @@
+/// Every workspace seen in the capacity data. Name and state come from the tenant inventory when it knows the workspace, falling back to the latest name the Metrics app reported. Both lakehouses sit behind the same SQL endpoint, so the tenant table is read with a cross-database name.
+table dimWorkspace
+	lineageTag: d1a00003-0003-0003-0003-000000000001
+
+	column workspace_id
+		dataType: string
+		isHidden
+		lineageTag: 7ebcce68-09b9-4ea1-9868-262a6086607b
+		summarizeBy: none
+		sourceColumn: workspace_id
+
+	column Workspace
+		dataType: string
+		lineageTag: 44cca21f-8368-4b5a-9192-cc54d6f01d9a
+		summarizeBy: none
+		sourceColumn: workspace_name
+
+	column state
+		dataType: string
+		isHidden
+		lineageTag: f5bf0008-e6ee-4812-8b55-a19ca7585906
+		summarizeBy: none
+		sourceColumn: state
+
+	column type
+		dataType: string
+		isHidden
+		lineageTag: cc3dc849-b579-4032-ae09-4fb7394f1210
+		summarizeBy: none
+		sourceColumn: type
+
+	column IsDeleted
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 69ef952a-cc0c-449d-802e-4912586a1ffe
+		summarizeBy: none
+		sourceColumn: IsDeleted
+
+	partition dimWorkspace = m
+		mode: import
+		source =
+				let
+				    Sql = "
+				        WITH m AS (
+				            SELECT UPPER(workspace_id) AS workspace_id,
+				                   MAX(CONCAT(CONVERT(char(23), sampled_timepoint, 121), workspace_name)) AS name_packed
+				            FROM (
+				                SELECT workspace_id, sampled_timepoint, workspace_name FROM dbo.factCapacityMetricsInteractive
+				                UNION ALL
+				                SELECT workspace_id, sampled_timepoint, workspace_name FROM dbo.factCapacityMetricsBackground
+				            ) f
+				            WHERE workspace_id IS NOT NULL AND workspace_id <> ''
+				            GROUP BY UPPER(workspace_id)
+				        ),
+				        t AS (
+				            SELECT UPPER(id) AS workspace_id, name, state, type, IsDeleted,
+				                   ROW_NUMBER() OVER (PARTITION BY UPPER(id) ORDER BY name) AS rn
+				            FROM [" & TenantDB & "].dbo.dimWorkspaces
+				            WHERE IsCurrent = 1 AND id IS NOT NULL AND id <> ''
+				        )
+				        SELECT m.workspace_id,
+				               COALESCE(NULLIF(t.name, ''), NULLIF(SUBSTRING(m.name_packed, 24, 4000), ''), '(unknown workspace)') AS workspace_name,
+				               t.state, t.type, t.IsDeleted
+				        FROM m
+				        LEFT JOIN t ON t.workspace_id = m.workspace_id AND t.rn = 1",
+				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Types = Table.TransformColumnTypes(Source, {
+				        {"workspace_id", type text},
+				        {"workspace_name", type text},
+				        {"state", type text},
+				        {"type", type text},
+				        {"IsDeleted", type logical}
+				    })
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

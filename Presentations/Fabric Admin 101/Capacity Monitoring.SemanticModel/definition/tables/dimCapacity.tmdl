@@ -1,0 +1,72 @@
+/// Every capacity seen in the capacity data, with a display name and its size in CU. Names and sizes come from the VALUES list in the query until the ingestion notebook persists the admin capacities API (which carries the SKU). capacity_cu drives every utilization % measure; blank = utilization not shown for that capacity.
+table dimCapacity
+	lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a01
+
+	column capacity_id
+		dataType: string
+		isHidden
+		lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a02
+		summarizeBy: none
+		sourceColumn: capacity_id
+
+	column Capacity
+		dataType: string
+		lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a03
+		summarizeBy: none
+		sourceColumn: capacity_name
+
+	column SKU
+		dataType: string
+		lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a04
+		summarizeBy: none
+		sourceColumn: sku
+
+	column capacity_cu
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a05
+		summarizeBy: none
+		sourceColumn: capacity_cu
+
+	partition dimCapacity = m
+		mode: import
+		source =
+				let
+				    // ASSUMPTION TO CONFIRM: PC1 and PC2 sized at 64 CU (P1 / F64). Replace with the SKU from the admin capacities API.
+				    Sql = "
+				        WITH ids AS (
+				            SELECT DISTINCT UPPER(capacity_id) AS capacity_id FROM dbo.factCapacityMetricsInteractive
+				            UNION
+				            SELECT DISTINCT UPPER(capacity_id) FROM dbo.factCapacityMetricsBackground
+				        ),
+				        known AS (
+				            SELECT * FROM (VALUES
+				                ('67EA9D95-A8B6-4C33-ACB9-03669D0DD707', 'PC1', 'P1 (assumed)', 64),
+				                ('41DAAD21-8E58-41F9-9E6F-64BB1EC98827', 'PC2', 'P1 (assumed)', 64),
+				                ('DB3A1C05-7161-4696-9072-F009D240038B', 'fabricdeploymentpoc1', NULL, NULL),
+				                ('8CEE3AF5-AEDF-4FD9-8258-A4321576A1A1', 'Trial capacity', 'Trial', NULL),
+				                ('93474217-B954-4EA0-8166-970013B966DC', 'Premium Per User', 'PPU', NULL)
+				            ) v (capacity_id, capacity_name, sku, capacity_cu)
+				        )
+				        SELECT ids.capacity_id,
+				               COALESCE(known.capacity_name, ids.capacity_id) AS capacity_name,
+				               known.sku,
+				               known.capacity_cu
+				        FROM ids
+				        LEFT JOIN known ON known.capacity_id = ids.capacity_id
+				        WHERE ids.capacity_id IS NOT NULL",
+				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Types = Table.TransformColumnTypes(Source, {
+				        {"capacity_id", type text},
+				        {"capacity_name", type text},
+				        {"sku", type text},
+				        {"capacity_cu", Int64.Type}
+				    })
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

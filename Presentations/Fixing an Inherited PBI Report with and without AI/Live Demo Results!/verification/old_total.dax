@@ -1,0 +1,2 @@
+EVALUATE
+ROW("Qty", [Qty Ordered], "Revenue", [Total Revenue], "Cost", [Std Cost], "Products", [# Products], "AvgProfit", [Avg Profit])

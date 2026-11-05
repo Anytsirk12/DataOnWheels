@@ -1,0 +1,24 @@
+expression Server = "fq2jirgcccxenjqmyfzbelulau-e6y6nme6hhaebcqhnnipzzic74.datawarehouse.fabric.microsoft.com" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: 4700a1a4-b562-4f52-b786-57e8133dd3e8
+	queryGroup: 'Set Up'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression Database = "lh_capacity_tracking" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: ceb4b27e-e461-4068-8db8-2129818109e3
+	queryGroup: 'Set Up'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression TenantDB = "lh_tenant_data" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: afed3ea2-29b9-45c4-809b-957111e54d06
+	queryGroup: 'Set Up'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

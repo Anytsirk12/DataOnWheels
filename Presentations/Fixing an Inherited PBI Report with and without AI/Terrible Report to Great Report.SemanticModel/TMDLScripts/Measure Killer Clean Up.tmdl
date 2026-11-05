@@ -1,0 +1,1566 @@
+createOrReplace
+
+	model Model
+		culture: en-US
+		defaultPowerBIDataSourceVersion: powerBI_V3
+		discourageImplicitMeasures
+		sourceQueryCulture: en-US
+		dataAccessOptions
+			legacyRedirects
+			returnErrorValuesAsNull
+	
+		table Product
+			lineageTag: e9328ea0-a1d3-4aa1-8fa1-be2e46bd1fe4
+	
+			column ProductKey
+				dataType: int64
+				formatString: 0
+				lineageTag: 854b5e93-f705-4f8f-ac91-0b8e68b7c3c6
+				summarizeBy: none
+				sourceColumn: ProductKey
+	
+				annotation SummarizationSetBy = User
+	
+			column Product
+				dataType: string
+				lineageTag: 786df7c8-a34b-4059-98aa-49979d57b593
+				summarizeBy: none
+				sourceColumn: Product
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Model
+				dataType: string
+				lineageTag: 1f41c610-0574-46e3-b14a-a18526b60d3e
+				summarizeBy: none
+				sourceColumn: Model
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Subcategory
+				dataType: string
+				lineageTag: f34b7f8d-6b65-4658-be0d-154b3bdf5b1f
+				summarizeBy: none
+				sourceColumn: Subcategory
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Category
+				dataType: string
+				lineageTag: ac3466fb-91c8-4bd8-bc5f-7fab4eac2d40
+				summarizeBy: none
+				sourceColumn: Category
+	
+				annotation SummarizationSetBy = Automatic
+	
+			partition Product-465d0abd-bb61-4e64-b3e1-c42513518d8d = m
+				mode: import
+				source =
+						let
+						    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
+						    Product_Table = Source{[Item="Product",Kind="Table"]}[Data],
+						    #"Changed Type" = Table.TransformColumnTypes(Product_Table,{{"ProductKey", Int64.Type}, {"SKU", type text}, {"Product", type text}, {"Standard Cost", type number}, {"Color", type text}, {"List Price", type number}, {"Model", type text}, {"Subcategory", type text}, {"Category", type text}}),
+						    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type",{"ProductKey","Model","Product","Category","Subcategory"})
+						in
+						    #"Columns removed by Measure Killer"
+	
+			annotation PBI_ResultType = Table
+	
+			annotation PBI_NavigationStepName = Navigation
+	
+		table Sales
+			lineageTag: 87bc4eb3-915f-474f-9897-45616a6e72a5
+	
+			column SalesOrderLineKey
+				dataType: int64
+				formatString: 0
+				lineageTag: 8e456b4e-cd30-4cdb-beef-a9d05ccd7437
+				summarizeBy: none
+				sourceColumn: SalesOrderLineKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column ResellerKey
+				dataType: int64
+				formatString: 0
+				lineageTag: 079fb478-9b68-47b4-9b36-4400f4536652
+				summarizeBy: none
+				sourceColumn: ResellerKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column CustomerKey
+				dataType: int64
+				formatString: 0
+				lineageTag: c1fcc286-444a-42e4-95ac-9507c6c272b7
+				summarizeBy: none
+				sourceColumn: CustomerKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column ProductKey
+				dataType: int64
+				formatString: 0
+				lineageTag: 4c320e55-5551-4efb-8f64-a3532c9737ba
+				summarizeBy: none
+				sourceColumn: ProductKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column OrderDateKey
+				dataType: int64
+				formatString: 0
+				lineageTag: 67930bd2-328a-4dcc-97d8-7df5237fb44a
+				summarizeBy: none
+				sourceColumn: OrderDateKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column SalesTerritoryKey
+				dataType: int64
+				formatString: 0
+				lineageTag: f76012e9-274f-477c-ae3f-12d4fc565d0f
+				summarizeBy: none
+				sourceColumn: SalesTerritoryKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Order Quantity'
+				dataType: int64
+				formatString: 0
+				lineageTag: 189c5cfe-5b37-412e-9cbc-1a0dd5b1e45c
+				summarizeBy: sum
+				sourceColumn: Order Quantity
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Total Product Cost'
+				dataType: double
+				lineageTag: 6fe08715-25d0-4fff-8a86-42f95b3ce67b
+				summarizeBy: sum
+				sourceColumn: Total Product Cost
+	
+				annotation SummarizationSetBy = Automatic
+	
+				annotation PBI_FormatHint = {"isGeneralNumber":true}
+	
+			column 'Sales Amount'
+				dataType: double
+				lineageTag: 32c4171f-4201-4165-9e22-64f8b5d844d9
+				summarizeBy: sum
+				sourceColumn: Sales Amount
+	
+				annotation SummarizationSetBy = Automatic
+	
+				annotation PBI_FormatHint = {"isGeneralNumber":true}
+	
+			partition Sales-30c332c1-abbe-409c-aac5-571a1ec5c825 = m
+				mode: import
+				source =
+						let
+						    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
+						    Sales_Table = Source{[Item="Sales",Kind="Table"]}[Data],
+						    #"Changed Type" = Table.TransformColumnTypes(Sales_Table,{{"SalesOrderLineKey", Int64.Type}, {"ResellerKey", Int64.Type}, {"CustomerKey", Int64.Type}, {"ProductKey", Int64.Type}, {"OrderDateKey", Int64.Type}, {"DueDateKey", Int64.Type}, {"ShipDateKey", Int64.Type}, {"SalesTerritoryKey", Int64.Type}, {"Order Quantity", Int64.Type}, {"Unit Price", type number}, {"Extended Amount", type number}, {"Unit Price Discount Pct", Int64.Type}, {"Product Standard Cost", type number}, {"Total Product Cost", type number}, {"Sales Amount", type number}, {"OrderDateKeyAdjusted", Int64.Type}, {"DueDateKeyAdjusted", Int64.Type}, {"ShipDateKeyAdjusted", Int64.Type}}),
+						    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type",{"Order Quantity","SalesOrderLineKey","Sales Amount","SalesTerritoryKey","Total Product Cost","OrderDateKey","ProductKey","ResellerKey","CustomerKey"})
+						in
+						    #"Columns removed by Measure Killer"
+	
+			annotation PBI_NavigationStepName = Navigation
+	
+			annotation PBI_ResultType = Table
+	
+		table Customer
+			lineageTag: 4106660e-d80f-4a4d-a861-f6590371eac4
+	
+			column CustomerKey
+				dataType: int64
+				formatString: 0
+				lineageTag: 0043e180-914a-4ef7-b027-ec9154ceda22
+				summarizeBy: none
+				sourceColumn: CustomerKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column State-Province
+				dataType: string
+				lineageTag: ee986b49-543a-4c03-83fc-978b66918625
+				summarizeBy: none
+				sourceColumn: State-Province
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Country-Region
+				dataType: string
+				lineageTag: ae6cffc1-8b6d-44ca-9cb5-c5b424d6a15a
+				summarizeBy: none
+				sourceColumn: Country-Region
+	
+				annotation SummarizationSetBy = Automatic
+	
+			partition Customer-3e0f94b2-7289-4133-ac76-a4f3cf9bf5c8 = m
+				mode: import
+				source =
+						let
+						    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
+						    Customer_Table = Source{[Item="Customer",Kind="Table"]}[Data],
+						    #"Changed Type1" = Table.TransformColumnTypes(Customer_Table,{{"CustomerKey", Int64.Type}, {"Customer ID", type text}, {"Customer", type text}, {"City", type text}, {"State-Province", type text}, {"Country-Region", type text}, {"Postal Code", type text}}),
+						    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type1",{"CustomerKey","State-Province","Country-Region"})
+						in
+						    #"Columns removed by Measure Killer"
+	
+			annotation PBI_NavigationStepName = Navigation
+	
+			annotation PBI_ResultType = Table
+	
+		table 'Sales Order'
+			lineageTag: a4f038ac-cdb1-4f95-9d89-28fe0f57b69c
+	
+			column SalesOrderLineKey
+				dataType: int64
+				formatString: 0
+				lineageTag: 7cd66841-0ee7-4fb8-8e3f-4aa49407710c
+				summarizeBy: none
+				sourceColumn: SalesOrderLineKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			partition 'Sales Order-b585b3f7-2f27-41ac-9d8e-68d023d16efe' = m
+				mode: import
+				source =
+						let
+						    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
+						    SalesOrder_Table = Source{[Item="SalesOrder",Kind="Table"]}[Data],
+						    #"Changed Type" = Table.TransformColumnTypes(SalesOrder_Table,{{"Channel", type text}, {"SalesOrderLineKey", Int64.Type}, {"Sales Order", type text}, {"Sales Order Line", type text}}),
+						    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type",{"SalesOrderLineKey"})
+						in
+						    #"Columns removed by Measure Killer"
+	
+			annotation PBI_NavigationStepName = Navigation
+	
+			annotation PBI_ResultType = Table
+	
+		table 'Sales Territory'
+			lineageTag: 70267f3a-89d2-4475-af25-354fe8067838
+	
+			column SalesTerritoryKey
+				dataType: int64
+				formatString: 0
+				lineageTag: 6b98c518-0d4f-47bc-a028-1ae75ed83a25
+				summarizeBy: none
+				sourceColumn: SalesTerritoryKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			partition 'Sales Territory-a8ffe985-e98d-44af-b04c-65c4851c3843' = m
+				mode: import
+				source =
+						let
+						    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
+						    SalesTerritory_Table = Source{[Item="SalesTerritory",Kind="Table"]}[Data],
+						    #"Changed Type1" = Table.TransformColumnTypes(SalesTerritory_Table,{{"SalesTerritoryKey", Int64.Type}, {"Region", type text}, {"Country", type text}, {"Group", type text}}),
+						    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type1",{"SalesTerritoryKey"})
+						in
+						    #"Columns removed by Measure Killer"
+	
+			annotation PBI_NavigationStepName = Navigation
+	
+			annotation PBI_ResultType = Table
+	
+		table Reseller
+			lineageTag: 04fcacf4-5053-4c82-a01e-16d983c0d8d3
+	
+			column ResellerKey
+				dataType: int64
+				formatString: 0
+				lineageTag: 8af40fb0-6411-4ffe-b807-abc1b6a5616e
+				summarizeBy: none
+				sourceColumn: ResellerKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			partition Reseller-6a635704-4c3b-41ad-b731-e2bdbc08fc84 = m
+				mode: import
+				source =
+						let
+						    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
+						    Reseller_Table = Source{[Item="Reseller",Kind="Table"]}[Data],
+						    #"Changed Type" = Table.TransformColumnTypes(Reseller_Table,{{"ResellerKey", Int64.Type}, {"Reseller ID", type text}, {"Business Type", type text}, {"Reseller", type text}, {"City", type text}, {"State-Province", type text}, {"Country-Region", type text}, {"Postal Code", type text}}),
+						    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Changed Type",{"ResellerKey"})
+						in
+						    #"Columns removed by Measure Killer"
+	
+			annotation PBI_NavigationStepName = Navigation
+	
+			annotation PBI_ResultType = Table
+	
+		table Date
+			lineageTag: 37ba3d56-06e8-4b17-bcd3-a02ece75a2dc
+	
+			column DateKey
+				dataType: int64
+				formatString: 0
+				lineageTag: b1f8a6e0-f4e0-4e15-9bcb-f3879e0da30d
+				summarizeBy: none
+				sourceColumn: DateKey
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Date
+				dataType: dateTime
+				formatString: Short Date
+				lineageTag: 3ab7c322-2153-410a-8285-d47147bee7c5
+				summarizeBy: none
+				sourceColumn: Date
+	
+				annotation SummarizationSetBy = Automatic
+	
+				annotation UnderlyingDateTimeDataType = Date
+	
+			column 'Fiscal Year'
+				dataType: string
+				lineageTag: 1d98b298-bea7-456e-899a-d9aa61f41139
+				summarizeBy: none
+				sourceColumn: Fiscal Year
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Fiscal Quarter'
+				dataType: string
+				lineageTag: 609a05f5-9561-4f3e-b59c-3f9da6c15d26
+				summarizeBy: none
+				sourceColumn: Fiscal Quarter
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Month
+				dataType: dateTime
+				formatString: Long Date
+				lineageTag: c7b9ba35-9f38-4dbd-83a5-116416340e41
+				summarizeBy: none
+				sourceColumn: Month
+	
+				variation Variation
+					isDefault
+					relationship: 3c3a4da0-0999-48ec-8534-274c97ba1d5c
+					defaultHierarchy: LocalDateTable_5b521612-82e1-469a-8f09-1b05677ae324.'Date Hierarchy'
+	
+				annotation SummarizationSetBy = Automatic
+	
+				annotation UnderlyingDateTimeDataType = Date
+	
+			column 'Full Date'
+				dataType: dateTime
+				formatString: Long Date
+				lineageTag: 7266fc84-2350-4287-92a2-6db684534de4
+				summarizeBy: none
+				sourceColumn: Full Date
+	
+				variation Variation
+					isDefault
+					relationship: 87bcec33-e532-471a-a09f-f0bc14ef562b
+					defaultHierarchy: LocalDateTable_19528da0-7021-469c-a26d-2769539e708c.'Date Hierarchy'
+	
+				annotation SummarizationSetBy = Automatic
+	
+				annotation UnderlyingDateTimeDataType = Date
+	
+			column 'End of Week'
+				dataType: dateTime
+				formatString: Long Date
+				lineageTag: e2f1e55f-4653-4e4f-a417-234204811b80
+				summarizeBy: none
+				sourceColumn: End of Week
+	
+				variation Variation
+					isDefault
+					relationship: 1fc846bc-8b01-4ced-860d-d527dcf89bb1
+					defaultHierarchy: LocalDateTable_a24eb4ee-0a5f-4aa1-bafb-7b5ee3d2d152.'Date Hierarchy'
+	
+				annotation SummarizationSetBy = Automatic
+	
+				annotation UnderlyingDateTimeDataType = Date
+	
+			column 'End of Week Sunday'
+				dataType: dateTime
+				formatString: Long Date
+				lineageTag: 2ea8cb01-418f-4f6c-97a1-6d629688fda4
+				summarizeBy: none
+				sourceColumn: End of Week Sunday
+	
+				variation Variation
+					isDefault
+					relationship: 44298422-ef26-4818-aff6-217405ab01f6
+					defaultHierarchy: LocalDateTable_5a75ac49-7809-4a76-b23d-fbc0479e952d.'Date Hierarchy'
+	
+				annotation SummarizationSetBy = Automatic
+	
+				annotation UnderlyingDateTimeDataType = Date
+	
+			partition Date-62ba02af-e383-4681-aa2a-0fb89a0a2b1c = m
+				mode: import
+				source =
+						let
+						    Source = Excel.Workbook(File.Contents("C:\Users\krist\Git\Data Community\DataOnWheels\2026 Presentations\11.5.2026 TechCon Dallas Fixing an Inherited PBI Report\AdventureWorks Sales.xlsx"), null, true),
+						    Date_Table = Source{[Item="Date",Kind="Table"]}[Data],
+						    #"Changed Type" = Table.TransformColumnTypes(Date_Table,{{"DateKey", Int64.Type}, {"Date", type date}, {"Fiscal Year", type text}, {"Fiscal Quarter", type text}, {"Month", type date}, {"Full Date", type date}, {"MonthKey", Int64.Type}}),
+						    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Date"}, Calendar, {"DateDate"}, "Calendar", JoinKind.LeftOuter),
+						    #"Expanded Calendar" = Table.ExpandTableColumn(#"Merged Queries", "Calendar", {"Month Name", "Day Name", "Day of Week", "MMM", "DDD", "End of Week", "End of Week Sunday", "Day", "Year", "IsWeekend", "Month Day", "IsHoliday", "Month Day Sort", "W.E. Date", "IsMTD", "IsYTD", "W.E. Week Number", "IsWTD", "IsCurrentYTD", "IsCurrentMTD", "IsCurrentWTD", "Month Year", "Weeks Ago (W.E.)", "MonthsAgo", "DaysAgo", "Work Day of Week", "Work Days Ago"}, {"Month Name", "Day Name", "Day of Week", "MMM", "DDD", "End of Week", "End of Week Sunday", "Day", "Year", "IsWeekend", "Month Day", "IsHoliday", "Month Day Sort", "W.E. Date", "IsMTD", "IsYTD", "W.E. Week Number", "IsWTD", "IsCurrentYTD", "IsCurrentMTD", "IsCurrentWTD", "Month Year", "Weeks Ago (W.E.)", "MonthsAgo", "DaysAgo", "Work Day of Week", "Work Days Ago"}),
+						    #"Inserted Month" = Table.AddColumn(#"Expanded Calendar", "Month Number", each Date.Month([Date]), Int64.Type),
+						    #"Columns removed by Measure Killer"= Table.SelectColumns(#"Inserted Month",{"Date","Full Date","Month","Fiscal Quarter","Fiscal Year","End of Week Sunday","DateKey","End of Week"})
+						in
+						    #"Columns removed by Measure Killer"
+	
+			annotation PBI_ResultType = Table
+	
+			annotation PBI_NavigationStepName = Navigation
+	
+		table Calculations
+			lineageTag: 772d7139-0e3f-43ff-9ebe-c66026819d97
+	
+			measure 'Average Profit' = DIVIDE([Profit Margin],[Quantity Ordered],0)
+				formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+				lineageTag: e3473fc5-da23-419f-8dca-b527641ba4ac
+	
+				changedProperty = FormatString
+	
+				annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+	
+			measure 'Product Count' = DISTINCTCOUNT('Product'[ProductKey])
+				formatString: #,0
+				lineageTag: 6704ee16-3191-4f08-925c-728bc3896551
+	
+				changedProperty = FormatString
+	
+			measure Cost = SUM(Sales[Total Product Cost])
+				formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+				lineageTag: cffec1f1-5288-41d9-afc9-ad82d4980def
+	
+				changedProperty = FormatString
+	
+				annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+	
+			measure 'Profit Margin' = [Revenue] - [Cost]
+				formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+				lineageTag: ae5cb4a7-2023-4bec-8da1-abb82d4b242f
+	
+				changedProperty = FormatString
+	
+				annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+	
+			measure 'Quantity Ordered' = SUM(Sales[Order Quantity])
+				formatString: #,0
+				lineageTag: 58d71d8c-1064-439a-a57b-0b42ba5c015b
+	
+				changedProperty = FormatString
+	
+			measure Revenue = SUM(Sales[Sales Amount])
+				formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+				lineageTag: e325846a-b384-4855-863c-6ca50c4b5782
+	
+				changedProperty = FormatString
+	
+			partition Calculations-c228e5a2-0a91-4041-9a8f-02558c6d16fc = m
+				mode: import
+				source =
+						let
+						    Source = "",
+						    #"Columns removed by Measure Killer"= Table.RemoveColumns(Source,{"Calculations"})
+						in
+						    #"Columns removed by Measure Killer"
+	
+			annotation PBI_NavigationStepName = Navigation
+	
+			annotation PBI_ResultType = Text
+	
+		table 'Sales Data FINAL v2'
+			lineageTag: 18c3b4ae-3b06-407f-81f1-c86ddbd4021a
+	
+			column SalesOrderLineKey
+				formatString: 0
+				lineageTag: d13c45bf-34d7-4b43-b54c-587143229e07
+				summarizeBy: sum
+				sourceColumn: [SalesOrderLineKey]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column ProductKey
+				formatString: 0
+				lineageTag: 34acec7e-5cb4-47ec-b890-1dde8068f9f5
+				summarizeBy: sum
+				sourceColumn: [ProductKey]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column CustomerKey
+				formatString: 0
+				lineageTag: 8e0283e0-93d0-46e3-920a-84fcf3067d52
+				summarizeBy: sum
+				sourceColumn: [CustomerKey]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column ResellerKey
+				formatString: 0
+				lineageTag: 6387a411-a77a-4adc-af77-f646e065b297
+				summarizeBy: sum
+				sourceColumn: [ResellerKey]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column SalesTerritoryKey
+				formatString: 0
+				lineageTag: 4e52ae82-d309-4a41-9955-34e374967755
+				summarizeBy: sum
+				sourceColumn: [SalesTerritoryKey]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column OrderDateKey
+				formatString: 0
+				lineageTag: 13f9cd07-3314-4c2b-8e1f-0d2bf5e0e564
+				summarizeBy: sum
+				sourceColumn: [OrderDateKey]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Order Quantity'
+				formatString: 0
+				lineageTag: aba1c83c-cc48-4ce8-9a4f-ea503bc82c15
+				summarizeBy: sum
+				sourceColumn: [Order Quantity]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Sales Amount'
+				lineageTag: 93496603-94b0-4207-8322-abeddff91999
+				summarizeBy: sum
+				sourceColumn: [Sales Amount]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Total Product Cost'
+				lineageTag: 5ec16a14-8acf-4f17-8240-c412d6950cb0
+				summarizeBy: sum
+				sourceColumn: [Total Product Cost]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Profit
+				lineageTag: d41eb43f-4a3d-4312-a7b8-8d098c8d70b4
+				summarizeBy: sum
+				sourceColumn: [Profit]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Profit Per Unit'
+				lineageTag: 0bc52ce0-bd91-44a9-8fe5-b46e4f60bffa
+				summarizeBy: sum
+				sourceColumn: [Profit Per Unit]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Unit Price Calc'
+				lineageTag: 59acd8cc-381a-4527-9fd1-9c1c0ae7e95b
+				summarizeBy: sum
+				sourceColumn: [Unit Price Calc]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Product
+				lineageTag: ecf07b31-8f2b-4dde-b129-da59ec7bb2b7
+				summarizeBy: none
+				sourceColumn: [Product]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Model
+				lineageTag: 41863818-ac8c-4b97-a367-89b6ed4eab8b
+				summarizeBy: none
+				sourceColumn: [Model]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Subcategory
+				lineageTag: 870ff620-c800-4b1f-bee9-abc57e54ed7f
+				summarizeBy: none
+				sourceColumn: [Subcategory]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Category
+				lineageTag: 777b9c10-9a5f-44c4-a9e3-1933aa392d78
+				summarizeBy: none
+				sourceColumn: [Category]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Is Bike'
+				lineageTag: e5d315dd-6de8-4820-860d-0f106c7fe7f9
+				summarizeBy: none
+				sourceColumn: [Is Bike]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column State-Province
+				lineageTag: bd27f0e1-a543-4d87-9aa5-acdb3717d8df
+				summarizeBy: none
+				sourceColumn: [State-Province]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Country-Region
+				lineageTag: c5951a41-6319-458e-a51c-967161081057
+				summarizeBy: none
+				sourceColumn: [Country-Region]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Order Date'
+				lineageTag: 603c675f-0357-49ac-a6c2-094afb5d4c1e
+				summarizeBy: none
+				sourceColumn: [Order Date]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Fiscal Year'
+				lineageTag: 84693d64-96fa-4f1e-8361-261a618ccdd6
+				summarizeBy: none
+				sourceColumn: [Fiscal Year]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Fiscal Quarter'
+				lineageTag: 903fb087-55b8-4e1b-9849-559813530e41
+				summarizeBy: none
+				sourceColumn: [Fiscal Quarter]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Order Date Text'
+				lineageTag: 6fc5f2dd-8499-4f12-9bc9-23907d1f6ff5
+				summarizeBy: none
+				sourceColumn: [Order Date Text]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Month Name'
+				lineageTag: 19fa4b58-82a3-499a-a87e-437ee581e491
+				summarizeBy: none
+				sourceColumn: [Month Name]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Year Number'
+				formatString: 0
+				lineageTag: 6911b949-29fc-4faa-87e7-21dbb52d26ef
+				summarizeBy: sum
+				sourceColumn: [Year Number]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Revenue Text'
+				lineageTag: 437360eb-6ce0-48d9-9431-4bcaa5bb86c6
+				summarizeBy: none
+				sourceColumn: [Revenue Text]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Order Line Description'
+				lineageTag: 1bdd838c-3c53-44ab-ad57-3531492745ea
+				summarizeBy: none
+				sourceColumn: [Order Line Description]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column 'Row Count Helper'
+				formatString: 0
+				lineageTag: dd5a6fe0-194a-4449-8726-a00f64a56535
+				summarizeBy: sum
+				sourceColumn: [Row Count Helper]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			partition 'Sales Data FINAL v2' = calculated
+				mode: import
+				source =
+						SELECTCOLUMNS(
+						    Sales,
+						    "SalesOrderLineKey", Sales[SalesOrderLineKey],
+						    "ProductKey", Sales[ProductKey],
+						    "CustomerKey", Sales[CustomerKey],
+						    "ResellerKey", Sales[ResellerKey],
+						    "SalesTerritoryKey", Sales[SalesTerritoryKey],
+						    "OrderDateKey", Sales[OrderDateKey],
+						    "Order Quantity", Sales[Order Quantity],
+						    "Sales Amount", Sales[Sales Amount],
+						    "Total Product Cost", Sales[Total Product Cost],
+						    "Profit", Sales[Sales Amount] - Sales[Total Product Cost],
+						    "Profit Per Unit", DIVIDE(Sales[Sales Amount] - Sales[Total Product Cost], Sales[Order Quantity]),
+						    "Unit Price Calc", DIVIDE(Sales[Sales Amount], Sales[Order Quantity]),
+						    "Product", RELATED('Product'[Product]),
+						    "Model", RELATED('Product'[Model]),
+						    "Subcategory", RELATED('Product'[Subcategory]),
+						    "Category", RELATED('Product'[Category]),
+						    "Is Bike", IF(RELATED('Product'[Category]) = "Bikes", "Yes", "No"),
+						    "State-Province", RELATED(Customer[State-Province]),
+						    "Country-Region", RELATED(Customer[Country-Region]),
+						    "Order Date", RELATED('Date'[Date]),
+						    "Fiscal Year", RELATED('Date'[Fiscal Year]),
+						    "Fiscal Quarter", RELATED('Date'[Fiscal Quarter]),
+						    "Order Date Text", FORMAT(RELATED('Date'[Date]), "mmmm d, yyyy"),
+						    "Month Name", FORMAT(RELATED('Date'[Date]), "mmmm"),
+						    "Year Number", YEAR(RELATED('Date'[Date])),
+						    "Revenue Text", FORMAT(Sales[Sales Amount], "$#,0.00"),
+						    "Order Line Description", RELATED('Product'[Product]) & " | " & RELATED(Customer[State-Province]) & " | " & FORMAT(RELATED('Date'[Date]), "yyyy-mm-dd") & " | Line " & Sales[SalesOrderLineKey],
+						    "Row Count Helper", 1
+						)
+	
+		table 'Product List'
+			lineageTag: 11c6b158-a888-4898-8a02-f6871ab1db8b
+	
+			column Category
+				lineageTag: 0d75ea0a-d46f-4ebd-ab28-6b44e2103f55
+				summarizeBy: none
+				sourceColumn: [Category]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Subcategory
+				lineageTag: 5ed5a376-6350-4b31-8199-2ee4674dee0e
+				summarizeBy: none
+				sourceColumn: [Subcategory]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Model
+				lineageTag: e8d4024f-f7ba-4108-952d-602d11211926
+				summarizeBy: none
+				sourceColumn: [Model]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			column Product
+				lineageTag: e99037a0-68c4-4f2e-88e2-5582012a6aad
+				summarizeBy: none
+				sourceColumn: [Product]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			partition 'Product List' = calculated
+				mode: import
+				source =
+						SELECTCOLUMNS(
+						    SUMMARIZE('Sales Data FINAL v2', 'Sales Data FINAL v2'[Category], 'Sales Data FINAL v2'[Subcategory], 'Sales Data FINAL v2'[Model], 'Sales Data FINAL v2'[Product]),
+						    "Category", 'Sales Data FINAL v2'[Category],
+						    "Subcategory", 'Sales Data FINAL v2'[Subcategory],
+						    "Model", 'Sales Data FINAL v2'[Model],
+						    "Product", 'Sales Data FINAL v2'[Product]
+						)
+	
+		table _Measures
+			lineageTag: 1ba31c56-6a66-4b6f-9373-7257e9831947
+	
+			measure 'Qty Ordered' =
+					VAR _fy = VALUES('Date'[Fiscal Year])
+					RETURN
+					SUMX(
+					    FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN _fy),
+					    'Sales Data FINAL v2'[Order Quantity]
+					)
+				lineageTag: 61f88b1d-bb74-4911-b4ca-b3581f7c58f5
+	
+			measure 'Total Revenue' =
+					CALCULATE(
+					    SUMX('Sales Data FINAL v2', 'Sales Data FINAL v2'[Sales Amount]),
+					    FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year]))
+					)
+				lineageTag: 87c34225-cd96-423f-9d7b-5ab5a0ac5429
+	
+			measure '# Products' =
+					COUNTROWS(
+					    DISTINCT(
+					        SELECTCOLUMNS(
+					            FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year])),
+					            "pk", 'Sales Data FINAL v2'[ProductKey]
+					        )
+					    )
+					)
+				lineageTag: d4b67892-6ca7-49c2-a19f-9e17d99836b7
+	
+			measure 'Avg Profit' =
+					VAR _fy = VALUES('Date'[Fiscal Year])
+					VAR _rows = FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN _fy)
+					VAR _profit =
+					    SUMX(
+					        _rows,
+					        CALCULATE(SUM('Sales Data FINAL v2'[Sales Amount])) - CALCULATE(SUM('Sales Data FINAL v2'[Total Product Cost]))
+					    )
+					VAR _qty = SUMX(_rows, 'Sales Data FINAL v2'[Order Quantity])
+					RETURN
+					IFERROR(_profit / _qty, 0)
+				lineageTag: 2defb5cb-d447-414c-9f8c-19bfbe043372
+	
+			measure 'Std Cost' =
+					VAR _rows = FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN VALUES('Date'[Fiscal Year]))
+					RETURN
+					SUMX(
+					    _rows,
+					    VAR _line = 'Sales Data FINAL v2'[SalesOrderLineKey]
+					    VAR _check = MIN(1, COUNTROWS(FILTER(ALL('Product List'), LEN('Product List'[Product]) + _line > _line - 100000000)) + 1)
+					    RETURN 'Sales Data FINAL v2'[Total Product Cost] * _check
+					)
+				lineageTag: e944231c-84b4-4cc9-8b52-ac7b3b8c0154
+	
+			measure 'Avg Profit (Pie)' =
+					VAR _fy = VALUES('Date'[Fiscal Year])
+					VAR _rows = FILTER('Sales Data FINAL v2', 'Sales Data FINAL v2'[Fiscal Year] IN _fy)
+					VAR _profit =
+					    SUMX(
+					        _rows,
+					        VAR _line = 'Sales Data FINAL v2'[SalesOrderLineKey]
+					        VAR _check = MIN(1, COUNTROWS(FILTER(_rows, 'Sales Data FINAL v2'[SalesOrderLineKey] <= _line)))
+					        RETURN (CALCULATE(SUM('Sales Data FINAL v2'[Sales Amount])) - CALCULATE(SUM('Sales Data FINAL v2'[Total Product Cost]))) * _check
+					    )
+					VAR _qty = SUMX(_rows, 'Sales Data FINAL v2'[Order Quantity])
+					RETURN
+					IFERROR(_profit / _qty, 0)
+				lineageTag: d9f4731d-c8ca-4543-bf2b-778294dd2ce9
+	
+			column Placeholder
+				isHidden
+				formatString: 0
+				lineageTag: f2909595-9b6f-4d03-833a-c7fa3ee45fd3
+				summarizeBy: sum
+				sourceColumn: [Placeholder]
+	
+				annotation SummarizationSetBy = Automatic
+	
+			partition _Measures = calculated
+				mode: import
+				source = ROW("Placeholder", 1)
+	
+		table DateTableTemplate_03c70551-e166-442e-9fa8-d730b4cbd6c8
+			isHidden
+			isPrivate
+			lineageTag: a980dc2a-75cd-4e39-97f1-b55fa6fb846e
+	
+			column Date
+				dataType: dateTime
+				isHidden
+				formatString: General Date
+				lineageTag: ca74d15d-7a3f-4c94-bcb2-734967b84e6e
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+	
+				annotation SummarizationSetBy = User
+	
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 230dbd93-02a7-4a26-87be-75cee071ff0f
+				dataCategory: Years
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Year
+	
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: aa66bd65-680a-45d2-bc12-ae5df7d9fb62
+				dataCategory: MonthOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = MonthNumber
+	
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: 839f2ac1-5381-4a04-8f0b-78f9a7cba2ec
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Month
+	
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 6f7b729f-7aa7-4db5-b7df-cecc32c2f4e7
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = QuarterNumber
+	
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: 5ff7e547-c854-45ba-a1c5-bc61089dd60e
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Quarter
+	
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 55da6b7a-63c5-4524-ad5f-8f1ab7027e60
+				dataCategory: DayOfMonth
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Day
+	
+			hierarchy 'Date Hierarchy'
+				lineageTag: 89e4cd04-0ee5-4434-9d5d-dd0d0c100efc
+	
+				level Year
+					lineageTag: 02a2240d-484b-4590-a518-c5b6fccbca11
+					column: Year
+	
+				level Quarter
+					lineageTag: 259750e8-7449-465a-8108-02e2749d87f3
+					column: Quarter
+	
+				level Month
+					lineageTag: 95041455-b243-41f0-855a-4af8af4d4f03
+					column: Month
+	
+				level Day
+					lineageTag: 12450642-aa67-4514-8a91-9987aa2903c3
+					column: Day
+	
+				annotation TemplateId = DateHierarchy
+	
+			partition DateTableTemplate_03c70551-e166-442e-9fa8-d730b4cbd6c8 = calculated
+				mode: import
+				source = Calendar(Date(2015,1,1), Date(2015,1,1))
+	
+			annotation __PBI_TemplateDateTable = true
+	
+			annotation DefaultItem = DateHierarchy
+	
+		table LocalDateTable_5b521612-82e1-469a-8f09-1b05677ae324
+			isHidden
+			showAsVariationsOnly
+			lineageTag: 7d2b9d71-b0e5-4507-bde6-94247c451775
+	
+			column Date
+				dataType: dateTime
+				isHidden
+				formatString: General Date
+				lineageTag: 7725c92a-b399-486d-8992-be7506b59cf6
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+	
+				annotation SummarizationSetBy = User
+	
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 805cc154-3223-4dec-a78f-3cadcb2065e6
+				dataCategory: Years
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Year
+	
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 86435ecc-9d6f-4d2f-9527-036f92d9007d
+				dataCategory: MonthOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = MonthNumber
+	
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: 4f507456-b085-4317-b8dd-0402a2c5453e
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Month
+	
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 8be0f85d-3309-4829-ba1a-830a1077a8c5
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = QuarterNumber
+	
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: 4ef93d7d-a9c3-4ab5-ab3f-76f76258d5fe
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Quarter
+	
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 6485fbf6-f347-4672-81a8-1d74e6770f6d
+				dataCategory: DayOfMonth
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Day
+	
+			hierarchy 'Date Hierarchy'
+				lineageTag: d8844780-97e8-4384-8fbc-61a64fcd67d7
+	
+				level Year
+					lineageTag: 19c4c647-9932-4687-9da7-9817398fcddc
+					column: Year
+	
+				level Quarter
+					lineageTag: 661ff5bf-9c0b-4b05-8042-49885a99634e
+					column: Quarter
+	
+				level Month
+					lineageTag: 48d984cc-dac6-4c26-9cbd-d5267771f1b0
+					column: Month
+	
+				level Day
+					lineageTag: 5f6d7421-657a-4c64-8126-3aed566f39ac
+					column: Day
+	
+				annotation TemplateId = DateHierarchy
+	
+			partition LocalDateTable_5b521612-82e1-469a-8f09-1b05677ae324 = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Date'[Month])), 1, 1), Date(Year(MAX('Date'[Month])), 12, 31))
+	
+			annotation __PBI_LocalDateTable = true
+	
+		table LocalDateTable_19528da0-7021-469c-a26d-2769539e708c
+			isHidden
+			showAsVariationsOnly
+			lineageTag: 9c191e78-1f10-456c-949f-df4630917fa6
+	
+			column Date
+				dataType: dateTime
+				isHidden
+				formatString: General Date
+				lineageTag: 4cba7a21-b4a6-40ee-a0be-74f49e61947b
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+	
+				annotation SummarizationSetBy = User
+	
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: b686cbab-30cf-48da-9329-a83dd5b83f25
+				dataCategory: Years
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Year
+	
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: e4ae8bcc-527e-444d-a024-0f7e2f0b357c
+				dataCategory: MonthOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = MonthNumber
+	
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: d5fec88c-24e7-42a6-a0dd-7feb8b35bb56
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Month
+	
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: cfa6a4d8-658a-44eb-bf80-5758ade0804a
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = QuarterNumber
+	
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: 8d6094f1-1967-4fb2-9ff9-a84e0cb9ee9b
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Quarter
+	
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 59ffcccb-ae63-4f90-bd39-1c445315bbb3
+				dataCategory: DayOfMonth
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Day
+	
+			hierarchy 'Date Hierarchy'
+				lineageTag: 4d53a671-ef8d-4eab-8b1b-332b0864a521
+	
+				level Year
+					lineageTag: f409b24c-1062-4d33-9e45-04809443bfa2
+					column: Year
+	
+				level Quarter
+					lineageTag: 4eaf471a-d97c-473c-8962-34f0ce2c8889
+					column: Quarter
+	
+				level Month
+					lineageTag: 73ac38b9-f64c-4ca8-b9fa-1690434a3517
+					column: Month
+	
+				level Day
+					lineageTag: 7cb1d669-a543-4f70-93fa-f3090ab9790b
+					column: Day
+	
+				annotation TemplateId = DateHierarchy
+	
+			partition LocalDateTable_19528da0-7021-469c-a26d-2769539e708c = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Date'[Full Date])), 1, 1), Date(Year(MAX('Date'[Full Date])), 12, 31))
+	
+			annotation __PBI_LocalDateTable = true
+	
+		table LocalDateTable_a24eb4ee-0a5f-4aa1-bafb-7b5ee3d2d152
+			isHidden
+			showAsVariationsOnly
+			lineageTag: a9606956-931f-41d5-9836-b3400227ebf8
+	
+			column Date
+				dataType: dateTime
+				isHidden
+				formatString: General Date
+				lineageTag: 3b8240dd-0a65-40d3-82f7-79a38a84cbfb
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+	
+				annotation SummarizationSetBy = User
+	
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: d7800b9d-04fe-481c-bc21-3911dee0b2d5
+				dataCategory: Years
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Year
+	
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: c0a81eec-a35e-4a0d-9f34-81df01473990
+				dataCategory: MonthOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = MonthNumber
+	
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: 570edbf5-39bb-4803-aab9-c739bdc51a08
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Month
+	
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 025fc587-3787-4cce-ac5e-10ab742fa9ce
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = QuarterNumber
+	
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: 9059e819-9c7c-40e9-9640-418ca4e235c5
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Quarter
+	
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: c68e1258-76dc-4918-a730-040c897ec89c
+				dataCategory: DayOfMonth
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Day
+	
+			hierarchy 'Date Hierarchy'
+				lineageTag: 45a83465-657c-4dd2-a6b3-13057025d00f
+	
+				level Year
+					lineageTag: b464d3ac-e85f-4647-8669-5f767c803ef6
+					column: Year
+	
+				level Quarter
+					lineageTag: 2c702826-91b1-4230-9776-69ea35ca692e
+					column: Quarter
+	
+				level Month
+					lineageTag: 12a9846a-ee01-4590-b9b6-07b5a79f73bf
+					column: Month
+	
+				level Day
+					lineageTag: a370b2c9-f4de-4f62-ad9f-0dcdf7d568f3
+					column: Day
+	
+				annotation TemplateId = DateHierarchy
+	
+			partition LocalDateTable_a24eb4ee-0a5f-4aa1-bafb-7b5ee3d2d152 = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Date'[End of Week])), 1, 1), Date(Year(MAX('Date'[End of Week])), 12, 31))
+	
+			annotation __PBI_LocalDateTable = true
+	
+		table LocalDateTable_5a75ac49-7809-4a76-b23d-fbc0479e952d
+			isHidden
+			showAsVariationsOnly
+			lineageTag: f2680597-8ec8-4a89-9f06-378bbfcf1d24
+	
+			column Date
+				dataType: dateTime
+				isHidden
+				formatString: General Date
+				lineageTag: 358b9b11-bd69-48bb-8ef7-d1b6512d0fde
+				dataCategory: PaddedDateTableDates
+				summarizeBy: none
+				isNameInferred
+				sourceColumn: [Date]
+	
+				annotation SummarizationSetBy = User
+	
+			column Year = YEAR([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 67d424b3-6559-4795-be33-0e51675b7982
+				dataCategory: Years
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Year
+	
+			column MonthNo = MONTH([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 3127751a-c7df-483e-892a-e5a443945e87
+				dataCategory: MonthOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = MonthNumber
+	
+			column Month = FORMAT([Date], "MMMM")
+				dataType: string
+				isHidden
+				lineageTag: eeb39c13-87d4-4ec3-8e57-83b2fbfce170
+				dataCategory: Months
+				summarizeBy: none
+				sortByColumn: MonthNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Month
+	
+			column QuarterNo = INT(([MonthNo] + 2) / 3)
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 633c9d2c-ccfe-46c9-bca3-bc5cd89efe63
+				dataCategory: QuarterOfYear
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = QuarterNumber
+	
+			column Quarter = "Qtr " & [QuarterNo]
+				dataType: string
+				isHidden
+				lineageTag: b8143d11-60c8-4e81-b0ab-ea24b84eb028
+				dataCategory: Quarters
+				summarizeBy: none
+				sortByColumn: QuarterNo
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Quarter
+	
+			column Day = DAY([Date])
+				dataType: int64
+				isHidden
+				formatString: 0
+				lineageTag: 06a102cf-5cc9-481e-96cd-174c6ab78ebb
+				dataCategory: DayOfMonth
+				summarizeBy: none
+	
+				annotation SummarizationSetBy = User
+	
+				annotation TemplateId = Day
+	
+			hierarchy 'Date Hierarchy'
+				lineageTag: 5a9f82c2-8b1a-42ff-bdfc-217837604bcd
+	
+				level Year
+					lineageTag: 407567b1-f9c8-417c-abd5-2b4e7e581597
+					column: Year
+	
+				level Quarter
+					lineageTag: 1dbb903e-be75-40c7-8292-3fbf053ad72b
+					column: Quarter
+	
+				level Month
+					lineageTag: e0d4a6ad-dfb3-49e4-ba82-09106da2b117
+					column: Month
+	
+				level Day
+					lineageTag: e25802ed-434e-4987-807a-9e7f3c281e0d
+					column: Day
+	
+				annotation TemplateId = DateHierarchy
+	
+			partition LocalDateTable_5a75ac49-7809-4a76-b23d-fbc0479e952d = calculated
+				mode: import
+				source = Calendar(Date(Year(MIN('Date'[End of Week Sunday])), 1, 1), Date(Year(MAX('Date'[End of Week Sunday])), 12, 31))
+	
+			annotation __PBI_LocalDateTable = true
+	
+		relationship 1b30f944-1b57-442e-8aca-e675c231c290
+			fromColumn: Sales.ProductKey
+			toColumn: Product.ProductKey
+	
+		relationship fedea08d-465f-4b03-8f02-5426af7fb80b
+			crossFilteringBehavior: bothDirections
+			fromCardinality: one
+			fromColumn: 'Sales Order'.SalesOrderLineKey
+			toColumn: Sales.SalesOrderLineKey
+	
+		relationship 7148b2ed-5ec0-44a9-a4cb-314226113ce2
+			fromColumn: Sales.ResellerKey
+			toColumn: Reseller.ResellerKey
+	
+		relationship b203e473-2010-4e15-8455-4f81238242f1
+			fromColumn: Sales.CustomerKey
+			toColumn: Customer.CustomerKey
+	
+		relationship 42788a80-fa14-4522-8714-ecd801dfbf55
+			fromColumn: Sales.SalesTerritoryKey
+			toColumn: 'Sales Territory'.SalesTerritoryKey
+	
+		relationship a56e93b6-7802-427b-bde3-087b9aaffdb2
+			fromColumn: Sales.OrderDateKey
+			toColumn: Date.DateKey
+	
+		relationship 3c3a4da0-0999-48ec-8534-274c97ba1d5c
+			joinOnDateBehavior: datePartOnly
+			fromColumn: Date.Month
+			toColumn: LocalDateTable_5b521612-82e1-469a-8f09-1b05677ae324.Date
+	
+		relationship 87bcec33-e532-471a-a09f-f0bc14ef562b
+			joinOnDateBehavior: datePartOnly
+			fromColumn: Date.'Full Date'
+			toColumn: LocalDateTable_19528da0-7021-469c-a26d-2769539e708c.Date
+	
+		relationship 1fc846bc-8b01-4ced-860d-d527dcf89bb1
+			joinOnDateBehavior: datePartOnly
+			fromColumn: Date.'End of Week'
+			toColumn: LocalDateTable_a24eb4ee-0a5f-4aa1-bafb-7b5ee3d2d152.Date
+	
+		relationship 44298422-ef26-4818-aff6-217405ab01f6
+			joinOnDateBehavior: datePartOnly
+			fromColumn: Date.'End of Week Sunday'
+			toColumn: LocalDateTable_5a75ac49-7809-4a76-b23d-fbc0479e952d.Date
+	
+		cultureInfo en-US
+	
+			linguisticMetadata = {"Version":"3.1.0","Language":"en-US","Entities":{"product":{"Definition":{"Binding":{"ConceptualEntity":"Product"}},"State":"Generated","Terms":[{"product":{"State":"Generated"}},{"artifact":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.736}},{"item":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}},{"merchandise":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}},{"produce":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}}]},"product.product_key":{"Definition":{"Binding":{"ConceptualEntity":"Product","ConceptualProperty":"ProductKey"}},"State":"Generated","Terms":[{"product key":{"State":"Generated"}},{"ProductKey":{"Type":"Noun","State":"Generated","Weight":0.99}},{"key":{"State":"Generated","Weight":0.97}},{"artifact key":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.6}},{"item key":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"merchandise key":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"produce key":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"main":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"basic":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"fundamental":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"central":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"major":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"keynote":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}}]},"product.sku":{"Definition":{"Binding":{"ConceptualEntity":"Product","ConceptualProperty":"SKU"}},"State":"Generated","Terms":[{"sku":{"State":"Generated"}}]},"product.product":{"Definition":{"Binding":{"ConceptualEntity":"Product","ConceptualProperty":"Product"}},"State":"Generated","Terms":[{"product":{"State":"Generated"}},{"product name":{"State":"Generated"}},{"artifact":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.736}},{"item":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}},{"merchandise":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}},{"produce":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}}],"NameType":"Name"},"product.standard_cost":{"Definition":{"Binding":{"ConceptualEntity":"Product","ConceptualProperty":"Standard Cost"}},"State":"Generated","Terms":[{"standard cost":{"State":"Generated"}},{"cost":{"State":"Generated","Weight":0.97}},{"standard price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"standard charge":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"standard rate":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"standard fee":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"standard total":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"charge":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"rate":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"fee":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"standard expenditure":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.475}},{"expenditure":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.466}}]},"product.color":{"Definition":{"Binding":{"ConceptualEntity":"Product","ConceptualProperty":"Color"}},"State":"Generated","Terms":[{"color":{"State":"Generated"}},{"hue":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.491}},{"tint":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"shade":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"dye":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"paint":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"pigment":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}}]},"product.list_price":{"Definition":{"Binding":{"ConceptualEntity":"Product","ConceptualProperty":"List Price"}},"State":"Generated","Terms":[{"list price":{"State":"Generated"}},{"price":{"State":"Generated","Weight":0.97}},{"chronology price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.6}},{"directory price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"catalog price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"catalogue price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"inventory price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"record price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"list value":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"list worth":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"list fee":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"list charge":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}}]},"product.model":{"Definition":{"Binding":{"ConceptualEntity":"Product","ConceptualProperty":"Model"}},"State":"Generated","Terms":[{"model":{"State":"Generated"}},{"perfect":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"classic":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"ideal":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"standard":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"representative":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"mockup":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.466}},{"representation":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.466}},{"simulation":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.466}},{"replica":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.452}},{"copy":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.452}}]},"product.subcategory":{"Definition":{"Binding":{"ConceptualEntity":"Product","ConceptualProperty":"Subcategory"}},"State":"Generated","Terms":[{"subcategory":{"State":"Generated"}},{"Subcategory | Model | Product":{"State":"Suggested","Source":{"Type":"External","Agent":"PowerBI.VisualColumnRename"},"Weight":0.9}}]},"product.category":{"Definition":{"Binding":{"ConceptualEntity":"Product","ConceptualProperty":"Category"}},"State":"Generated","Terms":[{"category":{"State":"Generated"}},{"classification":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.736}},{"class":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}},{"type":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}},{"grouping":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}},{"kind":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.714}}]},"v_Measures_measure.product_count":{"Definition":{"Binding":{"ConceptualEntity":"Calculations","ConceptualProperty":"Product Count"}},"State":"Generated","Terms":[{"product count":{"State":"Generated"}},{"product amount":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.727}},{"artifact count":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.6}},{"item count":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"merchandise count":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"produce count":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}}]},"v_Measures_measure.standard_cost":{"Definition":{"Binding":{"ConceptualEntity":"Calculations","ConceptualProperty":"Cost"}},"State":"Generated","Terms":[{"standard cost":{"State":"Generated"}},{"cost":{"State":"Generated","Weight":0.97}},{"standard price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"standard charge":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"standard rate":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"standard fee":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"standard total":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"charge":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"rate":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"fee":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"standard expenditure":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.475}},{"expenditure":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.466}}]},"v_Measures_measure.list_price":{"Definition":{"Binding":{"ConceptualEntity":"Calculations","ConceptualProperty":"List Price"}},"State":"Generated","Terms":[{"list price":{"State":"Generated"}},{"price":{"State":"Generated","Weight":0.97}},{"chronology price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.6}},{"directory price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"catalog price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"catalogue price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"inventory price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"record price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.582}},{"list value":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"list worth":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"list fee":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"list charge":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}}]},"v_Measures_measure.profit_margin":{"Definition":{"Binding":{"ConceptualEntity":"Calculations","ConceptualProperty":"Profit Margin"}},"State":"Generated","Terms":[{"profit margin":{"State":"Generated"}},{"margin":{"State":"Generated","Weight":0.97}},{"profit boundary":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.5}},{"profit perimeter":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.5}},{"profit periphery":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.5}},{"boundary":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.491}},{"perimeter":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.491}},{"periphery":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.491}},{"profit border":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"profit brim":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"profit sideline":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"profit edge":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}}]},"v_Measures_measure.average_profit":{"Definition":{"Binding":{"ConceptualEntity":"Calculations","ConceptualProperty":"Average Profit"}},"State":"Generated","Terms":[{"average profit":{"State":"Generated"}},{"profit":{"State":"Generated","Weight":0.97}},{"average income":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.5}},{"average revenue":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.5}},{"income":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.491}},{"revenue":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.491}},{"average turnover":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"average return":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"average yield":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.485}},{"turnover":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"return":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}},{"yield":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.476}}]},"v_Measures_measure.average_list_price":{"Definition":{"Binding":{"ConceptualEntity":"Calculations","ConceptualProperty":"Average List Price"}},"State":"Generated","Terms":[{"average list price":{"State":"Generated"}},{"price":{"State":"Generated","Weight":0.97}},{"average chronology price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.609}},{"average directory price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.591}},{"average catalog price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.591}},{"average catalogue price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.591}},{"average inventory price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.591}},{"average record price":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.591}},{"average list value":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.492}},{"average list worth":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.492}},{"average list fee":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.492}},{"average list charge":{"Type":"Noun","State":"Suggested","Source":{"Agent":"OfficeThesaurus"},"Weight":0.492}}]},"sales_data_final_v2.subcategory":{"Definition":{"Binding":{"ConceptualEntity":"Sales Data FINAL v2","ConceptualProperty":"Subcategory"}},"State":"Generated","Terms":[{"Subcategory | Model | Product":{"State":"Suggested","Source":{"Type":"External","Agent":"PowerBI.VisualColumnRename"},"Weight":0.9}}]}},"Relationships":{"product_is_named_product":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"product.product":{"Target":{"Entity":"product.product"}}},"Phrasings":[{"Name":{"Subject":{"Role":"product"},"Name":{"Role":"product.product"}},"State":"Generated","Weight":0.99},{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"product.product"}},"State":"Generated","Weight":0.99}]},"product_is_expensive":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"product.standard_cost":{"Target":{"Entity":"product.standard_cost"}}},"Phrasings":[{"Adjective":{"Subject":{"Role":"product"},"Adjectives":[{"expensive":{"State":"Generated"}}],"Antonyms":[{"cheap":{"State":"Generated"}}],"Measurement":{"Role":"product.standard_cost"}},"State":"Generated","Weight":0.99},{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"product.standard_cost"}},"State":"Generated","Weight":0.99}]},"product_is_expensive1":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"product.list_price":{"Target":{"Entity":"product.list_price"}}},"Phrasings":[{"Adjective":{"Subject":{"Role":"product"},"Adjectives":[{"expensive":{"State":"Generated"}}],"Antonyms":[{"cheap":{"State":"Generated"}}],"Measurement":{"Role":"product.list_price"}},"State":"Generated","Weight":0.99},{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"product.list_price"}},"State":"Generated","Weight":0.99}]},"product_is_expensive2":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"v_Measures_measure.standard_cost":{"Target":{"Entity":"v_Measures_measure.standard_cost"}}},"Phrasings":[{"Adjective":{"Subject":{"Role":"product"},"Adjectives":[{"expensive":{"State":"Generated"}}],"Antonyms":[{"cheap":{"State":"Generated"}}],"Measurement":{"Role":"v_Measures_measure.standard_cost"}},"State":"Generated","Weight":0.99},{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"v_Measures_measure.standard_cost"}},"State":"Generated","Weight":0.99}]},"product_is_expensive3":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"v_Measures_measure.list_price":{"Target":{"Entity":"v_Measures_measure.list_price"}}},"Phrasings":[{"Adjective":{"Subject":{"Role":"product"},"Adjectives":[{"expensive":{"State":"Generated"}}],"Antonyms":[{"cheap":{"State":"Generated"}}],"Measurement":{"Role":"v_Measures_measure.list_price"}},"State":"Generated","Weight":0.99},{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"v_Measures_measure.list_price"}},"State":"Generated","Weight":0.99}]},"product_is_expensive4":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"v_Measures_measure.average_list_price":{"Target":{"Entity":"v_Measures_measure.average_list_price"}}},"Phrasings":[{"Adjective":{"Subject":{"Role":"product"},"Adjectives":[{"expensive":{"State":"Generated"}}],"Antonyms":[{"cheap":{"State":"Generated"}}],"Measurement":{"Role":"v_Measures_measure.average_list_price"}},"State":"Generated","Weight":0.99},{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"v_Measures_measure.average_list_price"}},"State":"Generated","Weight":0.99}]},"product_has_product_key":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"product.product_key":{"Target":{"Entity":"product.product_key"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"product.product_key"}},"State":"Generated","Weight":0.99}]},"product_has_sku":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"product.sku":{"Target":{"Entity":"product.sku"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"product.sku"}},"State":"Generated","Weight":0.99}]},"product_has_color":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"product.color":{"Target":{"Entity":"product.color"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"product.color"}},"State":"Generated","Weight":0.99}]},"product_has_model":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"product.model":{"Target":{"Entity":"product.model"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"product.model"}},"State":"Generated","Weight":0.99}]},"product_has_subcategory":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"product.subcategory":{"Target":{"Entity":"product.subcategory"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"product.subcategory"}},"State":"Generated","Weight":0.99}]},"product_has_category":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"product.category":{"Target":{"Entity":"product.category"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"product.category"}},"State":"Generated","Weight":0.99}]},"product_has_v_Measures_measure_product_count":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"v_Measures_measure.product_count":{"Target":{"Entity":"v_Measures_measure.product_count"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"v_Measures_measure.product_count"}},"State":"Generated","Weight":0.99}]},"product_has_v_Measures_measure_profit_margin":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"v_Measures_measure.profit_margin":{"Target":{"Entity":"v_Measures_measure.profit_margin"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"v_Measures_measure.profit_margin"}},"State":"Generated","Weight":0.99}]},"product_has_v_Measures_measure_average_profit":{"Binding":{"ConceptualEntity":"Product"},"State":"Generated","Roles":{"product":{"Target":{"Entity":"product"}},"v_Measures_measure.average_profit":{"Target":{"Entity":"v_Measures_measure.average_profit"}}},"Phrasings":[{"Attribute":{"Subject":{"Role":"product"},"Object":{"Role":"v_Measures_measure.average_profit"}},"State":"Generated","Weight":0.99}]}}}
+				contentType: json
+	
+		expression Calendar = ```
+				let
+					StartDate = #date(2015, 12, 1),
+				    EndDate = #date(Date.Year(DateTime.LocalNow())+1,1,1),
+				    Length = Duration.Days(EndDate - StartDate),
+				    Today = DateTime.LocalNow(),
+				    Source = List.Dates(StartDate, Length, #duration(1, 0, 0, 0)),
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Renamed Columns" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Date"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Date", type date}}),
+				    
+				 
+				
+				    #"Inserted Month Name" = Table.AddColumn(#"Changed Type","Month Name", each Date.MonthName([Date]), type text),
+				    #"Inserted Day Name" = Table.AddColumn(#"Inserted Month Name", "Day Name", each Date.DayOfWeekName([Date]), type text),
+				
+				    #"Inserted Day of Week" = Table.AddColumn(#"Inserted Day Name", "Day of Week", each Date.DayOfWeek(([Date]), Day.Sunday)+1, Int64.Type),
+				    #"Inserted First Characters" = Table.AddColumn(#"Inserted Day of Week", "MMM", each Text.Start([Month Name], 3), type text),
+				    #"Inserted First Characters1" = Table.AddColumn(#"Inserted First Characters", "DDD", each Text.Start([Day Name], 3), type text),
+				    #"Inserted End of Week" = Table.AddColumn(#"Inserted First Characters1", "End of Week", each Date.EndOfWeek([Date]), type date),
+				    #"Added Custom" = Table.AddColumn(#"Inserted End of Week", "Custom", each Date.AddDays([End of Week],1)),
+				    #"Added EndofWeekSunday" = Table.AddColumn(#"Added Custom", "End of Week Sunday", each if [Day Name] = "Sunday" then [Date] else [Custom]),
+				    #"Removed Columns" = Table.RemoveColumns(#"Added EndofWeekSunday",{"Custom"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns",{{"End of Week Sunday", type date}}),
+				    #"Inserted Day" = Table.AddColumn(#"Changed Type1", "Day", each Date.Day([Date]), Int64.Type),
+				    #"Inserted Year" = Table.AddColumn(#"Inserted Day", "Year", each Date.Year([Date]), Int64.Type),
+				    #"Added Weekend" = Table.AddColumn(#"Inserted Year", "IsWeekend", each if [Day of Week] = 7 then 1 else if [Day of Week] = 1 then 1 else 0),
+				    #"Inserted MonthDay" = Table.AddColumn(#"Added Weekend", "Month Day", each Text.Combine({[MMM], 
+				            if Text.Length(Text.From([Day])) = 1 then Text.Combine({"0",Text.From([Day])},"") else Text.From([Day])}, ", "), type text),
+				    #"Added Holiday" = Table.AddColumn(#"Inserted MonthDay", "IsHoliday", each if [Month Day] = "Jan 1" then 1 else if [Month Day] = "July 4" then 1 else if [Month Day] = "Nov 11" then 1 else if [Month Day] = "Dec 25" then 1 else 0),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Holiday",{{"IsHoliday", Int64.Type}, {"IsWeekend", Int64.Type}}),
+				    #"Inserted Date" = Table.AddColumn(#"Changed Type3", "DateKey", each DateTime.Date([Date]), type date),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Inserted Date",{{"DateKey", Int64.Type}}),
+				    #"Inserted Month" = Table.AddColumn(#"Changed Type4", "Month", each Date.Month([Date]), Int64.Type),
+				    #"Inserted MonthDaySort" = Table.AddColumn(#"Inserted Month", "Month Day Sort", each Text.Combine({
+				            if Text.Length(Text.From([Month]))=1 then Text.Combine({"0",Text.From([Month])},"") else Text.From([Month]),
+				            if Text.Length(Text.From([Day])) = 1 then Text.Combine({"0",Text.From([Day])},"") else Text.From([Day])
+				            }, "")),
+				    #"Added WEDate" = Table.AddColumn(#"Inserted MonthDaySort", "W.E. Date", each Text.Combine({"WE : ", Text.From([End of Week Sunday])},"")),
+				    #"Added MTD" = Table.AddColumn(#"Added WEDate", "IsMTD", each if [Day] <= Date.Day(Today) then 1 else 0),
+				    #"Added YTD" = Table.AddColumn(#"Added MTD", "IsYTD", each if [Month] < Date.Month(Today) then 1 else
+				if [Month] = Date.Month(Today) then 
+				  if [Day] <= Date.Day(Today) then 1 else 0 else 0),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added YTD",{{"IsMTD", Int64.Type}, {"IsYTD", Int64.Type}}),
+				    #"Inserted WE Week Number" = Table.AddColumn(#"Changed Type2", "W.E. Week Number", each Date.WeekOfYear([End of Week Sunday])-1, Int64.Type),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Inserted WE Week Number",{{"Date", "DateDate"}}),
+				    #"Added IsWTD" = Table.AddColumn(#"Renamed Columns1", "IsWTD", each if [Day of Week] <= (Date.DayOfWeek(Today,Day.Sunday)+1) then 1 else 0),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Added IsWTD",{{"IsWTD", Int64.Type}}),
+				    #"Added IsYTD" = Table.AddColumn(#"Changed Type5", "IsCurrentYTD", each if Date.Year(Today)=[Year] then 
+				if [IsYTD]=1 then 1 else 0 else 0,type number),
+				    #"Added IsCurrentMTD" = Table.AddColumn(#"Added IsYTD", "IsCurrentMTD", each if Date.Month(Today) = [Month] then
+				if [IsMTD] = 1 then 
+				if [IsCurrentYTD]=1 then 1 else 0 else 0 else 0,type number),
+				    #"Added IsCurrentWTD" = Table.AddColumn(#"Added IsCurrentMTD", "IsCurrentWTD", each if Date.WeekOfYear(Today) = Date.WeekOfYear([DateDate]) then 
+				if [IsWTD] = 1 then 
+				if [IsCurrentYTD] =1 then 1 else 0 else 0 else 0,type number),
+				    #"Added Month Year" = Table.AddColumn(#"Added IsCurrentWTD", "Month Year", each Text.Combine({[MMM], Text.From([Year], "en-US")}, " "), type text),
+				    #"Added WeeksAgo" = Table.AddColumn(#"Added Month Year", "Weeks Ago (W.E.)", each if [Year] = Date.Year(Today) then
+				Date.WeekOfYear(Today) - [W.E. Week Number]
+				else Date.WeekOfYear(Today) - [W.E. Week Number] + 52, type number),
+				    #"Added MonthsAgo" = Table.AddColumn(#"Added WeeksAgo", "MonthsAgo", each (if [Year] = Date.Year(Today) then
+				Date.Month(Today) - [Month]
+				else Date.Month(Today) - [Month] + (12 * (Date.Year(Today) - [Year])))*-1, Int64.Type),
+				    #"Added DaysAgo" = Table.AddColumn(#"Added MonthsAgo", "DaysAgo", each Duration.Days(Date.From(Today)-Date.From([DateDate])),Int64.Type),
+				    #"Added WorkDayOfWeek" = Table.AddColumn(#"Added DaysAgo", "Work Day of Week", each Date.DayOfWeek(
+				(if [Day of Week] =1 then Date.AddDays([DateDate],-2) else
+				if [Day of Week] = 7 then Date.AddDays([DateDate],-1) else
+				[DateDate])
+				,Day.Sunday) +1,Int64.Type),
+				    #"Added WorkDaysAgo" = Table.AddColumn(#"Added WorkDayOfWeek", "Work Days Ago", each (if 
+				([Work Day of Week] - (Date.DayOfWeek(Today,Day.Sunday)+1 )) > 0 then 5 + (Date.DayOfWeek(Today,Day.Sunday)+1 ) - [Work Day of Week] else ([Work Day of Week] - (Date.DayOfWeek(Today,Day.Sunday)+1 )))
+				+
+				(Number.RoundDown([DaysAgo]/7)*5),Int64.Type)
+				
+				
+				in
+				    #"Added WorkDaysAgo"
+				```
+			lineageTag: 66f88468-23ba-4704-8da1-385037b1b942
+	
+			annotation PBI_NavigationStepName = Navigation
+	
+			annotation PBI_ResultType = Table
+	
+		annotation PBI_QueryOrder = ["Product","Sales","Customer","Sales Order","Sales Territory","Reseller","Date","Calculations","Calendar"]
+	
+		annotation __PBI_TimeIntelligenceEnabled = 1
+	
+		annotation __TEdtr = 1
+	
+		annotation PBI_ProTooling = ["CalcGroup","DaxQueryView_Desktop","TMDLView_Desktop","DevMode"]
+	

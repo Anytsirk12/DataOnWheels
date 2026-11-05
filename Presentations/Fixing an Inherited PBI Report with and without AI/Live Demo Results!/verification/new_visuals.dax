@@ -1,0 +1,12 @@
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Date'[Fiscal Year],
+    'Date'[Fiscal Quarter],
+    "Revenue", [Revenue],
+    "Revenue LY", [Revenue LY],
+    "Revenue YoY %", [Revenue YoY %],
+    "Margin %", [Profit Margin %],
+    "Margin % LY", [Profit Margin % LY],
+    "Margin Change", [Profit Margin % Change]
+)
+ORDER BY 'Date'[Fiscal Year], 'Date'[Fiscal Quarter]
