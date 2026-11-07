@@ -1,0 +1,144 @@
+/// Every item seen in the capacity data, keyed on item + workspace. Name and kind are the most recently reported values across both workloads. IDs are upper-cased to match the fact tables.
+table dimItem
+	lineageTag: d1a00004-0004-0004-0004-000000000001
+
+	column item_id
+		dataType: string
+		isHidden
+		lineageTag: d1a00004-0004-0004-0004-000000000011
+		summarizeBy: none
+		sourceColumn: item_id
+
+	column Item
+		dataType: string
+		lineageTag: d1a00004-0004-0004-0004-000000000012
+		summarizeBy: none
+		sourceColumn: item_name
+
+	column 'Item Type'
+		dataType: string
+		lineageTag: d1a00004-0004-0004-0004-000000000013
+		summarizeBy: none
+		sourceColumn: item_kind
+
+	column workspace_id
+		dataType: string
+		isHidden
+		lineageTag: 5b199fa0-0fb6-4972-8449-93a112ff81ed
+		summarizeBy: none
+		sourceColumn: workspace_id
+
+	column item_key
+		dataType: string
+		isHidden
+		lineageTag: d836cdba-b753-48cf-a0ff-c271dbcf3b4e
+		summarizeBy: none
+		sourceColumn: item_key
+
+	column item_name_background
+		dataType: string
+		isHidden
+		lineageTag: a026cfd5-dc9f-439d-a237-c562a889bdfb
+		summarizeBy: none
+		sourceColumn: item_name_background
+
+	column item_kind_background
+		dataType: string
+		isHidden
+		lineageTag: 661ebaae-271e-49a7-b2fc-2c7ebe20c27d
+		summarizeBy: none
+		sourceColumn: item_kind_background
+
+	column last_seen_background
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 3ec7a289-d4db-49d8-bcf2-7ddd809f801b
+		summarizeBy: none
+		sourceColumn: last_seen_background
+
+	column item_name_interactive
+		dataType: string
+		isHidden
+		lineageTag: dd13e047-92d6-4b7b-a3a5-5d1840e0525f
+		summarizeBy: none
+		sourceColumn: item_name_interactive
+
+	column item_kind_interactive
+		dataType: string
+		isHidden
+		lineageTag: 864f51b5-e483-4b5e-94f1-bc45973c776f
+		summarizeBy: none
+		sourceColumn: item_kind_interactive
+
+	column last_seen_interactive
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 80d92cd4-0f9c-491a-bd13-a7fc689196cb
+		summarizeBy: none
+		sourceColumn: last_seen_interactive
+
+	partition dimItem = m
+		mode: import
+		source =
+				let
+				    Sql = "
+				        WITH b AS (
+				            SELECT UPPER(item_id) AS item_id, UPPER(workspace_id) AS workspace_id,
+				                   MAX(sampled_timepoint) AS last_seen,
+				                   MAX(CASE WHEN item_name > '' THEN CONCAT(CONVERT(char(23), sampled_timepoint, 121), item_name) END) AS name_packed,
+				                   MAX(CASE WHEN item_kind > '' THEN CONCAT(CONVERT(char(23), sampled_timepoint, 121), item_kind) END) AS kind_packed
+				            FROM dbo.factCapacityMetricsBackground
+				            GROUP BY UPPER(item_id), UPPER(workspace_id)
+				        ),
+				        i AS (
+				            SELECT UPPER(item_id) AS item_id, UPPER(workspace_id) AS workspace_id,
+				                   MAX(sampled_timepoint) AS last_seen,
+				                   MAX(CASE WHEN item_name > '' THEN CONCAT(CONVERT(char(23), sampled_timepoint, 121), item_name) END) AS name_packed,
+				                   MAX(CASE WHEN item_kind > '' THEN CONCAT(CONVERT(char(23), sampled_timepoint, 121), item_kind) END) AS kind_packed
+				            FROM dbo.factCapacityMetricsInteractive
+				            GROUP BY UPPER(item_id), UPPER(workspace_id)
+				        ),
+				        j AS (
+				            SELECT COALESCE(b.item_id, i.item_id) AS item_id,
+				                   COALESCE(b.workspace_id, i.workspace_id) AS workspace_id,
+				                   b.last_seen AS last_seen_background,
+				                   SUBSTRING(b.name_packed, 24, 4000) AS item_name_background,
+				                   SUBSTRING(b.kind_packed, 24, 4000) AS item_kind_background,
+				                   SUBSTRING(i.name_packed, 24, 4000) AS item_name_interactive,
+				                   SUBSTRING(i.kind_packed, 24, 4000) AS item_kind_interactive,
+				                   i.last_seen AS last_seen_interactive,
+				                   CASE WHEN i.name_packed > b.name_packed OR b.name_packed IS NULL THEN i.name_packed ELSE b.name_packed END AS name_packed,
+				                   CASE WHEN i.kind_packed > b.kind_packed OR b.kind_packed IS NULL THEN i.kind_packed ELSE b.kind_packed END AS kind_packed
+				            FROM b
+				            FULL OUTER JOIN i ON i.item_id = b.item_id AND i.workspace_id = b.workspace_id
+				        )
+				        SELECT item_id, workspace_id,
+				               CONCAT(item_id, '||', workspace_id) AS item_key,
+				               COALESCE(SUBSTRING(name_packed, 24, 4000), item_id, '(unknown item)') AS item_name,
+				               COALESCE(SUBSTRING(kind_packed, 24, 4000), '(unknown)') AS item_kind,
+				               item_name_background, item_kind_background, item_name_interactive, item_kind_interactive,
+				               last_seen_background, last_seen_interactive
+				        FROM j",
+				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Types = Table.TransformColumnTypes(Source, {
+				        {"item_id", type text},
+				        {"workspace_id", type text},
+				        {"item_key", type text},
+				        {"item_name", type text},
+				        {"item_kind", type text},
+				        {"item_name_background", type text},
+				        {"item_kind_background", type text},
+				        {"item_name_interactive", type text},
+				        {"item_kind_interactive", type text},
+				        {"last_seen_background", type datetime},
+				        {"last_seen_interactive", type datetime}
+				    })
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

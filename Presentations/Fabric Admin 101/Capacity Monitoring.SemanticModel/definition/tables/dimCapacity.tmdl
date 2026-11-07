@@ -41,13 +41,23 @@ table dimCapacity
 				            SELECT DISTINCT UPPER(capacity_id) FROM dbo.factCapacityMetricsBackground
 				        ),
 				        known AS (
-				            SELECT * FROM (VALUES
-				                ('67EA9D95-A8B6-4C33-ACB9-03669D0DD707', 'PC1', 'P1 (assumed)', 64),
-				                ('41DAAD21-8E58-41F9-9E6F-64BB1EC98827', 'PC2', 'P1 (assumed)', 64),
-				                ('DB3A1C05-7161-4696-9072-F009D240038B', 'fabricdeploymentpoc1', NULL, NULL),
-				                ('8CEE3AF5-AEDF-4FD9-8258-A4321576A1A1', 'Trial capacity', 'Trial', NULL),
-				                ('93474217-B954-4EA0-8166-970013B966DC', 'Premium Per User', 'PPU', NULL)
-				            ) v (capacity_id, capacity_name, sku, capacity_cu)
+				            SELECT UPPER(id) COLLATE DATABASE_DEFAULT AS capacity_id,
+				                   displayName COLLATE DATABASE_DEFAULT AS capacity_name,
+				                   sku COLLATE DATABASE_DEFAULT AS sku,
+				                   CASE
+				                       WHEN sku LIKE 'F[0-9]%' THEN TRY_CAST(SUBSTRING(sku, 2, 10) AS int)
+				                       WHEN sku = 'FT1' THEN 64
+				                       WHEN sku IN ('P1', 'A4') THEN 64
+				                       WHEN sku IN ('P2', 'A5') THEN 128
+				                       WHEN sku IN ('P3', 'A6') THEN 256
+				                       WHEN sku = 'P4' THEN 512
+				                       WHEN sku = 'P5' THEN 1024
+				                       WHEN sku IN ('EM1', 'A1') THEN 8
+				                       WHEN sku IN ('EM2', 'A2') THEN 16
+				                       WHEN sku IN ('EM3', 'A3') THEN 32
+				                   END AS capacity_cu
+				            FROM [" & TenantDB & "].dbo.dimCapacities
+				            WHERE IsCurrent = 1 AND id IS NOT NULL AND id <> ''
 				        )
 				        SELECT ids.capacity_id,
 				               COALESCE(known.capacity_name, ids.capacity_id) AS capacity_name,
@@ -55,7 +65,8 @@ table dimCapacity
 				               known.capacity_cu
 				        FROM ids
 				        LEFT JOIN known ON known.capacity_id = ids.capacity_id
-				        WHERE ids.capacity_id IS NOT NULL",
+				        WHERE ids.capacity_id IS NOT NULL
+				        ",
 				    Source = Sql.Database(Server, Database, [Query = Sql]),
 				    Types = Table.TransformColumnTypes(Source, {
 				        {"capacity_id", type text},

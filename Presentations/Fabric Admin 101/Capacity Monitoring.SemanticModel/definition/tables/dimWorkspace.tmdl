@@ -29,14 +29,6 @@ table dimWorkspace
 		summarizeBy: none
 		sourceColumn: type
 
-	column IsDeleted
-		dataType: boolean
-		isHidden
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 69ef952a-cc0c-449d-802e-4912586a1ffe
-		summarizeBy: none
-		sourceColumn: IsDeleted
-
 	partition dimWorkspace = m
 		mode: import
 		source =
@@ -54,14 +46,16 @@ table dimWorkspace
 				            GROUP BY UPPER(workspace_id)
 				        ),
 				        t AS (
-				            SELECT UPPER(id) AS workspace_id, name, state, type, IsDeleted,
+				            SELECT UPPER(id) COLLATE DATABASE_DEFAULT AS workspace_id,
+				                   name COLLATE DATABASE_DEFAULT AS name,
+				                   state, type,
 				                   ROW_NUMBER() OVER (PARTITION BY UPPER(id) ORDER BY name) AS rn
 				            FROM [" & TenantDB & "].dbo.dimWorkspaces
 				            WHERE IsCurrent = 1 AND id IS NOT NULL AND id <> ''
 				        )
 				        SELECT m.workspace_id,
 				               COALESCE(NULLIF(t.name, ''), NULLIF(SUBSTRING(m.name_packed, 24, 4000), ''), '(unknown workspace)') AS workspace_name,
-				               t.state, t.type, t.IsDeleted
+				               t.state, t.type
 				        FROM m
 				        LEFT JOIN t ON t.workspace_id = m.workspace_id AND t.rn = 1",
 				    Source = Sql.Database(Server, Database, [Query = Sql]),
@@ -69,8 +63,7 @@ table dimWorkspace
 				        {"workspace_id", type text},
 				        {"workspace_name", type text},
 				        {"state", type text},
-				        {"type", type text},
-				        {"IsDeleted", type logical}
+				        {"type", type text}
 				    })
 				in
 				    Types

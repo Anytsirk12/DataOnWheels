@@ -1,0 +1,83 @@
+/// Every capacity seen in the capacity data, with a display name and its size in CU. Names and sizes come from the VALUES list in the query until the ingestion notebook persists the admin capacities API (which carries the SKU). capacity_cu drives every utilization % measure; blank = utilization not shown for that capacity.
+table dimCapacity
+	lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a01
+
+	column capacity_id
+		dataType: string
+		isHidden
+		lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a02
+		summarizeBy: none
+		sourceColumn: capacity_id
+
+	column Capacity
+		dataType: string
+		lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a03
+		summarizeBy: none
+		sourceColumn: capacity_name
+
+	column SKU
+		dataType: string
+		lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a04
+		summarizeBy: none
+		sourceColumn: sku
+
+	column capacity_cu
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3f0b6a1d-8e2c-4d57-a9b3-6c1e7d2f4a05
+		summarizeBy: none
+		sourceColumn: capacity_cu
+
+	partition dimCapacity = m
+		mode: import
+		source =
+				let
+				    // ASSUMPTION TO CONFIRM: PC1 and PC2 sized at 64 CU (P1 / F64). Replace with the SKU from the admin capacities API.
+				    Sql = "
+				        WITH ids AS (
+				            SELECT DISTINCT UPPER(capacity_id) AS capacity_id FROM dbo.factCapacityMetricsInteractive
+				            UNION
+				            SELECT DISTINCT UPPER(capacity_id) FROM dbo.factCapacityMetricsBackground
+				        ),
+				        known AS (
+				            SELECT UPPER(id) COLLATE DATABASE_DEFAULT AS capacity_id,
+				                   displayName COLLATE DATABASE_DEFAULT AS capacity_name,
+				                   sku COLLATE DATABASE_DEFAULT AS sku,
+				                   CASE
+				                       WHEN sku LIKE 'F[0-9]%' THEN TRY_CAST(SUBSTRING(sku, 2, 10) AS int)
+				                       WHEN sku = 'FT1' THEN 64
+				                       WHEN sku IN ('P1', 'A4') THEN 64
+				                       WHEN sku IN ('P2', 'A5') THEN 128
+				                       WHEN sku IN ('P3', 'A6') THEN 256
+				                       WHEN sku = 'P4' THEN 512
+				                       WHEN sku = 'P5' THEN 1024
+				                       WHEN sku IN ('EM1', 'A1') THEN 8
+				                       WHEN sku IN ('EM2', 'A2') THEN 16
+				                       WHEN sku IN ('EM3', 'A3') THEN 32
+				                   END AS capacity_cu
+				            FROM [" & TenantDB & "].dbo.dimCapacities
+				            WHERE IsCurrent = 1 AND id IS NOT NULL AND id <> ''
+				        )
+				        SELECT ids.capacity_id,
+				               COALESCE(known.capacity_name, ids.capacity_id) AS capacity_name,
+				               known.sku,
+				               known.capacity_cu
+				        FROM ids
+				        LEFT JOIN known ON known.capacity_id = ids.capacity_id
+				        WHERE ids.capacity_id IS NOT NULL
+				        ",
+				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Types = Table.TransformColumnTypes(Source, {
+				        {"capacity_id", type text},
+				        {"capacity_name", type text},
+				        {"sku", type text},
+				        {"capacity_cu", Int64.Type}
+				    })
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

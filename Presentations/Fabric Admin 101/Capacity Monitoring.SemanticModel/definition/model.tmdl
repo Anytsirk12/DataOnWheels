@@ -13,7 +13,7 @@ queryGroup 'Set Up'
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["factInteractiveOps","factBackgroundOps","factCapacityLoad","dimCapacity","dimWorkspace","dimItem","dimUser","dimOperation","dimCalendar","Workload","Change Date","_Measures","Server","Database","TenantDB"]
+annotation PBI_QueryOrder = ["factInteractiveOps","factBackgroundOps","factCapacityLoad","dimCapacity","dimWorkspace","dimItem","dimUser","dimOperation","dimCalendar","Workload","Change Date","_Measures","Server","Database","TenantServer","TenantDB"]
 
 annotation PBI_ProTooling = ["DevMode"]
 

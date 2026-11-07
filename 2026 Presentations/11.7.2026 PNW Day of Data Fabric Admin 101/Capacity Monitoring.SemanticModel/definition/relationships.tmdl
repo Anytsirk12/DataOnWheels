@@ -1,0 +1,56 @@
+relationship r00000001-0001-0001-0001-000000000001
+	fromColumn: factInteractiveOps.sampled_date
+	toColumn: dimCalendar.Date
+
+relationship r00000005-0005-0005-0005-000000000005
+	fromColumn: factBackgroundOps.sampled_date
+	toColumn: dimCalendar.Date
+
+relationship AutoDetected_b97c6c7b-aec8-41bd-943d-5e615f050eed
+	fromColumn: factInteractiveOps.item_key
+	toColumn: dimItem.item_key
+
+relationship AutoDetected_7a9cb3dc-e16f-4094-86c4-27240693f77d
+	fromColumn: factBackgroundOps.item_key
+	toColumn: dimItem.item_key
+
+relationship r0000000a-000a-000a-000a-00000000000a
+	fromColumn: factCapacityLoad.sampled_date
+	toColumn: dimCalendar.Date
+
+relationship r0000000b-000b-000b-000b-00000000000b
+	fromColumn: dimItem.workspace_id
+	toColumn: dimWorkspace.workspace_id
+
+relationship r0000000c-000c-000c-000c-00000000000c
+	fromColumn: factInteractiveOps.user_key
+	toColumn: dimUser.user_key
+
+relationship r0000000d-000d-000d-000d-00000000000d
+	fromColumn: factBackgroundOps.user_key
+	toColumn: dimUser.user_key
+
+relationship r0000000e-000e-000e-000e-00000000000e
+	fromColumn: factInteractiveOps.capacity_id
+	toColumn: dimCapacity.capacity_id
+
+relationship r0000000f-000f-000f-000f-00000000000f
+	fromColumn: factBackgroundOps.capacity_id
+	toColumn: dimCapacity.capacity_id
+
+relationship r00000010-0010-0010-0010-000000000010
+	fromColumn: factCapacityLoad.capacity_id
+	toColumn: dimCapacity.capacity_id
+
+relationship r00000011-0011-0011-0011-000000000011
+	fromColumn: factInteractiveOps.operation
+	toColumn: dimOperation.Operation
+
+relationship r00000012-0012-0012-0012-000000000012
+	fromColumn: factBackgroundOps.operation
+	toColumn: dimOperation.Operation
+
+relationship r00000013-0013-0013-0013-000000000013
+	fromColumn: factCapacityLoad.workload_type
+	toColumn: Workload.Workload
+

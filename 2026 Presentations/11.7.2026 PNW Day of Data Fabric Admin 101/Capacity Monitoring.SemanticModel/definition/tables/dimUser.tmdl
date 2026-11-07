@@ -1,0 +1,53 @@
+/// Every user seen in either workload, keyed on the lower-cased name so casing differences do not split a person in two.
+table dimUser
+	lineageTag: d1a00005-0005-0005-0005-000000000001
+
+	column User
+		dataType: string
+		lineageTag: d1a00005-0005-0005-0005-000000000012
+		summarizeBy: none
+		sourceColumn: user
+
+	column user_key
+		dataType: string
+		isHidden
+		lineageTag: d1a00005-0005-0005-0005-000000000011
+		summarizeBy: none
+		sourceColumn: user_key
+
+	column 'Is Service Account'
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d1a00005-0005-0005-0005-000000000013
+		summarizeBy: none
+		sourceColumn: is_service
+
+	partition dimUser = m
+		mode: import
+		source =
+				let
+				    Sql = "
+				        SELECT LOWER([user]) AS user_key,
+				               MAX([user]) AS [user],
+				               CASE WHEN LOWER([user]) IN ('power bi service', 'system') THEN 1 ELSE 0 END AS is_service
+				        FROM (
+				            SELECT DISTINCT [user] FROM dbo.factCapacityMetricsInteractive
+				            UNION
+				            SELECT DISTINCT [user] FROM dbo.factCapacityMetricsBackground
+				        ) u
+				        WHERE [user] IS NOT NULL
+				        GROUP BY LOWER([user])",
+				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Types = Table.TransformColumnTypes(Source, {
+				        {"user_key", type text},
+				        {"user", type text},
+				        {"is_service", type logical}
+				    })
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

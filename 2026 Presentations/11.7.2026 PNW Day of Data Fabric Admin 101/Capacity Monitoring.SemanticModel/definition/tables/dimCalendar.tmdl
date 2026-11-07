@@ -1,0 +1,109 @@
+table dimCalendar
+	lineageTag: d1a00006-0006-0006-0006-000000000001
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: mmm d, yyyy
+		lineageTag: d1a00006-0006-0006-0006-000000000011
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: d1a00006-0006-0006-0006-000000000012
+		summarizeBy: none
+		sourceColumn: Year
+
+	column MonthNum
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d1a00006-0006-0006-0006-000000000013
+		summarizeBy: none
+		sourceColumn: MonthNum
+
+	column MonthName
+		dataType: string
+		lineageTag: d1a00006-0006-0006-0006-000000000014
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: MonthNum
+
+	column DayOfWeek
+		dataType: string
+		lineageTag: d1a00006-0006-0006-0006-000000000015
+		summarizeBy: none
+		sourceColumn: DayOfWeek
+		sortByColumn: DayOfWeekNum
+
+	column DayOfWeekNum
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d1a00006-0006-0006-0006-000000000016
+		summarizeBy: none
+		sourceColumn: DayOfWeekNum
+
+	column IsWeekend
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d1a00006-0006-0006-0006-000000000017
+		summarizeBy: none
+		sourceColumn: IsWeekend
+
+	column WeekOfYear
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d1a00006-0006-0006-0006-000000000018
+		summarizeBy: none
+		sourceColumn: WeekOfYear
+
+	column Weekday
+		dataType: string
+		lineageTag: d1a00006-0006-0006-0006-000000000019
+		summarizeBy: none
+		sourceColumn: Weekday
+		sortByColumn: DayOfWeekNum
+
+	column 'Week Starting'
+		dataType: dateTime
+		formatString: mmm d
+		lineageTag: d1a00006-0006-0006-0006-00000000001a
+		summarizeBy: none
+		sourceColumn: Week Starting
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dimCalendar = m
+		mode: import
+		source =
+				let
+				    // Runs from before the first ingestion load through today, so new days appear without editing this query.
+				    StartDate = #date(2026, 7, 1),
+				    EndDate = Date.From(DateTime.LocalNow()),
+				    DayCount = Duration.Days(EndDate - StartDate) + 1,
+				    DateList = List.Dates(StartDate, DayCount, #duration(1, 0, 0, 0)),
+				    ToTable = Table.FromList(DateList, Splitter.SplitByNothing(), {"Date"}, null, ExtraValues.Error),
+				    Typed = Table.TransformColumnTypes(ToTable, {{"Date", type date}}),
+				    AddYear = Table.AddColumn(Typed, "Year", each Date.Year([Date]), Int64.Type),
+				    AddMonthNum = Table.AddColumn(AddYear, "MonthNum", each Date.Month([Date]), Int64.Type),
+				    AddMonthName = Table.AddColumn(AddMonthNum, "MonthName", each Date.MonthName([Date]), type text),
+				    AddDOW = Table.AddColumn(AddMonthName, "DayOfWeek", each Date.DayOfWeekName([Date]), type text),
+				    AddWeekday = Table.AddColumn(AddDOW, "Weekday", each Text.Start(Date.DayOfWeekName([Date]), 3), type text),
+				    AddDOWNum = Table.AddColumn(AddWeekday, "DayOfWeekNum", each Date.DayOfWeek([Date], Day.Monday), Int64.Type),
+				    AddWeekend = Table.AddColumn(AddDOWNum, "IsWeekend", each Date.DayOfWeek([Date], Day.Monday) >= 5, type logical),
+				    AddWeekStart = Table.AddColumn(AddWeekend, "Week Starting", each Date.StartOfWeek([Date], Day.Monday), type date),
+				    AddWeekOfYear = Table.AddColumn(AddWeekStart, "WeekOfYear", each Date.WeekOfYear([Date]), Int64.Type)
+				in
+				    AddWeekOfYear
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

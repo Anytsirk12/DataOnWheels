@@ -69,7 +69,7 @@ table factCapacityLoad
 				        FROM i
 				        JOIN (SELECT DISTINCT capacity_id, sampled_timepoint FROM b) bt
 				          ON bt.capacity_id = i.capacity_id AND bt.sampled_timepoint = i.sampled_timepoint",
-				    Source = Sql.Database(Server, Database, [Query = Sql]),
+				    Source = Sql.Database(TenantServer, TenantDB, [Query = Sql]),
 				    Types = Table.TransformColumnTypes(Source, {
 				        {"capacity_id", type text},
 				        {"sampled_timepoint", type datetime},

@@ -1,0 +1,34 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Set Up'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["factInteractiveOps","factBackgroundOps","factCapacityLoad","dimCapacity","dimWorkspace","dimItem","dimUser","dimOperation","dimCalendar","Workload","Change Date","_Measures","Server","Database","TenantServer","TenantDB"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table factInteractiveOps
+ref table factBackgroundOps
+ref table dimWorkspace
+ref table dimItem
+ref table dimUser
+ref table dimCalendar
+ref table _Measures
+ref table factCapacityLoad
+ref table dimCapacity
+ref table dimOperation
+ref table Workload
+ref table 'Change Date'
+
+ref cultureInfo en-US
+

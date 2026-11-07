@@ -1,0 +1,722 @@
+table _Measures
+	lineageTag: m1a00007-0007-0007-0007-000000000001
+
+	/// Total CU seconds of interactive operations (queries, renders). Sampled: see the About page.
+	measure 'Interactive CU (s)' = SUM(factInteractiveOps[total_cu_s])
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000101
+
+	/// Total CU seconds of background operations (refreshes, pipelines, SQL endpoint and dataflow queries), attributed to the day the operation started.
+	measure 'Background CU (s)' = SUM(factBackgroundOps[total_cu_s])
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000102
+
+	/// CU seconds for the workload chosen in the Workload slicer, or both when nothing (or both) is chosen. Every trend measure is built on this one.
+	measure 'CU (s)' =
+			SWITCH(
+			    SELECTEDVALUE(Workload[Workload]),
+			    "Interactive", [Interactive CU (s)],
+			    "Background", [Background CU (s)],
+			    [Interactive CU (s)] + [Background CU (s)]
+			)
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000103
+
+	measure 'Interactive Operations' = COUNTROWS(factInteractiveOps)
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000201
+
+	measure 'Background Operations' = COUNTROWS(factBackgroundOps)
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000202
+
+	measure Operations =
+			SWITCH(
+			    SELECTEDVALUE(Workload[Workload]),
+			    "Interactive", [Interactive Operations],
+			    "Background", [Background Operations],
+			    [Interactive Operations] + [Background Operations]
+			)
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000203
+
+	measure 'Failed Operations' =
+			VAR _i = CALCULATE(COUNTROWS(factInteractiveOps), factInteractiveOps[status] = "Failure")
+			VAR _b = CALCULATE(COUNTROWS(factBackgroundOps), factBackgroundOps[status] = "Failure")
+			RETURN
+			    SWITCH(SELECTEDVALUE(Workload[Workload]), "Interactive", _i, "Background", _b, _i + _b)
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000301
+
+	/// Operations the capacity refused outright because it was overloaded (the hardest form of throttling).
+	measure 'Rejected Operations' =
+			VAR _i = CALCULATE(COUNTROWS(factInteractiveOps), factInteractiveOps[status] = "Rejected")
+			VAR _b = CALCULATE(COUNTROWS(factBackgroundOps), factBackgroundOps[status] = "Rejected")
+			RETURN
+			    SWITCH(SELECTEDVALUE(Workload[Workload]), "Interactive", _i, "Background", _b, _i + _b)
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000302
+
+	measure 'Failure Rate %' = DIVIDE([Failed Operations], [Operations])
+		formatString: 0.0%
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000303
+
+	/// Operations that were delayed by throttling (throttling seconds > 0) but still ran.
+	measure 'Throttled Operations' =
+			VAR _i = CALCULATE(COUNTROWS(factInteractiveOps), factInteractiveOps[throttling_s] > 0)
+			VAR _b = CALCULATE(COUNTROWS(factBackgroundOps), factBackgroundOps[throttling_s] > 0)
+			RETURN
+			    SWITCH(SELECTEDVALUE(Workload[Workload]), "Interactive", _i, "Background", _b, _i + _b)
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000401
+
+	measure 'Throttling (s)' =
+			VAR _i = SUM(factInteractiveOps[throttling_s])
+			VAR _b = SUM(factBackgroundOps[throttling_s])
+			RETURN
+			    SWITCH(SELECTEDVALUE(Workload[Workload]), "Interactive", _i, "Background", _b, _i + _b)
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000402
+
+	/// People running interactive operations, excluding the Power BI Service and System accounts.
+	measure 'Active Users' = CALCULATE(DISTINCTCOUNT(factInteractiveOps[user_key]), dimUser[Is Service Account] = FALSE())
+		formatString: #,0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000501
+
+	measure 'Avg Duration (s)' =
+			VAR _iDur = SUM(factInteractiveOps[duration_s])
+			VAR _bDur = SUM(factBackgroundOps[duration_s])
+			RETURN
+			    SWITCH(
+			        SELECTEDVALUE(Workload[Workload]),
+			        "Interactive", DIVIDE(_iDur, [Interactive Operations]),
+			        "Background", DIVIDE(_bDur, [Background Operations]),
+			        DIVIDE(_iDur + _bDur, [Interactive Operations] + [Background Operations])
+			    )
+		formatString: #,0.0
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000601
+
+	/// This row's share of all CU on the selected capacities and dates.
+	measure 'CU Share %' =
+			DIVIDE(
+			    [CU (s)],
+			    CALCULATE([CU (s)], REMOVEFILTERS(dimItem), REMOVEFILTERS(dimWorkspace), REMOVEFILTERS(dimUser), REMOVEFILTERS(dimOperation))
+			)
+		formatString: 0.0%
+		displayFolder: 1 Core
+		lineageTag: m1a00007-0007-0007-0007-000000000602
+
+	/// Latest day with any operation data, ignoring every filter.
+	measure 'Last Data Date' =
+			VAR _i = CALCULATE(MAX(factInteractiveOps[sampled_date]), REMOVEFILTERS())
+			VAR _b = CALCULATE(MAX(factBackgroundOps[sampled_date]), REMOVEFILTERS())
+			RETURN MAX(_i, _b)
+		formatString: mmm d, yyyy
+		displayFolder: 2 Dates
+		lineageTag: m1a00007-0007-0007-0007-000000000701
+
+	measure 'First Data Date' =
+			VAR _i = CALCULATE(MIN(factInteractiveOps[sampled_date]), REMOVEFILTERS())
+			VAR _b = CALCULATE(MIN(factBackgroundOps[sampled_date]), REMOVEFILTERS())
+			RETURN
+			    -- Two-argument MIN treats BLANK as 0, so pick explicitly.
+			    SWITCH(TRUE(), ISBLANK(_i), _b, ISBLANK(_b), _i, MIN(_i, _b))
+		formatString: mmm d, yyyy
+		displayFolder: 2 Dates
+		lineageTag: m1a00007-0007-0007-0007-000000000702
+
+	/// The day the "last 7 days" window ends on: the latest data day, or the end of the date filter if that is earlier.
+	measure 'Anchor Date' = MIN(MAX(dimCalendar[Date]), [Last Data Date])
+		formatString: mmm d, yyyy
+		displayFolder: 2 Dates
+		lineageTag: m1a00007-0007-0007-0007-000000000703
+
+	measure 'Report As Of' =
+			VAR _a = [Anchor Date]
+			RETURN
+			    "Last 7 days (" & FORMAT(_a - 6, "mmm d") & " to " & FORMAT(_a, "mmm d, yyyy")
+			        & ") compared with the 4 weeks before  |  All times UTC"
+		displayFolder: 2 Dates
+		lineageTag: m1a00007-0007-0007-0007-000000000704
+
+	measure 'Avg Daily CU (Last 7d)' =
+			VAR _end = [Anchor Date]
+			VAR _start = MAX(_end - 6, [First Data Date])
+			VAR _days = DATEDIFF(_start, _end, DAY) + 1
+			RETURN
+			    IF(
+			        NOT ISBLANK(_end) && _days > 0,
+			        DIVIDE(CALCULATE([CU (s)], DATESBETWEEN(dimCalendar[Date], _start, _end), REMOVEFILTERS(dimCalendar)), _days)
+			    )
+		formatString: #,0
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-000000000801
+
+	/// Days of data inside the 28-day baseline window (days 8 to 35 back from the anchor). Zero while history is shorter than 8 days.
+	measure 'Baseline Days' =
+			VAR _anchor = [Anchor Date]
+			VAR _start = MAX(_anchor - 34, [First Data Date])
+			VAR _end = _anchor - 7
+			VAR _days = DATEDIFF(_start, _end, DAY) + 1
+			RETURN IF(ISBLANK(_anchor) || _days < 0, 0, _days)
+		formatString: 0
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-000000000802
+
+	measure 'Avg Daily CU (Baseline)' =
+			VAR _anchor = [Anchor Date]
+			VAR _start = MAX(_anchor - 34, [First Data Date])
+			VAR _end = _anchor - 7
+			VAR _days = [Baseline Days]
+			RETURN
+			    IF(
+			        _days > 0,
+			        DIVIDE(CALCULATE([CU (s)], DATESBETWEEN(dimCalendar[Date], _start, _end), REMOVEFILTERS(dimCalendar)), _days)
+			    )
+		formatString: #,0
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-000000000803
+
+	measure 'CU Change per Day' = [Avg Daily CU (Last 7d)] - [Avg Daily CU (Baseline)]
+		formatString: +#,0;-#,0;0
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-000000000804
+
+	measure 'CU Change %' = DIVIDE([CU Change per Day], [Avg Daily CU (Baseline)])
+		formatString: +0%;-0%;0%
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-000000000805
+
+	/// A change only counts as significant if it moves at least 1% of the selected capacities' average daily CU. Stops tiny items with big percentages from crowding the lists.
+	measure 'Significance Floor' =
+			0.01
+			    * CALCULATE(
+			        [Avg Daily CU (Last 7d)],
+			        REMOVEFILTERS(dimItem), REMOVEFILTERS(dimWorkspace), REMOVEFILTERS(dimUser), REMOVEFILTERS(dimOperation)
+			    )
+		formatString: #,0
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-000000000806
+
+	/// New = no CU in the baseline but significant CU now. Worse / Better = moved by at least the Significance Floor AND by 25% or more. Everything else is Steady.
+	measure 'Trend Signal' =
+			VAR _cur = [Avg Daily CU (Last 7d)]
+			VAR _base = [Avg Daily CU (Baseline)]
+			VAR _chg = _cur - _base
+			VAR _pct = DIVIDE(_chg, _base)
+			VAR _floor = [Significance Floor]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        [Baseline Days] = 0, BLANK(),
+			        ISBLANK(_cur) && ISBLANK(_base), BLANK(),
+			        ISBLANK(_base) && _cur >= _floor, "New",
+			        _chg >= _floor && _pct >= 0.25, "Worse",
+			        _chg <= -_floor && _pct <= -0.25, "Better",
+			        "Steady"
+			    )
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-000000000807
+
+	measure 'Trend Signal Color' = SWITCH([Trend Signal], "New", "#B42318", "Worse", "#B42318", "Better", "#067647", "#475467")
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-000000000808
+
+	measure 'Share (Last 7d) %' =
+			VAR _end = [Anchor Date]
+			RETURN CALCULATE([CU Share %], DATESBETWEEN(dimCalendar[Date], _end - 6, _end), REMOVEFILTERS(dimCalendar))
+		formatString: 0.0%
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-000000000809
+
+	/// Daily CU, shown as 0 on days inside the loaded history when the selection used nothing.
+	measure 'Daily CU' =
+			VAR _d = MAX(dimCalendar[Date])
+			RETURN IF(_d >= [First Data Date] && _d <= [Last Data Date], [CU (s)] + 0)
+		formatString: #,0
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-00000000080a
+
+	measure 'CU 7-Day Avg' =
+			VAR _d = MAX(dimCalendar[Date])
+			VAR _first = [First Data Date]
+			VAR _start = MAX(_d - 6, _first)
+			RETURN
+			    IF(
+			        _d >= _first && _d <= [Last Data Date],
+			        DIVIDE(
+			            CALCULATE([CU (s)], DATESBETWEEN(dimCalendar[Date], _start, _d), REMOVEFILTERS(dimCalendar)),
+			            DATEDIFF(_start, _d, DAY) + 1
+			        ) + 0
+			    )
+		formatString: #,0
+		displayFolder: 3 Trend
+		lineageTag: m1a00007-0007-0007-0007-00000000080b
+
+	measure 'Worse: Baseline per Day' = IF([Trend Signal] IN {"New", "Worse"}, [Avg Daily CU (Baseline)] + 0)
+		formatString: #,0
+		displayFolder: 4 Overview lists
+		lineageTag: m1a00007-0007-0007-0007-000000000901
+
+	measure 'Worse: Last 7d per Day' = IF([Trend Signal] IN {"New", "Worse"}, [Avg Daily CU (Last 7d)])
+		formatString: #,0
+		displayFolder: 4 Overview lists
+		lineageTag: m1a00007-0007-0007-0007-000000000902
+
+	measure 'Worse: Change per Day' = IF([Trend Signal] IN {"New", "Worse"}, [CU Change per Day])
+		formatString: +#,0;-#,0;0
+		displayFolder: 4 Overview lists
+		lineageTag: m1a00007-0007-0007-0007-000000000903
+
+	measure 'Worse: Change %' = IF([Trend Signal] = "Worse", [CU Change %])
+		formatString: +0%;-0%;0%
+		displayFolder: 4 Overview lists
+		lineageTag: m1a00007-0007-0007-0007-000000000904
+
+	measure 'Worse: Signal' = IF([Trend Signal] IN {"New", "Worse"}, [Trend Signal])
+		displayFolder: 4 Overview lists
+		lineageTag: m1a00007-0007-0007-0007-000000000905
+
+	measure 'Better: Baseline per Day' = IF([Trend Signal] = "Better", [Avg Daily CU (Baseline)])
+		formatString: #,0
+		displayFolder: 4 Overview lists
+		lineageTag: m1a00007-0007-0007-0007-000000000906
+
+	measure 'Better: Last 7d per Day' = IF([Trend Signal] = "Better", [Avg Daily CU (Last 7d)] + 0)
+		formatString: #,0
+		displayFolder: 4 Overview lists
+		lineageTag: m1a00007-0007-0007-0007-000000000907
+
+	measure 'Better: Change per Day' = IF([Trend Signal] = "Better", [CU Change per Day])
+		formatString: +#,0;-#,0;0
+		displayFolder: 4 Overview lists
+		lineageTag: m1a00007-0007-0007-0007-000000000908
+
+	measure 'Better: Change %' = IF([Trend Signal] = "Better", [CU Change %])
+		formatString: +0%;-0%;0%
+		displayFolder: 4 Overview lists
+		lineageTag: m1a00007-0007-0007-0007-000000000909
+
+	measure 'Items Getting Worse' = COUNTROWS(FILTER(VALUES(dimItem[item_key]), [Trend Signal] = "Worse")) + 0
+		formatString: #,0
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a01
+
+	measure 'New Heavy Items' = COUNTROWS(FILTER(VALUES(dimItem[item_key]), [Trend Signal] = "New")) + 0
+		formatString: #,0
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a02
+
+	measure 'Items Getting Better' = COUNTROWS(FILTER(VALUES(dimItem[item_key]), [Trend Signal] = "Better")) + 0
+		formatString: #,0
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a03
+
+	measure 'Items Needing Attention' = [Items Getting Worse] + [New Heavy Items]
+		formatString: #,0
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a04
+
+	measure 'KPI Attention Text' = [New Heavy Items] & " new  |  " & [Items Getting Worse] & " worse  |  " & [Items Getting Better] & " better"
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a05
+
+	measure 'KPI Attention Color' = IF([Items Needing Attention] > 0, "#B42318", "#067647")
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a06
+
+	measure 'KPI CU vs Baseline Text' =
+			VAR _pct = [CU Change %]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        [Baseline Days] = 0, "Baseline builds after 8 days of history",
+			        ISBLANK(_pct), "No baseline usage",
+			        _pct >= 0, UNICHAR(9650) & " " & FORMAT(_pct, "0%") & " vs prior 4-week daily avg",
+			        UNICHAR(9660) & " " & FORMAT(-_pct, "0%") & " vs prior 4-week daily avg"
+			    )
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a07
+
+	measure 'KPI CU vs Baseline Color' =
+			VAR _pct = [CU Change %]
+			RETURN SWITCH(TRUE(), ISBLANK(_pct), "#475467", _pct >= 0.1, "#B42318", _pct <= -0.1, "#067647", "#475467")
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a08
+
+	measure 'Failed Ops (Last 7d)' =
+			VAR _end = [Anchor Date]
+			RETURN CALCULATE([Failed Operations], DATESBETWEEN(dimCalendar[Date], _end - 6, _end), REMOVEFILTERS(dimCalendar)) + 0
+		formatString: #,0
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a09
+
+	/// Failures in the 28-day baseline, scaled to a 7-day week so it compares directly with the last 7 days.
+	measure 'Failed Ops (Baseline per Week)' =
+			VAR _anchor = [Anchor Date]
+			VAR _start = MAX(_anchor - 34, [First Data Date])
+			VAR _days = [Baseline Days]
+			RETURN
+			    IF(
+			        _days > 0,
+			        DIVIDE(CALCULATE([Failed Operations], DATESBETWEEN(dimCalendar[Date], _start, _anchor - 7), REMOVEFILTERS(dimCalendar)), _days) * 7
+			    )
+		formatString: #,0
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a0a
+
+	measure 'KPI Failures vs Baseline Text' =
+			VAR _cur = [Failed Ops (Last 7d)]
+			VAR _base = [Failed Ops (Baseline per Week)]
+			VAR _pct = DIVIDE(_cur - _base, _base)
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        [Baseline Days] = 0, "Baseline builds after 8 days of history",
+			        ISBLANK(_base) || _base = 0, IF(_cur > 0, "None in the prior 4 weeks", "None in the prior 4 weeks either"),
+			        _pct >= 0, UNICHAR(9650) & " " & FORMAT(_pct, "0%") & " vs prior 4-week avg (" & FORMAT(_base, "#,0") & "/wk)",
+			        UNICHAR(9660) & " " & FORMAT(-_pct, "0%") & " vs prior 4-week avg (" & FORMAT(_base, "#,0") & "/wk)"
+			    )
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a0b
+
+	measure 'KPI Failures vs Baseline Color' =
+			VAR _cur = [Failed Ops (Last 7d)]
+			VAR _base = [Failed Ops (Baseline per Week)]
+			VAR _pct = DIVIDE(_cur - _base, _base)
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        (ISBLANK(_base) || _base = 0) && _cur > 0, "#B42318",
+			        _pct >= 0.1, "#B42318",
+			        _pct <= -0.1, "#067647",
+			        "#475467"
+			    )
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a0c
+
+	measure 'Rejected Ops (Last 7d)' =
+			VAR _end = [Anchor Date]
+			RETURN CALCULATE([Rejected Operations], DATESBETWEEN(dimCalendar[Date], _end - 6, _end), REMOVEFILTERS(dimCalendar)) + 0
+		formatString: #,0
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a0d
+
+	measure 'Throttled Ops (Last 7d)' =
+			VAR _end = [Anchor Date]
+			RETURN CALCULATE([Throttled Operations], DATESBETWEEN(dimCalendar[Date], _end - 6, _end), REMOVEFILTERS(dimCalendar)) + 0
+		formatString: #,0
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a0e
+
+	measure 'KPI Throttling Text' = FORMAT([Throttled Ops (Last 7d)], "#,0") & " more were delayed by throttling"
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a0f
+
+	measure 'KPI Rejected Color' = IF([Rejected Ops (Last 7d)] > 0, "#B42318", IF([Throttled Ops (Last 7d)] > 0, "#B54708", "#067647"))
+		displayFolder: 5 KPI tiles
+		lineageTag: m1a00007-0007-0007-0007-000000000a10
+
+	/// Sum of the smoothed CU at the sampled checkpoints. Only meaningful per checkpoint; use the utilization measures for anything aggregated.
+	measure 'Checkpoint CU (s)' = SUM(factCapacityLoad[timepoint_cu_s])
+		formatString: #,0
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b01
+
+	/// Average of (load at checkpoint / capacity size) across the sampled checkpoints in context. Needs dimCapacity[capacity_cu]; blank for capacities whose size is unknown.
+	measure 'Avg Utilization %' =
+			AVERAGEX(
+			    SUMMARIZE(factCapacityLoad, dimCapacity[capacity_cu], factCapacityLoad[capacity_id], factCapacityLoad[sampled_timepoint]),
+			    DIVIDE(CALCULATE(SUM(factCapacityLoad[timepoint_cu_s])), dimCapacity[capacity_cu] * 30)
+			)
+		formatString: 0%
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b02
+
+	measure 'Peak Utilization %' =
+			MAXX(
+			    SUMMARIZE(factCapacityLoad, dimCapacity[capacity_cu], factCapacityLoad[capacity_id], factCapacityLoad[sampled_timepoint]),
+			    DIVIDE(CALCULATE(SUM(factCapacityLoad[timepoint_cu_s])), dimCapacity[capacity_cu] * 30)
+			)
+		formatString: 0%
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b03
+
+	measure 'Checkpoints 80%+' =
+			COUNTROWS(
+			    FILTER(
+			        ADDCOLUMNS(
+			            SUMMARIZE(factCapacityLoad, dimCapacity[capacity_cu], factCapacityLoad[capacity_id], factCapacityLoad[sampled_timepoint]),
+			            "@util", DIVIDE(CALCULATE(SUM(factCapacityLoad[timepoint_cu_s])), dimCapacity[capacity_cu] * 30)
+			        ),
+			        [@util] >= 0.8
+			    )
+			)
+		formatString: #,0
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b04
+
+	/// Checkpoints where smoothed load met or exceeded the capacity size: the capacity is borrowing from the future and throttling becomes likely.
+	measure 'Checkpoints 100%+' =
+			COUNTROWS(
+			    FILTER(
+			        ADDCOLUMNS(
+			            SUMMARIZE(factCapacityLoad, dimCapacity[capacity_cu], factCapacityLoad[capacity_id], factCapacityLoad[sampled_timepoint]),
+			            "@util", DIVIDE(CALCULATE(SUM(factCapacityLoad[timepoint_cu_s])), dimCapacity[capacity_cu] * 30)
+			        ),
+			        [@util] >= 1
+			    )
+			)
+		formatString: #,0
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b05
+
+	/// How many capacity checkpoints the notebook captured. Expect 24 per capacity per day; fewer means failed pulls or an idle capacity.
+	measure 'Checkpoints Captured' = COUNTROWS(SUMMARIZE(factCapacityLoad, factCapacityLoad[capacity_id], factCapacityLoad[sampled_timepoint]))
+		formatString: #,0
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b06
+
+	measure 'Peak Utilization (Last 7d) %' =
+			VAR _end = [Anchor Date]
+			RETURN CALCULATE([Peak Utilization %], DATESBETWEEN(dimCalendar[Date], _end - 6, _end), REMOVEFILTERS(dimCalendar))
+		formatString: 0%
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b07
+
+	measure 'KPI Utilization Text' =
+			VAR _end = [Anchor Date]
+			VAR _n100 = CALCULATE([Checkpoints 100%+], DATESBETWEEN(dimCalendar[Date], _end - 6, _end), REMOVEFILTERS(dimCalendar)) + 0
+			VAR _n80 = CALCULATE([Checkpoints 80%+], DATESBETWEEN(dimCalendar[Date], _end - 6, _end), REMOVEFILTERS(dimCalendar)) + 0
+			RETURN
+			    IF(
+			        ISBLANK([Peak Utilization (Last 7d) %]),
+			        "Capacity size unknown for this selection",
+			        _n100 & " checkpoints at 100%+  |  " & _n80 & " at 80%+"
+			    )
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b08
+
+	measure 'KPI Utilization Color' =
+			VAR _p = [Peak Utilization (Last 7d) %]
+			RETURN SWITCH(TRUE(), ISBLANK(_p), "#475467", _p >= 1, "#B42318", _p >= 0.8, "#B54708", "#067647")
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b09
+
+	measure 'Utilization Heat Color' =
+			VAR _u = [Avg Utilization %]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(_u), BLANK(),
+			        _u >= 1, "#FDA29B",
+			        _u >= 0.8, "#FEC84B",
+			        _u >= 0.6, "#B2DDFF",
+			        _u >= 0.4, "#D1E9FF",
+			        "#EFF8FF"
+			    )
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b0a
+
+	measure 'Interactive Share of Load %' =
+			DIVIDE(
+			    CALCULATE([Checkpoint CU (s)], Workload[Workload] = "Interactive"),
+			    CALCULATE([Checkpoint CU (s)], REMOVEFILTERS(Workload))
+			)
+		formatString: 0%
+		displayFolder: 6 Capacity load
+		lineageTag: m1a00007-0007-0007-0007-000000000b0b
+
+	/// The date picked in the Change Date slicer, or 14 days before the latest data when nothing is picked.
+	measure 'Selected Change Date' =
+			VAR _sel = SELECTEDVALUE('Change Date'[Change Date])
+			RETURN IF(ISBLANK(_sel), [Last Data Date] - 14, _sel)
+		formatString: mmm d, yyyy
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c01
+
+	measure 'After Days' =
+			VAR _cd = [Selected Change Date]
+			VAR _days = DATEDIFF(_cd + 1, MIN(_cd + 14, [Last Data Date]), DAY) + 1
+			RETURN MAX(_days, 0)
+		formatString: 0
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c02
+
+	measure 'Avg Daily CU (Before)' =
+			VAR _cd = [Selected Change Date]
+			VAR _start = MAX(_cd - 14, [First Data Date])
+			VAR _end = _cd - 1
+			VAR _days = DATEDIFF(_start, _end, DAY) + 1
+			RETURN
+			    IF(_days > 0, DIVIDE(CALCULATE([CU (s)], DATESBETWEEN(dimCalendar[Date], _start, _end), REMOVEFILTERS(dimCalendar)), _days))
+		formatString: #,0
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c03
+
+	measure 'Avg Daily CU (After)' =
+			VAR _cd = [Selected Change Date]
+			VAR _days = [After Days]
+			RETURN
+			    IF(
+			        _days > 0,
+			        DIVIDE(CALCULATE([CU (s)], DATESBETWEEN(dimCalendar[Date], _cd + 1, _cd + _days), REMOVEFILTERS(dimCalendar)), _days)
+			    )
+		formatString: #,0
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c04
+
+	measure 'Before/After Change %' = DIVIDE([Avg Daily CU (After)] - [Avg Daily CU (Before)], [Avg Daily CU (Before)])
+		formatString: +0%;-0%;0%
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c05
+
+	/// Improved / Worse = average daily CU moved by 20% or more across the change date. Needs at least 3 days of data after the change.
+	measure 'Before/After Verdict' =
+			VAR _b = [Avg Daily CU (Before)]
+			VAR _a = [Avg Daily CU (After)]
+			VAR _pct = DIVIDE(_a - _b, _b)
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(_a) && ISBLANK(_b), BLANK(),
+			        [After Days] < 3, "Too early to tell",
+			        ISBLANK(_b), "New since change",
+			        ISBLANK(_a), "Stopped",
+			        _pct <= -0.2, "Improved",
+			        _pct >= 0.2, "Worse",
+			        "No clear change"
+			    )
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c06
+
+	measure 'Before/After Verdict Color' = SWITCH([Before/After Verdict], "Improved", "#067647", "Stopped", "#067647", "Worse", "#B42318", "New since change", "#B42318", "#475467")
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c07
+
+	measure 'Before/After Window Text' =
+			VAR _cd = [Selected Change Date]
+			VAR _first = MAX(_cd - 14, [First Data Date])
+			RETURN
+			    "Before: " & FORMAT(_first, "mmm d") & " to " & FORMAT(_cd - 1, "mmm d")
+			        & "   |   Change day " & FORMAT(_cd, "mmm d") & " excluded   |   After: "
+			        & IF([After Days] > 0, FORMAT(_cd + 1, "mmm d") & " to " & FORMAT(_cd + [After Days], "mmm d"), "no data yet")
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c08
+
+	measure 'Failures per Day (Before)' =
+			VAR _cd = [Selected Change Date]
+			VAR _start = MAX(_cd - 14, [First Data Date])
+			VAR _days = DATEDIFF(_start, _cd - 1, DAY) + 1
+			RETURN
+			    IF(_days > 0, DIVIDE(CALCULATE([Failed Operations], DATESBETWEEN(dimCalendar[Date], _start, _cd - 1), REMOVEFILTERS(dimCalendar)) + 0, _days))
+		formatString: #,0.0
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c09
+
+	measure 'Failures per Day (After)' =
+			VAR _cd = [Selected Change Date]
+			VAR _days = [After Days]
+			RETURN
+			    IF(_days > 0, DIVIDE(CALCULATE([Failed Operations], DATESBETWEEN(dimCalendar[Date], _cd + 1, _cd + _days), REMOVEFILTERS(dimCalendar)) + 0, _days))
+		formatString: #,0.0
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c0a
+
+	measure 'Window Daily CU' =
+			VAR _d = MAX(dimCalendar[Date])
+			VAR _cd = [Selected Change Date]
+			RETURN IF(_d >= _cd - 14 && _d <= _cd + 14 && _d >= [First Data Date] && _d <= [Last Data Date], [CU (s)] + 0)
+		formatString: #,0
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c0b
+
+	measure 'Window Period Avg' =
+			VAR _d = MAX(dimCalendar[Date])
+			VAR _cd = [Selected Change Date]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _d >= _cd - 14 && _d < _cd && _d >= [First Data Date], [Avg Daily CU (Before)],
+			        _d > _cd && _d <= _cd + [After Days], [Avg Daily CU (After)]
+			    )
+		formatString: #,0
+		displayFolder: 7 Before and after
+		lineageTag: m1a00007-0007-0007-0007-000000000c0c
+
+	/// Days in the last 28 (ending on the anchor date) with at least one failure.
+	measure 'Failure Days (Last 28d)' =
+			VAR _end = [Anchor Date]
+			RETURN
+			    COUNTROWS(
+			        FILTER(
+			            CALCULATETABLE(VALUES(dimCalendar[Date]), DATESBETWEEN(dimCalendar[Date], _end - 27, _end), REMOVEFILTERS(dimCalendar)),
+			            [Failed Operations] > 0
+			        )
+			    )
+		formatString: 0
+		displayFolder: 8 Reliability
+		lineageTag: m1a00007-0007-0007-0007-000000000d01
+
+	measure 'Last Failure' =
+			VAR _i = CALCULATE(MAX(factInteractiveOps[operation_start_time]), factInteractiveOps[status] = "Failure")
+			VAR _b = CALCULATE(MAX(factBackgroundOps[operation_start_time]), factBackgroundOps[status] = "Failure")
+			RETURN MAX(_i, _b)
+		formatString: mmm d, hh:nn
+		displayFolder: 8 Reliability
+		lineageTag: m1a00007-0007-0007-0007-000000000d02
+
+	measure 'First Failure Seen' =
+			VAR _i = CALCULATE(MIN(factInteractiveOps[operation_start_time]), factInteractiveOps[status] = "Failure", REMOVEFILTERS(dimCalendar))
+			VAR _b = CALCULATE(MIN(factBackgroundOps[operation_start_time]), factBackgroundOps[status] = "Failure", REMOVEFILTERS(dimCalendar))
+			RETURN SWITCH(TRUE(), ISBLANK(_i), _b, ISBLANK(_b), _i, MIN(_i, _b))
+		formatString: mmm d, yyyy
+		displayFolder: 8 Reliability
+		lineageTag: m1a00007-0007-0007-0007-000000000d03
+
+	/// New = first failure in the loaded history is within the last 7 days. Chronic = failed on 14+ of the last 28 days. Recurring = 4 to 13 days. Occasional = fewer.
+	measure 'Failure Pattern' =
+			VAR _first = [First Failure Seen]
+			VAR _days = [Failure Days (Last 28d)]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(_first), BLANK(),
+			        _first >= [Anchor Date] - 6, "New",
+			        _days >= 14, "Chronic",
+			        _days >= 4, "Recurring",
+			        "Occasional"
+			    )
+		displayFolder: 8 Reliability
+		lineageTag: m1a00007-0007-0007-0007-000000000d04
+
+	measure 'Failure Pattern Color' = SWITCH([Failure Pattern], "New", "#B42318", "Chronic", "#B42318", "Recurring", "#B54708", "#475467")
+		displayFolder: 8 Reliability
+		lineageTag: m1a00007-0007-0007-0007-000000000d05
+
+	partition _Measures = m
+		mode: import
+		queryGroup: 'Set Up'
+		source =
+				let
+				    Source = Table.FromRows({}, type table [])
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

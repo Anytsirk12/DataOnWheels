@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "726edcea06961f8b2b4a",
+  "position": {
+    "x": 16,
+    "y": 76,
+    "z": 1000,
+    "height": 250,
+    "width": 1248,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "SOURCE  Operation detail from the Fabric Capacity Metrics app, pulled daily by nb_load_capacity_metrics at one 30-second checkpoint per hour (UTC).",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#667085",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "BACKGROUND CU  Complete. Background work is smoothed over 24 hours, so every operation appears at the hourly checkpoints. Each operation is counted once per item, on the day it started.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#667085",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "INTERACTIVE CU  SAMPLED. Queries are smoothed over about 5 minutes, so hourly checkpoints only catch the ones that finished in the 5 minutes before each hour: roughly 1 in 12. Use interactive numbers for ranking and trend, not as totals. Fix: sample every 5 minutes (see docs).",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#667085",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "UTILIZATION  Exact at each checkpoint: the sum of every operation's smoothed CU at that 30 seconds, divided by the capacity size. Capacity size is ASSUMED 64 CU for PC1 and PC2 until the SKU is loaded; other capacities show no utilization.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#667085",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "TRENDS  Last 7 days = the 7 days ending on the latest data day. Baseline = the 28 days before that, as a daily average. Significant = moved at least 1% of the capacity's daily CU and at least 25%.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#667085",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "BEFORE AND AFTER  14 days before the change date vs up to 14 days after; the change day itself is left out. Improved / Worse needs a 20% move and 3+ days after.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#667085",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
