@@ -8,3 +8,7 @@
 /Presentations/Fabric Admin 101/Capacity Monitoring.SemanticModel/.pbi/cache.abf
 /Presentations/Fabric Admin 101/Capacity Monitoring.pbix
 # <<< Over 100 MB
+
+# Local sync settings (git-account-sync)
+.git-sync.md
+.claude/settings.local.json
